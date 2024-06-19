@@ -1,0 +1,12 @@
+*.pyc
+*.pyw
+untitled*
+temporary*
+*.rpy
+*.rpy.*
+*.log
+*.rec
+abaqusfiles*
+CAD/*
+abaqusis.env
+modules/
