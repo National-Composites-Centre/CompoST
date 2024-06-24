@@ -11,7 +11,8 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.6 ####
+#### VERSION 0.62 ####
+#https://github.com/National-Composites-Centre/CompoST
 
 #potentially replace by JSON parser for Pydantic
 #However, for now largely bespoke scripted breakdown for good control of format
@@ -192,6 +193,7 @@ class Spline(BaseModel):
     splineType: Optional[int] = Field(None)  #types of splines based on OCC line types?
     memberName: Optional[str] = Field(None)
     points: Optional[list] = Field(None) #list of point objects
+    length: Optional[float] = Field(None)
 
 def test():
 
