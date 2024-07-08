@@ -22,8 +22,12 @@ from jsonic import serialize, deserialize
 #anything that can be referenced must have an ID, this ID should correspond to the order in which it is stored. 
 #Therefore for now ID is not directly specified but is inherent in the list it belongs to)
 
+class GeometricElement(BaseModel):
+    #child of Geometric elements
+    memberName: Optional[str] = Field()
+    source: Optional[object] = Field()
 
-class Point(BaseModel):
+class Point(GeometricElement):
     #value: np.array = Field(np.asarray[0,0,0])
     #memberName: Optional[str] = Field(None) #can point out specific points for reference - group points for unexpected reasons...
     x: float = Field(None)
@@ -86,14 +90,16 @@ class CompositeDB(BaseModel):
 
 
 class CompositeElement(BaseModel):
-    database: Optional[object] = Field #can there be multiple of these dbItems in one file? if so ==> list???
+    database: Optional[object] = Field(None) #can there be multiple of these dbItems in one file? if so ==> list???
+    subComponent: Optional[list] = Field(None) # list of subComponents -- all belong to the CompositeElement family
     mappedProperties: Optional[list] = Field(None) #list of objects - various allowed: Component, Sequence, Ply, Piece
     mappedRequirements: Optional[list] = Field(None) # list of objects - "Requirement"
     defects: Optional[list] = Field(None) #list of objects - "defects"
     axisSystemIDs: Optional[list] = Field(None) #list of "axisSystems" references, numbered according to allAxisSystems
-    referencedBy: Optional[list] = Field(None) # list of int?
+    referencedBy: Optional[list] = Field(None) # list of int>
+    status: Optional[str] = Field(None) #TODO
 
-    
+#IS THIS EVEN NEDED TODO
 class compositeDBItem(BaseModel):
     #ID: int = Field(None) #implied for now
     name: Optional[str] = Field(None)
@@ -102,7 +108,7 @@ class compositeDBItem(BaseModel):
     stageIDs: Optional[list] = Field(None) #list of references to stages
 
 
-class Piece(BaseModel):
+class Piece(CompositeElement):
     #CompositeElement type object
     #In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
     placementRosette: int = Field(None) # reference number to rosette in allAxisSystems
@@ -113,7 +119,7 @@ class Piece(BaseModel):
     #not sure if the below works, test?
     compositeElement: Optional[object] = Field(None) #compositeElement class in here
 
-class Ply(BaseModel):
+class Ply(CompositeElement):
     #CompositeElement type object
     cutPieces: Optional[list] = Field(None) #list of Piece objects
     material: Optional[str] = Field(None) #ref to material in allMaterials
@@ -125,7 +131,7 @@ class Ply(BaseModel):
     #not sure if the below works, test?
     compositeElement: Optional[object] = Field(None) #compositeElement class in here
 
-class Sequence(BaseModel):
+class Sequence(CompositeElement):
     #CompositeElement type object
 
     #sequences -- just not for now
@@ -137,14 +143,14 @@ class Sequence(BaseModel):
     #not sure if the below works, test?
     compositeElement: Optional[object] = Field(None) #compositeElement class in here
 
-class CompositeComponent(BaseModel):
+class CompositeComponent(CompositeElement):
     sequence: Optional[list] = Field() # list of int refrences to Sequence type variables
     memberName: Optional[str] = Field() #?
 
     #not sure if the below works, test?
     compositeElement: Optional[object] = Field() #compositeElement class in here
 
-class SolidComponent(BaseModel):
+class SolidComponent(CompositeElement):
     memberName: Optional[str] = Field() #?
 
     #not sure if the below works, test?
@@ -169,26 +175,26 @@ class Material(BaseModel):
 
     #might need sublacces for materials as relevant for manuf. processes. 
 
-class geometricElement(BaseModel):
-    #child of Geometric elements
-    memberName: Optional[str] = Field()
-    #source: ???
+
+class SourceSystem(BaseModel):
+    softwareName: Optional[str] = Field()
 
 
-class Line(BaseModel):
+class Line(GeometricElement):
     #potentially also give options to keep the points directly here in a matrix?
 
     nodeRef: Optional[list] = Field() #list of reference inetegers, linking to points
     memberName: Optional[str] = Field()
 
+#TODO not used rn, not sure if individual elements need element (Area/volume mesh instead)
 class Element(BaseModel):
     #3 or 4 points, check?
     nodes: list = Field(None) # only accept Point classes
 
-class AreaMesh(BaseModel):
+class AreaMesh(GeometricElement):
     elements: list = Field(None) # requires element classes only
     
-class Spline(BaseModel):
+class Spline(GeometricElement):
     #can either be defined directly here as 3xX array, or can be defined as a list of points (not both)
     splineType: Optional[int] = Field(None)  #types of splines based on OCC line types?
     memberName: Optional[str] = Field(None)
