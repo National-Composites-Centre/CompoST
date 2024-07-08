@@ -11,6 +11,7 @@ Welcome to Composite Standard (CompoST)'s documentation!
    :caption: Contents:
    
    Introduction
+   Requirements
 
 
 Indices and tables

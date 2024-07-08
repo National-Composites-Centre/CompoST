@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Introduction &#8212; Composite Standard (CompoST)  documentation</title>
+    <title>Requirements &#8212; Composite Standard (CompoST)  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
     
@@ -19,8 +19,7 @@
     <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Requirements" href="Requirements.html" />
-    <link rel="prev" title="Welcome to Composite Standard (CompoST)’s documentation!" href="index.html" />
+    <link rel="prev" title="Introduction" href="Introduction.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
     <script src="_static/css3-mediaqueries.js"></script>
@@ -33,13 +32,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="Requirements.html" title="Requirements"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Welcome to Composite Standard (CompoST)’s documentation!"
+          <a href="Introduction.html" title="Introduction"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST)  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Introduction</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Requirements</a></li> 
       </ul>
     </div>  
 
@@ -48,25 +44,11 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h1>
-<p>CompoST repository houses set of classes that aim to standardise methods for storing information about composite components. These classes should be appropriate for every stage of composite design process, manufacturing, analysis, etc…</p>
-<p>The architecture still under development. The figure below visualizes current class definition.</p>
-<p>The rectangle delimits the currently worked on section of the standard. This will expand, and the outer section of the flow chart will be further defined.</p>
-<p>This Standard is likely going to be under development (hence volatile) at least until v1.0.</p>
-<a class="reference internal image-reference" href="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg"><img alt="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" src="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" style="width: 1000px;" /></a>
-<section id="why-use-make-standard">
-<h2>Why use/make Standard?<a class="headerlink" href="#why-use-make-standard" title="Permalink to this heading">¶</a></h2>
-<p>(Main value proposition)</p>
-<ol class="arabic simple">
-<li><p>No cost</p></li>
-<li><p>OpenSource format</p></li>
-<li><p>Machine readable</p></li>
-<li><p>Human readable</p></li>
-<li><p>Easy to implement</p></li>
-<li><p>Simplifies collaborations and integrations</p></li>
-<li><p>Easy to build additional modules on top of it, making it more compatible than major OTSs.</p></li>
-</ol>
+  <section id="requirements">
+<h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h1>
+<section id="pydantic">
+<h2>Pydantic<a class="headerlink" href="#pydantic" title="Permalink to this heading">¶</a></h2>
+<p>Pydantic library has been selected for better management of Python classes, including its interoperability with JSON format. <a class="reference external" href="https://docs.pydantic.dev/latest/concepts/models/">https://docs.pydantic.dev/latest/concepts/models/</a> . The library is used for all object definition within CompoST.</p>
 </section>
 </section>
 
@@ -80,8 +62,8 @@
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">Introduction</a><ul>
-<li><a class="reference internal" href="#why-use-make-standard">Why use/make Standard?</a></li>
+<li><a class="reference internal" href="#">Requirements</a><ul>
+<li><a class="reference internal" href="#pydantic">Pydantic</a></li>
 </ul>
 </li>
 </ul>
@@ -89,18 +71,13 @@
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="index.html"
-                          title="previous chapter">Welcome to Composite Standard (CompoST)’s documentation!</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="Requirements.html"
-                          title="next chapter">Requirements</a></p>
+    <p class="topless"><a href="Introduction.html"
+                          title="previous chapter">Introduction</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/Introduction.rst.txt"
+      <li><a href="_sources/Requirements.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -125,13 +102,10 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="Requirements.html" title="Requirements"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Welcome to Composite Standard (CompoST)’s documentation!"
+          <a href="Introduction.html" title="Introduction"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST)  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Introduction</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Requirements</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
