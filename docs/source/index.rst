@@ -12,6 +12,9 @@ Welcome to Composite Standard (CompoST)'s documentation!
    
    Introduction
    Requirements
+   Architecture
+   Mapping
+   StorageFormat
 
 
 Indices and tables

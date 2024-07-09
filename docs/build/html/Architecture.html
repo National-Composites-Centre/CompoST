@@ -1,0 +1,155 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Architecture &#8212; Composite Standard (CompoST)  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Mapping" href="Mapping.html" />
+    <link rel="prev" title="Requirements" href="Requirements.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Mapping.html" title="Mapping"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Requirements.html" title="Requirements"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST)  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Architecture</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="architecture">
+<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg"><img alt="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" src="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" style="width: 1000px;" /></a>
+<p>On the figure above, arrows point from an object 1 to object 2, where object 1 inherits from object 2.</p>
+<p>The figure is also work-in-progress. The outline titled “mostly fixed” houses the objects that have been implemented and used. These will hopefully see only minor adjustments. Objects outside this area might end up being standardised differently than currently suggested.</p>
+<p>All fields are optional unless otherwise specified, or unless required to construct specific object.</p>
+<p>Where the same attribute is being called in parent and child (e.g. axis being referenced in ply, and in some of corresponding cut pieces), the more detailed (child) component supersedes the corresponding parent definition.</p>
+<p>CompositeDB object is the main object of the Composite Standard. All objects are stored in lists named all***.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.CompositeDB">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeDB</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>All elements and all geometry are all stored here and used elsewhere as refrence
+Points are stored withing those, as referencing is not efficient</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param name<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str - name</p>
+</dd>
+<dt class="field-even">param rootElements<span class="colon">:</span></dt>
+<dd class="field-even"><p>list - List of CompositeElement type objects</p>
+</dd>
+<dt class="field-odd">param allEvents<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list  - List of “events” objects - all = exhaustive list</p>
+</dd>
+<dt class="field-even">param allGeometry<span class="colon">:</span></dt>
+<dd class="field-even"><p>list - list of “GeometricElement” objects - all = exhaustive list</p>
+</dd>
+<dt class="field-odd">param allStages<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list - manuf process - all = exhaustive list</p>
+</dd>
+<dt class="field-even">param allMaterials<span class="colon">:</span></dt>
+<dd class="field-even"><p>list - List of “Material” objects - all = exhaustive list</p>
+</dd>
+<dt class="field-odd">param allAxisSystems<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict -</p>
+</dd>
+<dt class="field-even">param fileMetadata<span class="colon">:</span></dt>
+<dd class="field-even"><p>object - list of all “axisSystems” objects = exhaustive list</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Requirements.html"
+                          title="previous chapter">Requirements</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Mapping.html"
+                          title="next chapter">Mapping</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Architecture.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Mapping.html" title="Mapping"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Requirements.html" title="Requirements"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST)  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Architecture</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>
