@@ -11,7 +11,7 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.62 ####
+#### VERSION 0.63 ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #potentially replace by JSON parser for Pydantic
@@ -24,8 +24,8 @@ from jsonic import serialize, deserialize
 
 class GeometricElement(BaseModel):
     #child of Geometric elements
-    memberName: Optional[str] = Field()
-    source: Optional[object] = Field()
+    memberName: Optional[str] = Field(None)
+    source: Optional[object] = Field(None)
 
 class Point(GeometricElement):
     #value: np.array = Field(np.asarray[0,0,0])
@@ -65,7 +65,7 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(None) #String name
     author: Optional[str] = Field(None) #String Name
-    version: Optional[str] = Field(default= "0.6") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.63") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(None)
 
     #external file references - separate class?
