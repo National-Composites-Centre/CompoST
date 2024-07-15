@@ -1,25 +1,32 @@
 Introduction
 ============
 
-CompoST repository houses set of classes that aim to standardise methods for storing information about composite components. These classes should be appropriate for every stage of composite design process, manufacturing, analysis, etc...
+**Compo**\sites part data **St**\andard (**CompoSt**\) is a data format for representing as-made composite parts.
+The data format is appropriate for every stage of a composite part: design, analysis, manufacturing, lifecycle etc...
 
-The architecture still under development. The figure below visualizes current class definition.
+The repo houses:
 
+#. A schema for the data format
+#. A read/write library written in python that you can include in your projects
+
+The architecture is still under development. The figure below visualizes current class definition.
 The rectangle delimits the currently worked on section of the standard. This will expand, and the outer section of the flow chart will be further defined.
 
-This Standard is likely going to be under development (hence volatile) at least until v1.0.
+This standard is likely going to be under development (hence volatile) at least until v1.0.
 
 .. image:: NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.*
     :width: 1000
 
-Why use/make Standard?
-----------------------
-(Main value proposition)
+User Requirements
+-----------------
+The data format is designed to meet the requirements described in :download:`User Requirements for CompoSt V1 <_static/User_Requirements_for_CompoSt_V1.pdf>`
 
-1. No cost
-2. OpenSource format
-3. Machine readable
-4. Human readable
-5. Easy to implement
-6. Simplifies collaborations and integrations
-7. Easy to build additional modules on top of it, making it more compatible than major OTSs.
+
+Main value proposition
+----------------------
+
+#. Represent inspection requirements & tolerances specific to composite parts.
+#. Represent defects & inspected state of a composite part
+#. Machine readable
+#. Open Source licence: you are free to use and develop this format for commercial purposes
+#. Easy to implement: simplifies collaborations and integrations, extensions

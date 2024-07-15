@@ -1,26 +1,23 @@
 
+<!DOCTYPE html>
 
-<!doctype html>
-
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Introduction &#8212; Composite Standard (CompoST)  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b849a4e9" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=658d757c" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Requirements" href="Requirements.html" />
-    <link rel="prev" title="Welcome to Composite Standard (CompoST)’s documentation!" href="index.html" />
+    <link rel="prev" title="Welcome to Composite part data Standard (CompoSt)’s documentation!" href="index.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
     <script src="_static/css3-mediaqueries.js"></script>
@@ -36,7 +33,7 @@
           <a href="Requirements.html" title="Requirements"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to Composite Standard (CompoST)’s documentation!"
+          <a href="index.html" title="Welcome to Composite part data Standard (CompoSt)’s documentation!"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST)  documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Introduction</a></li> 
@@ -49,23 +46,30 @@
           <div class="body" role="main">
             
   <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h1>
-<p>CompoST repository houses set of classes that aim to standardise methods for storing information about composite components. These classes should be appropriate for every stage of composite design process, manufacturing, analysis, etc…</p>
-<p>The architecture still under development. The figure below visualizes current class definition.</p>
-<p>The rectangle delimits the currently worked on section of the standard. This will expand, and the outer section of the flow chart will be further defined.</p>
-<p>This Standard is likely going to be under development (hence volatile) at least until v1.0.</p>
-<a class="reference internal image-reference" href="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg"><img alt="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" src="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" style="width: 1000px;" /></a>
-<section id="why-use-make-standard">
-<h2>Why use/make Standard?<a class="headerlink" href="#why-use-make-standard" title="Permalink to this heading">¶</a></h2>
-<p>(Main value proposition)</p>
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h1>
+<p><strong>Compo</strong>sites part data <strong>St</strong>andard (<strong>CompoSt</strong>) is a data format for representing as-made composite parts.
+The data format is appropriate for every stage of a composite part: design, analysis, manufacturing, lifecycle etc…</p>
+<p>The repo houses:</p>
 <ol class="arabic simple">
-<li><p>No cost</p></li>
-<li><p>OpenSource format</p></li>
+<li><p>A schema for the data format</p></li>
+<li><p>A read/write library written in python that you can include in your projects</p></li>
+</ol>
+<p>The architecture is still under development. The figure below visualizes current class definition.
+The rectangle delimits the currently worked on section of the standard. This will expand, and the outer section of the flow chart will be further defined.</p>
+<p>This standard is likely going to be under development (hence volatile) at least until v1.0.</p>
+<a class="reference internal image-reference" href="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg"><img alt="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" src="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" style="width: 1000px;" /></a>
+<section id="user-requirements">
+<h2>User Requirements<a class="headerlink" href="#user-requirements" title="Link to this heading">¶</a></h2>
+<p>The data format is designed to meet the requirements described in <a class="reference download internal" download="" href="_downloads/106f2e6c5a3a493fb1886bd361cc325d/User_Requirements_for_CompoSt_V1.pdf"><code class="xref download docutils literal notranslate"><span class="pre">User</span> <span class="pre">Requirements</span> <span class="pre">for</span> <span class="pre">CompoSt</span> <span class="pre">V1</span></code></a></p>
+</section>
+<section id="main-value-proposition">
+<h2>Main value proposition<a class="headerlink" href="#main-value-proposition" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Represent inspection requirements &amp; tolerances specific to composite parts.</p></li>
+<li><p>Represent defects &amp; inspected state of a composite part</p></li>
 <li><p>Machine readable</p></li>
-<li><p>Human readable</p></li>
-<li><p>Easy to implement</p></li>
-<li><p>Simplifies collaborations and integrations</p></li>
-<li><p>Easy to build additional modules on top of it, making it more compatible than major OTSs.</p></li>
+<li><p>Open Source licence: you are free to use and develop this format for commercial purposes</p></li>
+<li><p>Easy to implement: simplifies collaborations and integrations, extensions</p></li>
 </ol>
 </section>
 </section>
@@ -81,7 +85,8 @@
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Introduction</a><ul>
-<li><a class="reference internal" href="#why-use-make-standard">Why use/make Standard?</a></li>
+<li><a class="reference internal" href="#user-requirements">User Requirements</a></li>
+<li><a class="reference internal" href="#main-value-proposition">Main value proposition</a></li>
 </ul>
 </li>
 </ul>
@@ -90,7 +95,7 @@
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="index.html"
-                          title="previous chapter">Welcome to Composite Standard (CompoST)’s documentation!</a></p>
+                          title="previous chapter">Welcome to Composite part data Standard (CompoSt)’s documentation!</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -104,7 +109,7 @@
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
@@ -112,7 +117,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -128,15 +133,15 @@
           <a href="Requirements.html" title="Requirements"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to Composite Standard (CompoST)’s documentation!"
+          <a href="index.html" title="Welcome to Composite part data Standard (CompoSt)’s documentation!"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST)  documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Introduction</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     </div>
   </body>
 </html>

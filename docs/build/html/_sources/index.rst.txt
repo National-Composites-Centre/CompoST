@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Composite Standard (CompoST)'s documentation!
-========================================================
+Welcome to Composite part data Standard (CompoSt)'s documentation!
+==================================================================
 
 .. toctree::
    :maxdepth: 2

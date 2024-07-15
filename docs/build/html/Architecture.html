@@ -1,21 +1,18 @@
 
+<!DOCTYPE html>
 
-<!doctype html>
-
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Architecture &#8212; Composite Standard (CompoST)  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b849a4e9" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=658d757c" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -49,7 +46,7 @@
           <div class="body" role="main">
             
   <section id="architecture">
-<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading">¶</a></h1>
+<h1>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">¶</a></h1>
 <a class="reference internal image-reference" href="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg"><img alt="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" src="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" style="width: 1000px;" /></a>
 <p>On the figure above, arrows point from an object 1 to object 2, where object 1 inherits from object 2.</p>
 <p>The figure is also work-in-progress. The outline titled “mostly fixed” houses the objects that have been implemented and used. These will hopefully see only minor adjustments. Objects outside this area might end up being standardised differently than currently suggested.</p>
@@ -58,7 +55,7 @@
 <p>CompositeDB object is the main object of the Composite Standard. All objects are stored in lists named all***.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.CompositeDB">
-<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeDB</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeDB" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeDB</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeDB" title="Link to this definition">¶</a></dt>
 <dd><p>All elements and all geometry are all stored here and used elsewhere as refrence
 Points are stored withing those, as referencing is not efficient</p>
 <blockquote>
@@ -101,6 +98,16 @@ Points are stored withing those, as referencing is not efficient</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Architecture</a><ul>
+<li><a class="reference internal" href="#CompositeStandard.CompositeDB"><code class="docutils literal notranslate"><span class="pre">CompositeStandard.CompositeDB()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="Requirements.html"
                           title="previous chapter">Requirements</a></p>
@@ -117,7 +124,7 @@ Points are stored withing those, as referencing is not efficient</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
@@ -125,7 +132,7 @@ Points are stored withing those, as referencing is not efficient</p>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -148,8 +155,8 @@ Points are stored withing those, as referencing is not efficient</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     </div>
   </body>
 </html>
