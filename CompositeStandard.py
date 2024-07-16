@@ -40,7 +40,7 @@ class axisSystem(BaseModel):
     #Axis system on default uses root axis system values - upon initionation any changes must be applied on all axes
 
     #point of origin
-    pt: object = Field(Point())
+    pt: object = Field(Point(x=0,y=0,z=0))
 
     # 1st asxis of axis system (adjusted x) - expressed in global
     v1x: float = Field(default = 1)
@@ -102,10 +102,10 @@ class CompositeElement(BaseModel):
 #IS THIS EVEN NEDED TODO
 class compositeDBItem(BaseModel):
     #ID: int = Field(None) #implied for now
-    name: Optional[str] = Field(None)
-    additionalParameters: Optional[dict] = Field(None) # dictionary of floats
-    additionalProperties: Optional[dict] = Field(None) # dictionary of strings
-    stageIDs: Optional[list] = Field(None) #list of references to stages
+    name: Optional[str]
+    additionalParameters: Optional[dict] # dictionary of floats
+    additionalProperties: Optional[dict] # dictionary of strings
+    stageIDs: Optional[list] #list of references to stages
 
 
 class Piece(CompositeElement):
@@ -201,10 +201,21 @@ class Spline(GeometricElement):
     points: Optional[list] = Field(None) #list of point objects
     length: Optional[float] = Field(None)
 
+
+#unused rn
+def cleandict(d):
+    if isinstance(d, dict):
+        return {k: cleandict(v) for k, v in d.items() if v is not None}
+    elif isinstance(d, list):
+        return [cleandict(v) for v in d]
+    else:
+        return d
+
+
 def test():
 
     d = CompositeDB()
-    d.fileMetadata.lastModified = "30/05/2024"
+    d.fileMetadata.lastModified = "10/07/2024"
     d.name = "new"
 
     # Convert dictionary to JSON string
@@ -213,6 +224,8 @@ def test():
 
     # Print the JSON string
     print(json_str)
+
+    #json_str = cleandict(json_str)
 
     #save as file
     with open('Test_CI_dump.json', 'w') as out_file:
