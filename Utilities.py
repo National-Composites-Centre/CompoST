@@ -117,7 +117,7 @@ def rs(strin):
 #test remove_specific
 from jsonic import serialize, deserialize
 #with open("D:\\CompoST\Test_clean.json","r") as X:
-with open("D:\\CAD_library_sampling\\TestCad_SmartDFM\\X\\x_test_136_layup.json","r") as X:
+with open("D:\\CAD_library_sampling\\TestCad_SmartDFM\\X\\x_test_137_layup.json","r") as X:
     json_str= X.read()
 
     D = deserialize(json_str,string_input=True)
