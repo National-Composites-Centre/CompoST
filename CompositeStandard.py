@@ -210,6 +210,15 @@ def cleandict(d):
         return d
 
 
+def generate_json_schema(file_name:str):
+    with open(file_name, 'w') as f:
+        f.write(json.dumps(CompositeDB.model_json_schema(), indent=4))
+
+generate_json_schema('compostSchema.json')
+
+
+
+
 def test():
 
     d = CompositeDB()
@@ -236,12 +245,9 @@ def test():
         json_str= in_file.read()
     
     
-    with open('compostSchema.json', 'w') as f:
-        f.write(json.dumps(CompositeDB.model_json_schema(), indent=4))
-    
     print(json_str)
     D = deserialize(json_str,string_input=True)
     print(D)
     print(D.fileMetadata.lastModified)
 
-test()
+#test()
