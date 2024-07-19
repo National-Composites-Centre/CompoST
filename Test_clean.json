@@ -1,0 +1,1313 @@
+
+{
+   "name": "test", "rootElements": null, "allEvents": null, "allGeometry": [
+   {
+      "memberName": "edge", "points": [
+      {
+         "memberName": null, "x": 0.0, "y": 8.17602, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 16.352, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 24.5281, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 32.7041, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 40.8801, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 49.0561, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 57.2321, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 65.4082, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 73.5842, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 81.7602, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 89.9362, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 98.1122, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 106.288, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 114.464, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 2.6403, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 10.8163, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 18.9923, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 27.1684, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 35.3444, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 43.5204, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 51.6964, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 59.8724, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 68.0485, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 76.2245, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 84.4005, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 92.5765, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 100.753, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 108.929, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 117.105, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 125.281, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 133.448, "y": 120.0, "z": 0.193282, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 141.092, "y": 120.0, "z": 2.928, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 147.076, "y": 120.0, "z": 8.43236, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 152.331, "y": 120.0, "z": 14.6956, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 157.586, "y": 120.0, "z": 20.9587, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 162.842, "y": 120.0, "z": 27.2219, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 168.097, "y": 120.0, "z": 33.4851, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 173.353, "y": 120.0, "z": 39.7483, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 178.608, "y": 120.0, "z": 46.0115, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 183.864, "y": 120.0, "z": 52.2747, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 189.119, "y": 120.0, "z": 58.5379, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 194.375, "y": 120.0, "z": 64.8011, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 199.63, "y": 120.0, "z": 71.0643, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 204.885, "y": 120.0, "z": 77.3275, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 210.141, "y": 120.0, "z": 83.5907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 215.396, "y": 120.0, "z": 89.8539, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 220.652, "y": 120.0, "z": 96.1171, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 225.907, "y": 120.0, "z": 102.38, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 231.163, "y": 120.0, "z": 108.643, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 120.0, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 111.824, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 103.648, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 95.4719, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 87.2959, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 79.1199, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 70.9439, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 62.7679, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 54.5918, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 46.4158, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 38.2398, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 30.0638, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 21.8878, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 13.7117, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 236.418, "y": 5.53572, "z": 114.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 234.721, "y": 0.0, "z": 112.884, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 229.466, "y": 0.0, "z": 106.621, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 224.21, "y": 0.0, "z": 100.358, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 218.955, "y": 0.0, "z": 94.0945, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 213.699, "y": 0.0, "z": 87.8313, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 208.444, "y": 0.0, "z": 81.5681, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 203.188, "y": 0.0, "z": 75.3049, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 197.933, "y": 0.0, "z": 69.0417, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 192.677, "y": 0.0, "z": 62.7785, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 187.422, "y": 0.0, "z": 56.5153, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 182.167, "y": 0.0, "z": 50.2521, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 176.911, "y": 0.0, "z": 43.9889, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 171.656, "y": 0.0, "z": 37.7257, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 166.4, "y": 0.0, "z": 31.4626, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 161.145, "y": 0.0, "z": 25.1994, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 155.889, "y": 0.0, "z": 18.9362, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 150.634, "y": 0.0, "z": 12.673, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 145.361, "y": 1.42109e-14, "z": 6.42483, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 138.755, "y": 1.42109e-14, "z": 1.70514, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 130.816, "y": 1.42109e-14, "z": 0.000507431, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 122.64, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 114.464, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 106.288, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 98.1122, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 89.9362, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 81.7602, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 73.5842, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 65.4082, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 57.2321, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 49.0561, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 40.8801, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 32.7041, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 24.5281, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 16.352, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 8.17602, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      ], "length": null, "_serialized_type": "CompositeStandard.Spline"
+   }
+   , 
+   {
+      "memberName": "Circle.6", "points": [
+      {
+         "memberName": null, "x": 195.055, "y": 54.3337, "z": 65.6122, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 194.857, "y": 55.8738, "z": 65.3764, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 194.722, "y": 57.4302, "z": 65.2152, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 194.65, "y": 58.9967, "z": 65.1292, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 194.641, "y": 60.5672, "z": 65.1187, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 194.696, "y": 62.1354, "z": 65.1838, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 194.813, "y": 63.6952, "z": 65.3241, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 194.994, "y": 65.2405, "z": 65.5393, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 195.236, "y": 66.765, "z": 65.8283, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 195.54, "y": 68.2629, "z": 66.19, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 195.903, "y": 69.7281, "z": 66.6232, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 196.325, "y": 71.1549, "z": 67.1259, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 196.804, "y": 72.5378, "z": 67.6963, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 197.337, "y": 73.8711, "z": 68.332, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 197.924, "y": 75.1497, "z": 69.0307, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 198.56, "y": 76.3685, "z": 69.7895, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 199.245, "y": 77.5227, "z": 70.6053, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 199.975, "y": 78.6078, "z": 71.4752, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 200.747, "y": 79.6194, "z": 72.3954, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 201.558, "y": 80.5536, "z": 73.3625, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 202.406, "y": 81.4067, "z": 74.3727, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 203.286, "y": 82.1753, "z": 75.4219, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 204.196, "y": 82.8563, "z": 76.506, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 205.131, "y": 83.4472, "z": 77.6207, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 206.089, "y": 83.9456, "z": 78.7616, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 207.064, "y": 84.3494, "z": 79.9243, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 208.054, "y": 84.6571, "z": 81.104, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 209.055, "y": 84.8676, "z": 82.2963, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 210.062, "y": 84.9799, "z": 83.4963, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 211.071, "y": 84.9936, "z": 84.6994, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 212.079, "y": 84.9086, "z": 85.9007, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 213.082, "y": 84.7254, "z": 87.0956, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 214.075, "y": 84.4446, "z": 88.2793, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 215.055, "y": 84.0673, "z": 89.4472, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 216.018, "y": 83.595, "z": 90.5946, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 216.96, "y": 83.0296, "z": 91.717, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 217.877, "y": 82.3734, "z": 92.8101, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 218.766, "y": 81.6288, "z": 93.8694, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 219.623, "y": 80.7989, "z": 94.8908, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 220.445, "y": 79.8868, "z": 95.8702, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 221.228, "y": 78.8963, "z": 96.8039, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 221.97, "y": 77.8313, "z": 97.6881, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 222.667, "y": 76.6958, "z": 98.5193, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 223.318, "y": 75.4945, "z": 99.2942, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 223.918, "y": 74.232, "z": 100.01, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 224.467, "y": 72.9133, "z": 100.663, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 224.961, "y": 71.5437, "z": 101.252, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 225.398, "y": 70.1285, "z": 101.774, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 225.778, "y": 68.6734, "z": 102.227, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 226.099, "y": 67.184, "z": 102.608, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 226.358, "y": 65.6663, "z": 102.918, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 226.556, "y": 64.1262, "z": 103.153, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 226.691, "y": 62.5698, "z": 103.315, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 226.763, "y": 61.0033, "z": 103.401, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 226.772, "y": 59.4328, "z": 103.411, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 226.718, "y": 57.8646, "z": 103.346, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 226.6, "y": 56.3048, "z": 103.206, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 226.419, "y": 54.7595, "z": 102.991, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 226.177, "y": 53.235, "z": 102.702, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 225.873, "y": 51.7371, "z": 102.34, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 225.51, "y": 50.2719, "z": 101.907, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 225.088, "y": 48.8451, "z": 101.404, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 224.609, "y": 47.4622, "z": 100.834, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 224.076, "y": 46.1289, "z": 100.198, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 223.49, "y": 44.8503, "z": 99.4991, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 222.853, "y": 43.6315, "z": 98.7403, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 222.168, "y": 42.4773, "z": 97.9244, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 221.439, "y": 41.3922, "z": 97.0546, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 220.666, "y": 40.3806, "z": 96.1343, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 219.855, "y": 39.4464, "z": 95.1672, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 219.007, "y": 38.5933, "z": 94.1571, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 218.127, "y": 37.8247, "z": 93.1079, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 217.217, "y": 37.1437, "z": 92.0238, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 216.282, "y": 36.5528, "z": 90.9091, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 215.324, "y": 36.0544, "z": 89.7682, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 214.349, "y": 35.6506, "z": 88.6055, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 213.359, "y": 35.3429, "z": 87.4257, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 212.358, "y": 35.1324, "z": 86.2335, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 211.352, "y": 35.0201, "z": 85.0335, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 210.342, "y": 35.0064, "z": 83.8304, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 209.334, "y": 35.0914, "z": 82.6291, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 208.331, "y": 35.2746, "z": 81.4342, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 207.338, "y": 35.5554, "z": 80.2505, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 206.358, "y": 35.9327, "z": 79.0826, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 205.395, "y": 36.405, "z": 77.9352, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 204.454, "y": 36.9704, "z": 76.8127, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 203.536, "y": 37.6266, "z": 75.7197, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 202.648, "y": 38.3712, "z": 74.6604, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 201.79, "y": 39.2011, "z": 73.639, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 200.969, "y": 40.1132, "z": 72.6595, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 200.185, "y": 41.1037, "z": 71.7259, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 199.443, "y": 42.1687, "z": 70.8417, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 198.746, "y": 43.3042, "z": 70.0105, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 198.096, "y": 44.5055, "z": 69.2355, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 197.495, "y": 45.768, "z": 68.5199, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 196.947, "y": 47.0867, "z": 67.8664, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 196.453, "y": 48.4563, "z": 67.2776, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 196.015, "y": 49.8715, "z": 66.7559, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 195.635, "y": 51.3266, "z": 66.3033, "_serialized_type": "CompositeStandard.Point"
+      }
+      ], "length": null, "_serialized_type": "CompositeStandard.Spline"
+   }
+   , 
+   {
+      "memberName": "Trim.3", "points": [
+      {
+         "memberName": null, "x": 0.0, "y": 4.1, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 8.2, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 12.3, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 16.4, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 20.5, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 24.6, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 28.7, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 32.8, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 36.9, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 41.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 45.1, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 49.2, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 53.3, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 57.4, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 61.5, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 65.6, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 69.7, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 73.8, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 77.9, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 82.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 86.1, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 90.2, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 94.3, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 98.4, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 102.5, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 106.6, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 110.7, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 114.8, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 0.0, "y": 118.9, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 3.0, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 7.1, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 11.2, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 15.3, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 19.4, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 23.5, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 27.6, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 31.7, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 35.8, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 39.9, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 44.0, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 48.1, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 52.2, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 56.3, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 60.4, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 64.5, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 68.6, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 72.7, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 76.8, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 80.9, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 120.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 115.9, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 111.8, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 107.7, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 103.6, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 99.5, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 95.4, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 91.3, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 87.2, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 83.1, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 79.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 74.9, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 70.8, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 66.7, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 62.6, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 58.5, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 54.4, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 50.3, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 46.2, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 42.1, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 38.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 33.9, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 29.8, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 25.7, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 21.6, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 17.5, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 13.4, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 9.3, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 5.2, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 85.0, "y": 1.1, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 82.0, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 77.9, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 73.8, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 69.7, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 65.6, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 61.5, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 57.4, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 53.3, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 49.2, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 45.1, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 41.0, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 36.9, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 32.8, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 28.7, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 24.6, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 20.5, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 16.4, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 12.3, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 8.2, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      , 
+      {
+         "memberName": null, "x": 4.1, "y": 0.0, "z": 0.0, "_serialized_type": "CompositeStandard.Point"
+      }
+      ], "length": null, "_serialized_type": "CompositeStandard.Spline"
+   }
+   , 
+   {
+      "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "plies": [
+      {
+         "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "cutPieces": [
+         {
+            "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "placementRosette": null, "memberName": null, "splineRelimitation": "edge", "compositeElement": null, "_serialized_type": "CompositeStandard.Piece"
+         }
+         ], "material": "made3", "placementRosette": null, "memberName": null, "orientation": 45.0, "compositeElement": null, "_serialized_type": "CompositeStandard.Ply"
+      }
+      , 
+      {
+         "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "cutPieces": [
+         {
+            "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "placementRosette": null, "memberName": null, "splineRelimitation": "edge", "compositeElement": null, "_serialized_type": "CompositeStandard.Piece"
+         }
+         ], "material": "made3", "placementRosette": null, "memberName": null, "orientation": -45.0, "compositeElement": null, "_serialized_type": "CompositeStandard.Ply"
+      }
+      , 
+      {
+         "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "cutPieces": [
+         {
+            "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "placementRosette": null, "memberName": null, "splineRelimitation": "edge", "compositeElement": null, "_serialized_type": "CompositeStandard.Piece"
+         }
+         ], "material": "made7", "placementRosette": null, "memberName": null, "orientation": 0.0, "compositeElement": null, "_serialized_type": "CompositeStandard.Ply"
+      }
+      , 
+      {
+         "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "cutPieces": [
+         {
+            "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "placementRosette": null, "memberName": null, "splineRelimitation": "Trim.3", "compositeElement": null, "_serialized_type": "CompositeStandard.Piece"
+         }
+         ], "material": "made7", "placementRosette": null, "memberName": null, "orientation": 90.0, "compositeElement": null, "_serialized_type": "CompositeStandard.Ply"
+      }
+      , 
+      {
+         "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "cutPieces": [
+         {
+            "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "placementRosette": null, "memberName": null, "splineRelimitation": "Circle.6", "compositeElement": null, "_serialized_type": "CompositeStandard.Piece"
+         }
+         ], "material": "made7", "placementRosette": null, "memberName": null, "orientation": 0.0, "compositeElement": null, "_serialized_type": "CompositeStandard.Ply"
+      }
+      , 
+      {
+         "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "cutPieces": [
+         {
+            "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "placementRosette": null, "memberName": null, "splineRelimitation": "Trim.3", "compositeElement": null, "_serialized_type": "CompositeStandard.Piece"
+         }
+         ], "material": "made7", "placementRosette": null, "memberName": null, "orientation": 0.0, "compositeElement": null, "_serialized_type": "CompositeStandard.Ply"
+      }
+      , 
+      {
+         "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "cutPieces": [
+         {
+            "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "placementRosette": null, "memberName": null, "splineRelimitation": "Trim.3", "compositeElement": null, "_serialized_type": "CompositeStandard.Piece"
+         }
+         ], "material": "made7", "placementRosette": null, "memberName": null, "orientation": 90.0, "compositeElement": null, "_serialized_type": "CompositeStandard.Ply"
+      }
+      , 
+      {
+         "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "cutPieces": [
+         {
+            "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "placementRosette": null, "memberName": null, "splineRelimitation": "edge", "compositeElement": null, "_serialized_type": "CompositeStandard.Piece"
+         }
+         ], "material": "made7", "placementRosette": null, "memberName": null, "orientation": 0.0, "compositeElement": null, "_serialized_type": "CompositeStandard.Ply"
+      }
+      , 
+      {
+         "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "cutPieces": [
+         {
+            "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "placementRosette": null, "memberName": null, "splineRelimitation": "edge", "compositeElement": null, "_serialized_type": "CompositeStandard.Piece"
+         }
+         ], "material": "made3", "placementRosette": null, "memberName": null, "orientation": -45.0, "compositeElement": null, "_serialized_type": "CompositeStandard.Ply"
+      }
+      , 
+      {
+         "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "cutPieces": [
+         {
+            "mappedRequirements": null, "defects": null, "axisSystemIDs": null, "referencedBy": null, "placementRosette": null, "memberName": null, "splineRelimitation": "edge", "compositeElement": null, "_serialized_type": "CompositeStandard.Piece"
+         }
+         ], "material": "made3", "placementRosette": null, "memberName": null, "orientation": 45.0, "compositeElement": null, "_serialized_type": "CompositeStandard.Ply"
+      }
+      ], "components": [], "memberName": null, "compositeElement": null, "_serialized_type": "CompositeStandard.Sequence"
+   }
+   ], "allStages": null, "allMaterials": [
+   {
+      "materialName": "made3", "E1": "\t190000.000", "E2": "\t10000.000", "G12": "\t6000.000", "G23": "5000", "v12": "\t0.200", "infoSource": "\tmade up", "thickness": "\t0.30000000", "density": "\t0.00000000200000", "permeability": "\t8E-13", "type": " GFRP\n", "_serialized_type": "CompositeStandard.Material"
+   }
+   , 
+   {
+      "materialName": "made7", "E1": "\t210000.000", "E2": "\t14000.000", "G12": "\t6500.000", "G23": "5", "v12": "\t0.200", "infoSource": "\tmade up", "thickness": "\t0.21000000", "density": "\t0.00000000180000", "permeability": "\t8E-13", "type": " NA\n", "_serialized_type": "CompositeStandard.Material"
+   }
+   ], "allAxisSystems": 
+   {
+      "default": 
+      {
+         "pt": 
+         {
+            "memberName": null, "x": null, "y": null, "z": null, "_serialized_type": "CompositeStandard.Point"
+         }
+         , "v1x": 1, "v1y": 0, "v1z": 0, "v2x": 0, "v2y": 1, "v2z": 0, "v3x": 0, "v3y": 0, "v3z": 1, "memberName": null, "_serialized_type": "CompositeStandard.axisSystem"
+      }
+      
+   }
+   , "fileMetadata": 
+   {
+      "lastModified": "16/07/2024", "lastModifiedBy": "jakub.kucera", "author": "jakub.kucera", "version": "0.63", "layupDefinitionVersion": "[version=4.1]", "cadFile": "x_test_136", "cadFilePath": "D:/CAD_library_sampling/TestCad_SmartDFM/X/x_test_136.CATPart"
+   }
+   
+}
+
