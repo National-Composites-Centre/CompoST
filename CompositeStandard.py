@@ -22,10 +22,21 @@ from jsonic import serialize, deserialize
 #anything that can be referenced must have an ID, this ID should correspond to the order in which it is stored. 
 #Therefore for now ID is not directly specified but is inherent in the list it belongs to)
 
-class GeometricElement(BaseModel):
+
+#IS THIS EVEN NEDED TODO
+class CompositeDBItem(BaseModel):
+    #ID: int = Field(None) #implied for now
+    name: Optional[str] = Field(default = None)
+    additionalParameters: Optional[dict] = Field(default = None) # dictionary of floats
+    additionalProperties: Optional[dict] = Field(default = None) # dictionary of strings
+    stageIDs: Optional[list] = Field(default = None) #list of references to stages
+    ID: Optional[int] = Field(default = None)
+
+class GeometricElement(CompositeDBItem):
     #child of Geometric elements
     memberName: Optional[str] = Field(default = None)
     source: Optional[object] = Field(default = None)
+    
 
 class Point(GeometricElement):
     #value: np.array = Field(np.asarray[0,0,0])
@@ -65,12 +76,15 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.63") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.64") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
     cadFile: Optional[str] = Field(default=None)
     cadFilePath: Optional[str] = Field(default=None)
+
+    #v.064
+    maxID: int = Field(default =0)
 
 class CompositeDB(BaseModel):
 
@@ -89,7 +103,7 @@ class CompositeDB(BaseModel):
     fileMetadata: FileMetadata = Field(default = FileMetadata()) #list of all "axisSystems" objects = exhaustive list
 
 
-class CompositeElement(BaseModel):
+class CompositeElement(CompositeDBItem):
     database: Optional[object] = Field(None) #can there be multiple of these dbItems in one file? if so ==> list???
     subComponent: Optional[list['CompositeElement']] = Field(None) # list of subComponents -- all belong to the CompositeElement family
     mappedProperties: Optional[list['CompositeComponent|Sequence|Ply|Piece']] = Field(None) #list of objects - various allowed: Component, Sequence, Ply, Piece
@@ -99,13 +113,6 @@ class CompositeElement(BaseModel):
     referencedBy: Optional[list[int]] = Field(None) # list of int>
     status: Optional[str] = Field(None) #TODO
 
-#IS THIS EVEN NEDED TODO
-class CompositeDBItem(BaseModel):
-    #ID: int = Field(None) #implied for now
-    name: Optional[str]
-    additionalParameters: Optional[dict] # dictionary of floats
-    additionalProperties: Optional[dict] # dictionary of strings
-    stageIDs: Optional[list] #list of references to stages
 
 
 class Piece(CompositeElement):
@@ -114,7 +121,7 @@ class Piece(CompositeElement):
     placementRosette: int = Field(None) # reference number to rosette in allAxisSystems
     batch: int = Field(None) #?
     memberName: Optional[str] = Field(None) #?
-    splineRelimitation: Optional[object] = Field(None) #spline object
+    splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
 
     #not sure if the below works, test?
     compositeElement: Optional[object] = Field(None) #compositeElement class in here
