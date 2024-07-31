@@ -1,18 +1,21 @@
 
-<!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+<!doctype html>
+
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Architecture &#8212; Composite Standard (CompoST)  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b849a4e9" />
-    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=658d757c" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
     
-    <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
     <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -46,8 +49,8 @@
           <div class="body" role="main">
             
   <section id="architecture">
-<h1>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">¶</a></h1>
-<a class="reference internal image-reference" href="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg"><img alt="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" src="_images/NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.jpg" style="width: 1000px;" /></a>
+<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="_images/NCC-TEC-4376.jpg"><img alt="_images/NCC-TEC-4376.jpg" src="_images/NCC-TEC-4376.jpg" style="width: 1000px;" /></a>
 <p>On the figure above, arrows point from an object 1 to object 2, where object 1 inherits from object 2.</p>
 <p>The figure is also work-in-progress. The outline titled “mostly fixed” houses the objects that have been implemented and used. These will hopefully see only minor adjustments. Objects outside this area might end up being standardised differently than currently suggested.</p>
 <p>All fields are optional unless otherwise specified, or unless required to construct specific object.</p>
@@ -55,37 +58,117 @@
 <p>CompositeDB object is the main object of the Composite Standard. All objects are stored in lists named all***.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.CompositeDB">
-<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeDB</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeDB" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeDB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeDB" title="Permalink to this definition">¶</a></dt>
 <dd><p>All elements and all geometry are all stored here and used elsewhere as refrence
 Points are stored withing those, as referencing is not efficient</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param name<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str - name</p>
-</dd>
-<dt class="field-even">param rootElements<span class="colon">:</span></dt>
-<dd class="field-even"><p>list - List of CompositeElement type objects</p>
-</dd>
-<dt class="field-odd">param allEvents<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list  - List of “events” objects - all = exhaustive list</p>
-</dd>
-<dt class="field-even">param allGeometry<span class="colon">:</span></dt>
-<dd class="field-even"><p>list - list of “GeometricElement” objects - all = exhaustive list</p>
-</dd>
-<dt class="field-odd">param allStages<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list - manuf process - all = exhaustive list</p>
-</dd>
-<dt class="field-even">param allMaterials<span class="colon">:</span></dt>
-<dd class="field-even"><p>list - List of “Material” objects - all = exhaustive list</p>
-</dd>
-<dt class="field-odd">param allAxisSystems<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict -</p>
-</dd>
-<dt class="field-even">param fileMetadata<span class="colon">:</span></dt>
-<dd class="field-even"><p>object - list of all “axisSystems” objects = exhaustive list</p>
+<p>BaseModel input signifies the default generation with Pydantic library, without any local parent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – str - name</p></li>
+<li><p><strong>rootElements</strong> – list - List of CompositeElement type objects</p></li>
+<li><p><strong>allEvents</strong> – list  - List of “events” objects - all = exhaustive list</p></li>
+<li><p><strong>allGeometry</strong> – list - list of “GeometricElement” objects - all = exhaustive list</p></li>
+<li><p><strong>allStages</strong> – list - manuf process - all = exhaustive list</p></li>
+<li><p><strong>allMaterials</strong> – list - List of “Material” objects - all = exhaustive list</p></li>
+<li><p><strong>allAxisSystems</strong> – dict -</p></li>
+<li><p><strong>fileMetadata</strong> – object - list of all “axisSystems” objects = exhaustive list</p></li>
+</ul>
 </dd>
 </dl>
-</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.FileMetadata">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">FileMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.FileMetadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metadata related to this particular part.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lastModified</strong> – date</p></li>
+<li><p><strong>lastModifiedBy</strong> – str - latest changes to the file have been done by</p></li>
+<li><p><strong>author</strong> – str - initial part definition created by</p></li>
+<li><p><strong>version</strong> – str - version of the CompoST used to work with this file</p></li>
+<li><p><strong>layupDefinitionVersion</strong> – str - initial part layup definition generated by</p></li>
+<li><p><strong>cadFile</strong> – str - related CAD file, if references to geometries are required, .step format is recommended. Should be stored in same folder.</p></li>
+<li><p><strong>maxID</strong> – int - maxium ID used for any object int the file, used for preventing duplicaiton of IDs</p></li>
+<li><p><strong>cadFilepath</strong> – str - should only be used when CAD could not be stored in same folder as this file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.CompositeDBItem">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeDBItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeDBItem" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>memberName</strong> – str - name</p></li>
+<li><p><strong>additionalParameters</strong> – dict - to hold use-case specific values (to be further defined)</p></li>
+<li><p><strong>additionalProperties</strong> – dict - to hold use-case specific objects (to be further defined)</p></li>
+<li><p><strong>stageIDs</strong> – (TODO) - stages will define what part of part-processing this object came from</p></li>
+<li><p><strong>batchIDs</strong> – (TODO) - reference to batch of components</p></li>
+<li><p><strong>ID</strong> – int - used for references between objects</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.GeometricElement">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">GeometricElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.GeometricElement" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source</strong> – str - the software, script, or database that this object originated from</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.CompositeElement">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeElement" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> – object - <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code></p></li>
+<li><p><strong>subComponent</strong> – list - <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code> , either as object or ID</p></li>
+<li><p><strong>mappedProperties</strong> – dict - other properties not covered by materials class or similar</p></li>
+<li><p><strong>mappedRequirements</strong> – list - list of objects of Requirement type, to be further specified</p></li>
+<li><p><strong>defects</strong> – list - list of “defects” type objects</p></li>
+<li><p><strong>axisSystemID</strong> – int - refernce to object in allAxisSystems specified by ID</p></li>
+<li><p><strong>referencedBy</strong> – list - optional list of objects that currently reference this object</p></li>
+<li><p><strong>status</strong> – str - #TODO</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Point">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GeometricElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Point" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – float</p></li>
+<li><p><strong>y</strong> – float</p></li>
+<li><p><strong>z</strong> – float</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Line">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GeometricElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Line" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> – list - list of two points , no more - no less</p></li>
+<li><p><strong>IDs</strong> – list - list of two IDs corresponding to points, no more - no less</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -97,16 +180,6 @@ Points are stored withing those, as referencing is not efficient</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <div>
-    <h3><a href="index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">Architecture</a><ul>
-<li><a class="reference internal" href="#CompositeStandard.CompositeDB"><code class="docutils literal notranslate"><span class="pre">CompositeStandard.CompositeDB()</span></code></a></li>
-</ul>
-</li>
-</ul>
-
-  </div>
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="Requirements.html"
@@ -124,7 +197,7 @@ Points are stored withing those, as referencing is not efficient</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<search id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
@@ -132,7 +205,7 @@ Points are stored withing those, as referencing is not efficient</p>
       <input type="submit" value="Go" />
     </form>
     </div>
-</search>
+</div>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
@@ -155,8 +228,8 @@ Points are stored withing those, as referencing is not efficient</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+        &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

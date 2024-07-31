@@ -14,7 +14,7 @@ The rectangle delimits the currently worked on section of the standard. This wil
 
 This standard is likely going to be under development (hence volatile) at least until v1.0.
 
-.. image:: NCC-TEC-4376CompositeDigitalTwinClassMap_wip_0.61.*
+.. image:: NCC-TEC-4376.*
     :width: 1000
 
 User Requirements

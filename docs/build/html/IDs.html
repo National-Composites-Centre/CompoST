@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>StorageFormat &#8212; Composite Standard (CompoST)  documentation</title>
+    <title>IDs &#8212; Composite Standard (CompoST)  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
     
@@ -19,7 +19,8 @@
     <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="IDs" href="IDs.html" />
+    <link rel="next" title="StorageFormat" href="StorageFormat.html" />
+    <link rel="prev" title="Mapping" href="Mapping.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
     <script src="_static/css3-mediaqueries.js"></script>
@@ -32,10 +33,14 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="IDs.html" title="IDs"
+          <a href="StorageFormat.html" title="StorageFormat"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Mapping.html" title="Mapping"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST)  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">StorageFormat</a></li> 
+          <li class="nav-item nav-item-1"><a href="Mapping.html" accesskey="U">Mapping</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">IDs</a></li> 
       </ul>
     </div>  
 
@@ -44,17 +49,9 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="storageformat">
-<h1>StorageFormat<a class="headerlink" href="#storageformat" title="Permalink to this heading">¶</a></h1>
-<p>The format is based around Python class definition. This allows for some flexibility, namely it allows to store in efficient formats such as HDF5, or human readable formats, such as JSON. The important aspect is that this format stays consistent when loaded in Python, or saved from Python.</p>
-</section>
-<section id="json">
-<h1>JSON<a class="headerlink" href="#json" title="Permalink to this heading">¶</a></h1>
-<p>Jsonic library used for serialization of Pydantic based Classes. Dedicated script written which simplifies the natively exported JSON file to improve human readability, without affecting the values stored (clean_json within ‘Utilities.py’)</p>
-</section>
-<section id="hdf5">
-<h1>HDF5<a class="headerlink" href="#hdf5" title="Permalink to this heading">¶</a></h1>
-<p>(TODO)</p>
+  <section id="ids">
+<h1>IDs<a class="headerlink" href="#ids" title="Permalink to this heading">¶</a></h1>
+<p>Every object belonging to <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code> or <a class="reference internal" href="Architecture.html#CompositeStandard.GeometricElement" title="CompositeStandard.GeometricElement"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CompositeStandard.GeometricElement()</span></code></a> can have ‘ID’ parameter attributed to it. This allows for referencing geometries and composite elements without re-creating them. The most common usage of this is when ‘CompositeStandard.Piece’ uses parameter splineRelimitation to signifcy edge of the composite piece, this parameter is simply and integer - ‘ID’, and corresponding spline can be found in GeometricElement`</p>
 </section>
 
 
@@ -65,23 +62,19 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <div>
-    <h3><a href="index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">StorageFormat</a></li>
-<li><a class="reference internal" href="#json">JSON</a></li>
-<li><a class="reference internal" href="#hdf5">HDF5</a></li>
-</ul>
-
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Mapping.html"
+                          title="previous chapter">Mapping</a></p>
   </div>
   <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="IDs.html"
-                          title="previous chapter">IDs</a></p>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="StorageFormat.html"
+                          title="next chapter">StorageFormat</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/StorageFormat.rst.txt"
+      <li><a href="_sources/IDs.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -106,10 +99,14 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="IDs.html" title="IDs"
+          <a href="StorageFormat.html" title="StorageFormat"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Mapping.html" title="Mapping"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST)  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">StorageFormat</a></li> 
+          <li class="nav-item nav-item-1"><a href="Mapping.html" >Mapping</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">IDs</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
