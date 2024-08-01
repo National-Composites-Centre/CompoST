@@ -11,7 +11,7 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.63 ####
+#### VERSION 0.65 ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #potentially replace by JSON parser for Pydantic
@@ -25,8 +25,8 @@ from jsonic import serialize, deserialize
 
 #IS THIS EVEN NEDED TODO
 class CompositeDBItem(BaseModel):
-    #ID: int = Field(None) #implied for now
-    name: Optional[str] = Field(default = None)
+
+    memberName: Optional[str] = Field(default = None)
     additionalParameters: Optional[dict] = Field(default = None) # dictionary of floats
     additionalProperties: Optional[dict] = Field(default = None) # dictionary of strings
     stageIDs: Optional[list] = Field(default = None) #list of references to stages
@@ -34,7 +34,6 @@ class CompositeDBItem(BaseModel):
 
 class GeometricElement(CompositeDBItem):
     #child of Geometric elements
-    memberName: Optional[str] = Field(default = None)
     source: Optional[object] = Field(default = None)
     
 
@@ -45,7 +44,7 @@ class Point(GeometricElement):
     y: float = Field(default = 0)
     z: float = Field(default = 0)
 
-class AxisSystem(BaseModel):
+class AxisSystem(GeometricElement):
     #^^ point + 3x vector ==> implement check that the 3 axis are perpendicular to each other
 
     #Axis system on default uses root axis system values - upon initionation any changes must be applied on all axes
@@ -67,8 +66,6 @@ class AxisSystem(BaseModel):
     v3x: float = Field(default = 0)
     v3y: float = Field(default = 0)
     v3z: float = Field(default = 1)
-
-    memberName: Optional[str] = Field(default=None)
 
 
 class FileMetadata(BaseModel):
@@ -99,7 +96,6 @@ class CompositeDB(BaseModel):
     allGeometry: Optional[list['GeometricElement']] = Field(default=None) # list of "GeometricElement" objects - all = exhaustive list
     allStages: Optional[list] = Field(default=None) #??? manuf process - all = exhaustive list
     allMaterials: Optional[list['Material']] = Field(default=None) #List of "Material" objects - all = exhaustive list
-    allAxisSystems: Optional[dict[str, 'AxisSystem']] = Field(default= AxisSystem(pt=Point()))
     fileMetadata: FileMetadata = Field(default = FileMetadata()) #list of all "axisSystems" objects = exhaustive list
 
 
@@ -109,7 +105,7 @@ class CompositeElement(CompositeDBItem):
     mappedProperties: Optional[list['CompositeComponent|Sequence|Ply|Piece']] = Field(None) #list of objects - various allowed: Component, Sequence, Ply, Piece
     mappedRequirements: Optional[list] = Field(None) # list of objects - "Requirement"
     defects: Optional[list] = Field(None) #list of objects - "defects"
-    axisSystemIDs: Optional[list[str]] = Field(None) #list of "axisSystems" references, numbered according to allAxisSystems
+    axisSystemID: Optional[int] = Field(None) #ID reference to allAxis systems 
     referencedBy: Optional[list[int]] = Field(None) # list of int>
     status: Optional[str] = Field(None) #TODO
 
@@ -119,50 +115,40 @@ class Piece(CompositeElement):
     #CompositeElement type object
     #In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
     placementRosette: int = Field(None) # reference number to rosette in allAxisSystems
-    batch: int = Field(None) #?
-    memberName: Optional[str] = Field(None) #?
     splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
+    material: Optional[str] = Field(None) #ref to material in allMaterials
 
-    #not sure if the below works, test?
-    compositeElement: Optional[object] = Field(None) #compositeElement class in here
 
 class Ply(CompositeElement):
     #CompositeElement type object
-    cutPieces: Optional[list] = Field(None) #list of Piece objects
     material: Optional[str] = Field(None) #ref to material in allMaterials
     placementRosette: Optional[int] = Field(None)
-    memberName: Optional[str] = Field(None) #?
     orientation: Optional[float] = Field(None)
-    #ID: int = Field() #implied for now
-
-    #not sure if the below works, test?
-    compositeElement: Optional[object] = Field(None) #compositeElement class in here
+    splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
 
 class Sequence(CompositeElement):
     #CompositeElement type object
-
-    #sequences -- just not for now
-
-    plies: Optional[list] = Field([]) #list of reference numbers for plies
-    components: Optional[list] = Field([]) #list of reference numbers for "Component" objects
-    memberName: Optional[str] = Field(None) #?
-
-    #not sure if the below works, test?
-    compositeElement: Optional[CompositeElement] = Field(None) #compositeElement class in here
+    orientations: Optional[list[float]] = Field(None) #used for minimalistic definition where ply-objects are avoided
+    materials: Optional[list['Material']] = Field(None) #listof materials - must be same lenght as orientations
+    material: Optional[str] = Field(None) #ref to material in allMaterials
+    placementRosette: Optional[int] = Field(None)
+    splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
 
 class CompositeComponent(CompositeElement):
-    sequence: Optional[list['Sequence']] = Field() # list of int refrences to Sequence type variables
-    memberName: Optional[str] = Field() #?
+    #this object is mostly going to be used for bonding co-curing etc where multiple distinct composite components
+    #can be defined
 
-    #not sure if the below works, test?
-    compositeElement: Optional[object] = Field() #compositeElement class in here
+    integratedComponent: Optional[list[CompositeDB]] = Field(None) #allows for nesting another comonent within this file
+
+class SourceSystem(BaseModel):
+    softwareName: Optional[str] = Field(None)
+    version: Optional[str] = Field(None)
+    link: Optional[str] = Field(None) #link to GitHub, docs... where appropriate 
 
 class SolidComponent(CompositeElement):
-    memberName: Optional[str] = Field() #?
-
-    #not sure if the below works, test?
-    compositeElement: Optional[object] = Field() #compositeElement class in here
-
+    #had shapes - for example when including 3D core
+    cadFile: Optional[str] = Field(None)
+    sourceSystem: Optional[SourceSystem] = Field(None) #SourceSystem object
 
 class Material(BaseModel):
     #this will be extended over time - it should allow for storing different level materials (i.e. stack vs ply)
@@ -182,20 +168,18 @@ class Material(BaseModel):
 
     #might need sublacces for materials as relevant for manuf. processes. 
 
-
-class SourceSystem(BaseModel):
-    softwareName: Optional[str] = Field()
-
-
 class Line(GeometricElement):
     #potentially also give options to keep the points directly here in a matrix?
 
-    nodeRef: Optional[list[int]] = Field() #list of reference inetegers, linking to points
+    #Use either IDs or points, not both. IDs recommended if the points 
+    # are to be re-used for other geometries.
+    points: Optional[list[Point]] = Field() 
+    IDs: Optional[list[int]] = Field
 
-#TODO not used rn, not sure if individual elements need element (Area/volume mesh instead)
-class Element(BaseModel):
+class MeshElement(BaseModel):
     #3 or 4 points, check?
     nodes: list['Point'] = Field(None) # only accept Point classes
+    normal: list = Field(None) #x,y,z in the list
 
 class AreaMesh(GeometricElement):
     elements: list['Element'] = Field(None) # requires element classes only
@@ -206,15 +190,6 @@ class Spline(GeometricElement):
     points: Optional[list['Point']] = Field(None) #list of point objects
     length: Optional[float] = Field(None)
 
-
-#unused rn
-def cleandict(d):
-    if isinstance(d, dict):
-        return {k: cleandict(v) for k, v in d.items() if v is not None}
-    elif isinstance(d, list):
-        return [cleandict(v) for v in d]
-    else:
-        return d
 
 
 def generate_json_schema(file_name:str):
@@ -227,6 +202,7 @@ generate_json_schema('compostSchema.json')
 
 
 def test():
+    #TODO make dedicated testing module
 
     d = CompositeDB()
     d.fileMetadata.lastModified = "10/07/2024"
