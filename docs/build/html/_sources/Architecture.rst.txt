@@ -29,7 +29,6 @@ CompositeDB object is the main object of the Composite Standard. All objects are
 	:param allGeometry: list - list of "GeometricElement" objects - all = exhaustive list
 	:param allStages: list - manuf process - all = exhaustive list
 	:param allMaterials: list - List of "Material" objects - all = exhaustive list
-	:param allAxisSystems: dict -
 	:param fileMetadata: object - list of all "axisSystems" objects = exhaustive list
 	
 .. py:function:: CompositeStandard.FileMetadata(BaseModel)
@@ -61,6 +60,8 @@ CompositeDB object is the main object of the Composite Standard. All objects are
 	:param source: str - the software, script, or database that this object originated from
 	
 .. py:function:: CompositeStandard.CompositeElement(CompositeDBItem)
+
+	This includes any object that is used to describe composite component specifically.
 	
 	:param database: object - :py:meth:`~CompositeStandard.CompositeDB.get` 
 	:param subComponent: list - :py:meth:`~CompositeStandard.CompositeDBItem.get` , either as object or ID
@@ -81,3 +82,101 @@ CompositeDB object is the main object of the Composite Standard. All objects are
 
 	:param points: list - list of two points , no more - no less
 	:param IDs: list - list of two IDs corresponding to points, no more - no less
+	
+	
+.. py:function:: CompositeStandard.AxisSystem(GeometricElement)
+	
+	The three vectors listed bewow must be perpendicular to each other
+	
+	:param pt: `CompositeStandard.Point` - location of axis system expressed in global axis system
+	:param v1x: float - first vector of axis system, first direction
+	:param v1y: float - first vector of axis system, second direction
+	:param v1z: float - first vector of axis system, third direction
+	:param v2x: float - second vector of axis system, first direction
+	:param v2y: float - second vector of axis system, second direction
+	:param v2z: float - second vector of axis system, third direction
+	:param v3x: float - third vector of axis system, first direction
+	:param v3y: float - third vector of axis system, second direction
+	:param v3z: float - third vector of axis system, third direction
+	
+.. py:function:: CompositeStandard.Material(BaseModel)
+
+	To be expanded...
+	
+	User of the format is responsible for using consistent units. CompoST does not enforce units used.
+
+	:param materialName: str
+	:param E1: float - young's modulus in primary direction
+	:param E2: float - young's modulus in secondary direction (in-plane)
+	:param G23: float - shear modulus
+	:param G12: float - interlaminar shear modulus
+	:param v12: float - poisson ratio in plane
+	:param infoSource: str - reference to source of the information
+	:param thickness: float - out of plane thickness
+	:param density: float 
+	:param permeability_1: float - permeability in primary direction
+	:param permeability_2: float - permeability in secondary direction (in-plane)
+	:param permeability_3: float - permeability out of plane / through thickness
+	:param type: str - (List to be provided)
+	
+.. py:function:: CompositeStandard.Piece
+
+	In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
+
+	:param placementRosette: int - reference to main rosette for this piece
+	:param splineRelimitationRef: int - reference to spline delimiting the boundary of this piece
+	:param material: str - reference materialName (IDs not used here, as material can be located in external database)
+	
+	
+.. py:function:: CompositeStandard.Ply(CompositeElement)
+
+	:param placementRosette: int - reference to main rosette for this ply
+	:param splineRelimitationRef: int - reference to spline delimiting the boundary of this ply	
+	:param material: str - reference materialName (IDs not used here, as material can be located in external database) 	
+	:param orientation: float - direction of lay-up with reference to x-axis of placementRosette
+	
+.. py:function:: CompositeStandard.Sequence(CompositeElement)
+
+	Can either be defined complely by inherited properties (ply list in subComponents).
+	
+	Or can be defined by list of orientations and materials, if no additional information is required.
+	
+	For single-material laminate leave "materials" empty, and fill in "singleMaterial"
+
+	:param placementRosette: int - reference to main rosette for this sequence
+	:param orientations: list - list of floats, orientations listed with reference to placementRosette
+	:param materials: list - list of strings, materialName's
+	:param singleMaterial: str - used only if 1 material is used through-out the sequence
+	:param splineRelimitationRef: int - used when all plies end at the same boundary and the lists above are being used	
+
+.. py:function:: CompositeStandard.CompositeComponent(CompositeElement)
+
+	:param integratedComponents: list - allows for integrating othre complete CompoST databases as sub-components
+	
+.. py:function:: CompositeStandard.SolidComponent(CompositeElement)
+
+	CAD shapes, for instace useful when using a 3D core/insert
+	
+	:param cadFile: str - file path to the part, or reference to PLM site
+	:param sourceSystem: `SourceSystem`
+	
+.. py:function: CompositeStandard.SourceSystem(BaseModel)
+	
+	:param softwareName: str 
+	:param version: str - version used to generate objects referencing this
+	:param link: str - link to GitHub, docs... where appropriate 
+	
+.. py:function: CompositeStandard.MeshElement(GeometricElement)
+
+	:param nodes: list - `Point` objects 
+	:param normal: list - [x,y,z] in the list
+	
+.. py:function: CompositeStandard.Spline(GeometricElement)
+
+	:param splineType: int - types of splines based on OCC line types (ref to be provided)
+	:param pointRefs: list - list of IDs (only use this variable if 'points' variable unused
+	:param points: `Point` - This variable prevents complex ID referencing for points that belong to this spline only
+	:param length: float - calculated lenght of spline
+	
+	
+	
