@@ -101,7 +101,7 @@ class CompositeDB(BaseModel):
 
 class CompositeElement(CompositeDBItem):
     database: Optional[object] = Field(None) #can there be multiple of these dbItems in one file? if so ==> list???
-    subComponent: Optional[list['CompositeElement']] = Field(None) # list of subComponents -- all belong to the CompositeElement family
+    subComponents: Optional[list['CompositeElement']] = Field(None) # list of subComponents -- all belong to the CompositeElement family
     mappedProperties: Optional[list['CompositeComponent|Sequence|Ply|Piece']] = Field(None) #list of objects - various allowed: Component, Sequence, Ply, Piece
     mappedRequirements: Optional[list] = Field(None) # list of objects - "Requirement"
     defects: Optional[list] = Field(None) #list of objects - "defects"
@@ -161,7 +161,10 @@ class Material(BaseModel):
     infoSource: Optional[str] = Field(None)
     thickness: Optional[float] = Field(None)
     density: Optional[float] = Field(None)
-    permeability: Optional[float] = Field(None)
+    permeability_1: Optional[float] = Field(None) #primary direction 
+    permeability_2: Optional[float] = Field(None) #secondary direction (in-plane)
+    permeability_3: Optional[float] = Field(None) #out-of-plane
+
     type: Optional[str] = Field(None) #TODO eventually limit to list! , CFRP/GFRP/kevlar - set keywords...
 
     #add other related values
