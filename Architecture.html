@@ -255,6 +255,7 @@ Points are stored withing those, as referencing is not efficient</p>
 <dd><p>Can either be defined complely by inherited properties (ply list in subComponents).</p>
 <p>Or can be defined by list of orientations and materials, if no additional information is required.</p>
 <p>For single-material laminate leave “materials” empty, and fill in “singleMaterial”</p>
+<p>The subComponents in sequence must be ordered tool placement (first object is initial ply placed on the tool)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -292,6 +293,14 @@ Points are stored withing those, as referencing is not efficient</p>
 </dl>
 </dd></dl>
 
+<p>class Wrinkle(Defect):</p>
+<blockquote>
+<div><p>area: Optional[float] = Field(None)
+aspectRatio: Optional[float] = Field(None) #typically size_x/size_y
+maxRoC: Optional[float] = Field(None)
+size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystemID, or global axis if local not available
+size_y: Optional[float] = Field(None)</p>
+</div></blockquote>
 </section>
 
 

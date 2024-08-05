@@ -142,6 +142,8 @@ CompositeDB object is the main object of the Composite Standard. All objects are
 	Or can be defined by list of orientations and materials, if no additional information is required.
 	
 	For single-material laminate leave "materials" empty, and fill in "singleMaterial"
+	
+	The subComponents in sequence must be ordered tool placement (first object is initial ply placed on the tool)
 
 	:param placementRosette: int - reference to main rosette for this sequence
 	:param orientations: list - list of floats, orientations listed with reference to placementRosette
@@ -177,6 +179,32 @@ CompositeDB object is the main object of the Composite Standard. All objects are
 	:param pointRefs: list - list of IDs (only use this variable if 'points' variable unused
 	:param points: `Point` - This variable prevents complex ID referencing for points that belong to this spline only
 	:param length: float - calculated lenght of spline
+	
+.. py:function: CompositeStandard.Defect(CompositeDBItem)
+
+	:param map: `CompositeStandard.CompositeDBItem` - any composite or geometric object
+	:param location: float - x,y,z location
+	:param source: `SourceSystem` 
+	:param effMaterial: `CompositeStandard.Material` - adjusted material class saved 
+	:param status: --- to be defined ---
+	:param axisSystemID: int - reference to `AxisSystem` object
+	
+.. py:function: CompositeStandard.Wrinkle(Defect)
+
+	:param area: float 
+	:param aspectRatio: float - typically size_x/size_y
+	:param maxRoC: float - machimum rate of changes
+	:param size_x: float
+	:param size_y: float
+
+class Wrinkle(Defect):
+
+    area: Optional[float] = Field(None)
+    aspectRatio: Optional[float] = Field(None) #typically size_x/size_y
+    maxRoC: Optional[float] = Field(None)
+    size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystemID, or global axis if local not available
+    size_y: Optional[float] = Field(None)
+	
 	
 	
 	
