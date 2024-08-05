@@ -11,6 +11,7 @@ Welcome to Composite part data Standard (CompoSt)'s documentation!
    :caption: Contents:
    
    Introduction
+   UsingCompost
    Requirements
    Architecture
    Mapping
