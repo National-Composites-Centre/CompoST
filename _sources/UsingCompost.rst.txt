@@ -7,7 +7,7 @@ Eventually CompoST will become pip-installable library, but for now it is recomm
 
 
 Pre-requisites
-==============
+--------------
 
 Libraries to install: Pydantic, jsonic 
 
@@ -19,7 +19,7 @@ Libraries to install: Pydantic, jsonic
 (more information tbd TODO)
 
 Loading Files
-=============
+-------------
 
 Loading CompoST JSON files is very simple in Python, the following code shows an example.
 
@@ -38,7 +38,7 @@ Now "D" can be interogated according to `CompositeStandard` classes.
 Loading the file to any other language/software that accepts JSON schema should be also possible, but this has seen minimal testing (TODO).
 
 Saving Files
-============
+------------
 To save the CompoST data structure it first has to be initiated. This can either be done by loading existent file (as per above), or using the following:
 
 .. code-block:: python
@@ -70,6 +70,6 @@ After all required information has been saved somewhere in the tree belonging to
 The `cleandict` funciton can be find in main CompoST repository under `Utilities.py` module. It is recommended that this step is added for human readability.
 
 Utility Scripts
-===============
+---------------
 
 (TODO - link to sister repository with potentially useful scripts)

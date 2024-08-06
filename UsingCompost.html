@@ -52,9 +52,8 @@
 <h1>UsingCompost<a class="headerlink" href="#usingcompost" title="Permalink to this heading">¶</a></h1>
 <p>This page provides instructions on how to use CompoST.</p>
 <p>Eventually CompoST will become pip-installable library, but for now it is recommended to clone the repository and copy “CompositeStandard.py” file into your project.</p>
-</section>
 <section id="pre-requisites">
-<h1>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this heading">¶</a></h1>
+<h2>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this heading">¶</a></h2>
 <p>Libraries to install: Pydantic, jsonic</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>py-jsonic
 pip<span class="w"> </span>install<span class="w"> </span>pydantic
@@ -63,7 +62,7 @@ pip<span class="w"> </span>install<span class="w"> </span>pydantic
 <p>(more information tbd TODO)</p>
 </section>
 <section id="loading-files">
-<h1>Loading Files<a class="headerlink" href="#loading-files" title="Permalink to this heading">¶</a></h1>
+<h2>Loading Files<a class="headerlink" href="#loading-files" title="Permalink to this heading">¶</a></h2>
 <p>Loading CompoST JSON files is very simple in Python, the following code shows an example.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jsonic</span> <span class="kn">import</span> <span class="n">serialize</span><span class="p">,</span> <span class="n">deserialize</span>
 <span class="c1">#open file</span>
@@ -77,7 +76,7 @@ pip<span class="w"> </span>install<span class="w"> </span>pydantic
 <p>Loading the file to any other language/software that accepts JSON schema should be also possible, but this has seen minimal testing (TODO).</p>
 </section>
 <section id="saving-files">
-<h1>Saving Files<a class="headerlink" href="#saving-files" title="Permalink to this heading">¶</a></h1>
+<h2>Saving Files<a class="headerlink" href="#saving-files" title="Permalink to this heading">¶</a></h2>
 <p>To save the CompoST data structure it first has to be initiated. This can either be done by loading existent file (as per above), or using the following:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">CompositeStandard</span> <span class="k">as</span> <span class="nn">cs</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">CompositeDB</span><span class="p">()</span>
@@ -103,8 +102,9 @@ pip<span class="w"> </span>install<span class="w"> </span>pydantic
 <p>The <cite>cleandict</cite> funciton can be find in main CompoST repository under <cite>Utilities.py</cite> module. It is recommended that this step is added for human readability.</p>
 </section>
 <section id="utility-scripts">
-<h1>Utility Scripts<a class="headerlink" href="#utility-scripts" title="Permalink to this heading">¶</a></h1>
+<h2>Utility Scripts<a class="headerlink" href="#utility-scripts" title="Permalink to this heading">¶</a></h2>
 <p>(TODO - link to sister repository with potentially useful scripts)</p>
+</section>
 </section>
 
 
@@ -117,11 +117,13 @@ pip<span class="w"> </span>install<span class="w"> </span>pydantic
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">UsingCompost</a></li>
+<li><a class="reference internal" href="#">UsingCompost</a><ul>
 <li><a class="reference internal" href="#pre-requisites">Pre-requisites</a></li>
 <li><a class="reference internal" href="#loading-files">Loading Files</a></li>
 <li><a class="reference internal" href="#saving-files">Saving Files</a></li>
 <li><a class="reference internal" href="#utility-scripts">Utility Scripts</a></li>
+</ul>
+</li>
 </ul>
 
   </div>

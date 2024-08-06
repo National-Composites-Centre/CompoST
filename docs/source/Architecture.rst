@@ -14,7 +14,9 @@ Where the same attribute is being called in parent and child (e.g. axis being re
 
 
 CompositeDB object is the main object of the Composite Standard. All objects are stored in lists named all***.  
-	
+
+Object definitions
+------------------
 	
 .. py:function:: CompositeStandard.CompositeDB(BaseModel)
 
@@ -119,7 +121,7 @@ CompositeDB object is the main object of the Composite Standard. All objects are
 	:param permeability_3: float - permeability out of plane / through thickness
 	:param type: str - (List to be provided)
 	
-.. py:function:: CompositeStandard.Piece
+.. py:function:: CompositeStandard.Piece(CompositeElement)
 
 	In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
 
@@ -154,14 +156,7 @@ CompositeDB object is the main object of the Composite Standard. All objects are
 .. py:function:: CompositeStandard.CompositeComponent(CompositeElement)
 
 	:param integratedComponents: list - allows for integrating othre complete CompoST databases as sub-components
-	
-.. py:function:: CompositeStandard.SolidComponent(CompositeElement)
 
-	CAD shapes, for instace useful when using a 3D core/insert
-	
-	:param cadFile: str - file path to the part, or reference to PLM site
-	:param sourceSystem: `SourceSystem`
-	
 .. py:function: CompositeStandard.SourceSystem(BaseModel)
 	
 	:param softwareName: str 
@@ -197,14 +192,12 @@ CompositeDB object is the main object of the Composite Standard. All objects are
 	:param size_x: float
 	:param size_y: float
 
-class Wrinkle(Defect):
+.. py:function:: CompositeStandard.SolidComponent(CompositeElement)
 
-    area: Optional[float] = Field(None)
-    aspectRatio: Optional[float] = Field(None) #typically size_x/size_y
-    maxRoC: Optional[float] = Field(None)
-    size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystemID, or global axis if local not available
-    size_y: Optional[float] = Field(None)
+	CAD shapes, for instace useful when using a 3D core/insert
 	
+	:param cadFile: str - file path to the part, or reference to PLM site
+	:param sourceSystem: `SourceSystem` -
 	
 	
 	

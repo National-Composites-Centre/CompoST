@@ -56,6 +56,8 @@
 <p>All fields are optional unless otherwise specified, or unless required to construct specific object.</p>
 <p>Where the same attribute is being called in parent and child (e.g. axis being referenced in ply, and in some of corresponding cut pieces), the more detailed (child) component supersedes the corresponding parent definition.</p>
 <p>CompositeDB object is the main object of the Composite Standard. All objects are stored in lists named all***.</p>
+<section id="object-definitions">
+<h2>Object definitions<a class="headerlink" href="#object-definitions" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.CompositeDB">
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeDB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeDB" title="Permalink to this definition">¶</a></dt>
@@ -221,7 +223,7 @@ Points are stored withing those, as referencing is not efficient</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.Piece">
-<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Piece</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Piece" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Piece</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Piece" title="Permalink to this definition">¶</a></dt>
 <dd><p>In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -287,20 +289,13 @@ Points are stored withing those, as referencing is not efficient</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cadFile</strong> – str - file path to the part, or reference to PLM site</p></li>
-<li><p><strong>sourceSystem</strong> – <cite>SourceSystem</cite></p></li>
+<li><p><strong>sourceSystem</strong> – <cite>SourceSystem</cite> -</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-<p>class Wrinkle(Defect):</p>
-<blockquote>
-<div><p>area: Optional[float] = Field(None)
-aspectRatio: Optional[float] = Field(None) #typically size_x/size_y
-maxRoC: Optional[float] = Field(None)
-size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystemID, or global axis if local not available
-size_y: Optional[float] = Field(None)</p>
-</div></blockquote>
+</section>
 </section>
 
 
@@ -310,6 +305,16 @@ size_y: Optional[float] = Field(None)</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Architecture</a><ul>
+<li><a class="reference internal" href="#object-definitions">Object definitions</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="Requirements.html"
