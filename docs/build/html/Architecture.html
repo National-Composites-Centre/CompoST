@@ -282,6 +282,81 @@ Points are stored withing those, as referencing is not efficient</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.SourceSystem">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">SourceSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.SourceSystem" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>softwareName</strong> – str</p></li>
+<li><p><strong>version</strong> – str - version used to generate objects referencing this</p></li>
+<li><p><strong>link</strong> – str - link to GitHub, docs… where appropriate</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.MeshElement">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">MeshElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GeometricElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.MeshElement" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes</strong> – list - <cite>Point</cite> objects</p></li>
+<li><p><strong>normal</strong> – list - [x,y,z] in the list</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Spline">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Spline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GeometricElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Spline" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>splineType</strong> – int - types of splines based on OCC line types (ref to be provided)</p></li>
+<li><p><strong>pointRefs</strong> – list - list of IDs (only use this variable if ‘points’ variable unused</p></li>
+<li><p><strong>points</strong> – <cite>Point</cite> - This variable prevents complex ID referencing for points that belong to this spline only</p></li>
+<li><p><strong>length</strong> – float - calculated lenght of spline</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Defect">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Defect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Defect" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>map</strong> – <cite>CompositeStandard.CompositeDBItem</cite> - any composite or geometric object</p></li>
+<li><p><strong>location</strong> – float - x,y,z location</p></li>
+<li><p><strong>source</strong> – <cite>SourceSystem</cite></p></li>
+<li><p><strong>effMaterial</strong> – <cite>CompositeStandard.Material</cite> - adjusted material class saved</p></li>
+<li><p><strong>status</strong> – — to be defined —</p></li>
+<li><p><strong>axisSystemID</strong> – int - reference to <cite>AxisSystem</cite> object</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Wrinkle">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Wrinkle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Defect</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Wrinkle" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>area</strong> – float</p></li>
+<li><p><strong>aspectRatio</strong> – float - typically size_x/size_y</p></li>
+<li><p><strong>maxRoC</strong> – float - machimum rate of changes</p></li>
+<li><p><strong>size_x</strong> – float</p></li>
+<li><p><strong>size_y</strong> – float</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.SolidComponent">
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">SolidComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.SolidComponent" title="Permalink to this definition">¶</a></dt>
 <dd><p>CAD shapes, for instace useful when using a 3D core/insert</p>

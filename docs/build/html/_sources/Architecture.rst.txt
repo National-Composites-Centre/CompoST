@@ -157,25 +157,25 @@ Object definitions
 
 	:param integratedComponents: list - allows for integrating othre complete CompoST databases as sub-components
 
-.. py:function: CompositeStandard.SourceSystem(BaseModel)
+.. py:function:: CompositeStandard.SourceSystem(BaseModel)
 	
 	:param softwareName: str 
 	:param version: str - version used to generate objects referencing this
 	:param link: str - link to GitHub, docs... where appropriate 
 	
-.. py:function: CompositeStandard.MeshElement(GeometricElement)
+.. py:function:: CompositeStandard.MeshElement(GeometricElement)
 
 	:param nodes: list - `Point` objects 
 	:param normal: list - [x,y,z] in the list
 	
-.. py:function: CompositeStandard.Spline(GeometricElement)
+.. py:function:: CompositeStandard.Spline(GeometricElement)
 
 	:param splineType: int - types of splines based on OCC line types (ref to be provided)
 	:param pointRefs: list - list of IDs (only use this variable if 'points' variable unused
 	:param points: `Point` - This variable prevents complex ID referencing for points that belong to this spline only
 	:param length: float - calculated lenght of spline
 	
-.. py:function: CompositeStandard.Defect(CompositeDBItem)
+.. py:function:: CompositeStandard.Defect(CompositeDBItem)
 
 	:param map: `CompositeStandard.CompositeDBItem` - any composite or geometric object
 	:param location: float - x,y,z location
@@ -184,7 +184,7 @@ Object definitions
 	:param status: --- to be defined ---
 	:param axisSystemID: int - reference to `AxisSystem` object
 	
-.. py:function: CompositeStandard.Wrinkle(Defect)
+.. py:function:: CompositeStandard.Wrinkle(Defect)
 
 	:param area: float 
 	:param aspectRatio: float - typically size_x/size_y
