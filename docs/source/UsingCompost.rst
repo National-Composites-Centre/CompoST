@@ -16,7 +16,6 @@ Libraries to install: Pydantic, jsonic
 	pip install py-jsonic
 	pip install pydantic
 
-(more information tbd TODO)
 
 Loading Files
 -------------
@@ -50,8 +49,6 @@ To save the CompoST data structure it first has to be initiated. This can either
 	
 The date and name are included only as example, it is up to user which of the variables available are useful to them.
 
-Guide on how build the data format (LINK - pending - TODO)
-
 After all required information has been saved somewhere in the tree belonging to `CompositeDB` object, the following code serializes the data into JSON string and saves it.
 
 .. code-block:: python
@@ -72,4 +69,7 @@ The `cleandict` funciton can be find in main CompoST repository under `Utilities
 Utility Scripts
 ---------------
 
-(TODO - link to sister repository with potentially useful scripts)
+Sister repository has been created to store various utility scripts. These scrips are only going to be relevant for specific users of CompoST, and hence it is not appropriate to house the scripts here.
+
+https://github.com/National-Composites-Centre/CST_utils 
+

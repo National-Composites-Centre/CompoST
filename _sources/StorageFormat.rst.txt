@@ -6,12 +6,12 @@ The format is based around Python class definition. This allows for some flexibi
 
 
 JSON
-====
+----
 Jsonic library used for serialization of Pydantic based Classes. Dedicated script written which simplifies the natively exported JSON file to improve human readability, without affecting the values stored (clean_json within 'Utilities.py')
 
 
 
 HDF5
-====
+----
 
 (TODO)

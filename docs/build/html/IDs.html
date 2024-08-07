@@ -51,7 +51,8 @@
             
   <section id="ids">
 <h1>IDs<a class="headerlink" href="#ids" title="Permalink to this heading">¶</a></h1>
-<p>Every object belonging to <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code> or <a class="reference internal" href="Architecture.html#CompositeStandard.GeometricElement" title="CompositeStandard.GeometricElement"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CompositeStandard.GeometricElement()</span></code></a> can have ‘ID’ parameter attributed to it. This allows for referencing geometries and composite elements without re-creating them. The most common usage of this is when ‘CompositeStandard.Piece’ uses parameter splineRelimitation to signifcy edge of the composite piece, this parameter is simply and integer - ‘ID’, and corresponding spline can be found in GeometricElement`</p>
+<p>Every object belonging to <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code> family can have ‘ID’ parameter attributed to it. This allows for referencing geometries and composite elements without re-creating them. The most common usage of this is when ‘CompositeStandard.Piece’ uses parameter splineRelimitation to signifcy edge of the composite piece, this parameter is simply and integer - ‘ID’, and corresponding spline can be found in GeometricElement`</p>
+<p>IDs are not compulsory for any object, but it is highly recommended that most objects are given IDs, as that will facilitaty any re-use. Exceptions are objects that will definitely not see reuse, such as point only existing to create a complex spline.</p>
 </section>
 
 
