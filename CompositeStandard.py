@@ -193,6 +193,22 @@ class Spline(GeometricElement):
     points: Optional[list['Point']] = Field(None) #list of point objects
     length: Optional[float] = Field(None)
 
+class Defect(CompositeDBItem):
+    
+    map: Optional[CompositeDBItem] = Field(None) #any composite or geometric object
+    location: Optional[list[float]] = Field(None) #x,y,z location
+    source: Optional[SourceSystem] = Field(None) #SourceSystem
+    effMaterial: Optional[Material] = Field(None) #adjusted material class saved in materials
+    status: Optional[object] = Field(None) #TODO
+    axisSystemID: Optional[int] = Field(None) #reference to axis system stored in Geo. elements
+
+class Wrinkle(Defect):
+
+    area: Optional[float] = Field(None)
+    aspectRatio: Optional[float] = Field(None) #typically size_x/size_y
+    maxRoC: Optional[float] = Field(None)
+    size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystemID, or global axis if local not available
+    size_y: Optional[float] = Field(None)
 
 
 def generate_json_schema(file_name:str):
