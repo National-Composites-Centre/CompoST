@@ -212,7 +212,8 @@ def generate_json_schema(file_name:str):
     with open(file_name, 'w') as f:
         f.write(json.dumps(CompositeDB.model_json_schema(), indent=4))
 
-generate_json_schema('compostSchema.json')
+
+#generate_json_schema('compostSchema.json')
 
 
 
