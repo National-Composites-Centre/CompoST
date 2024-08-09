@@ -125,14 +125,12 @@ Object definitions
 
 	In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
 
-	:param placementRosette: int - reference to main rosette for this piece
 	:param splineRelimitationRef: int - reference to spline delimiting the boundary of this piece
 	:param material: str - reference materialName (IDs not used here, as material can be located in external database)
 	
 	
 .. py:function:: CompositeStandard.Ply(CompositeElement)
 
-	:param placementRosette: int - reference to main rosette for this ply
 	:param splineRelimitationRef: int - reference to spline delimiting the boundary of this ply	
 	:param material: str - reference materialName (IDs not used here, as material can be located in external database) 	
 	:param orientation: float - direction of lay-up with reference to x-axis of placementRosette
@@ -147,7 +145,6 @@ Object definitions
 	
 	The subComponents in sequence must be ordered tool placement (first object is initial ply placed on the tool)
 
-	:param placementRosette: int - reference to main rosette for this sequence
 	:param orientations: list - list of floats, orientations listed with reference to placementRosette
 	:param materials: list - list of strings, materialName's
 	:param singleMaterial: str - used only if 1 material is used through-out the sequence
