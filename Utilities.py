@@ -36,6 +36,7 @@ def rs(strin):
 
     #This is so that inheritence can be built into classes, but JSON files are not too bloated.
 
+
     delete = False
     ac = []
     for name, obj in inspect.getmembers(cs):
@@ -44,17 +45,18 @@ def rs(strin):
 
     #list of all classes that should not be stored if corresponding value is "None"
     #Please keep alphabetic. This list will be growing a lot as the scope of standard expands.
-    forRemove = ["batch",
-                 "database",
-                 "defects"
+
+    forRemove = ["additionalParameters","additionalProperties",
+                 "batch",
+                 "database","defects",
                  "length",
                  "mappedProperties",
-                 "mappedRequirements"
+                 "mappedRequirements",
                  "memberName",
-                 "name",
+                 "referencedBy",
                  "source",
                  "splineType",
-                 "status",
+                 "stageIDs","status",
                  "subComponent"]
 
     #if list
@@ -81,11 +83,12 @@ def rs(strin):
         #create a list of dict members to delete
         tbd = []
         for S in strin.keys():
+
             if (S in forRemove):
-                if S in strin:
-                    if strin[S] == None:
-                        #Most common deletion comes from this section
-                        tbd.append(S)
+                
+                if (strin[S] == None):
+                    #Most common deletion comes from this section
+                    tbd.append(S)
                         
             else:
                 #discard end values: str
@@ -103,11 +106,13 @@ def rs(strin):
         for i in tbd:
             if i in strin:
                 del strin[i]
-            
+
+    #!!! this not good, it keeps the format as dictionary when saving!!!    
     elif type(strin) in ac:
         #If object, turn dictionary, pass back in
         ds = strin.__dict__
         strin,delete = rs(ds)
+        print("this happens now")
 
     return(strin,delete)
 
@@ -117,21 +122,21 @@ def rs(strin):
 #test remove_specific
 from jsonic import serialize, deserialize
 #with open("D:\\CompoST\Test_clean.json","r") as X:
-with open("D:\\CAD_library_sampling\\TestCad_SmartDFM\\X\\x_test_137_layup.json","r") as X:
+with open("C:\code\CompoST_examples\WO4502_minimized_v067\WO4502_layup.json","r") as X:
     json_str= X.read()
 
     D = deserialize(json_str,string_input=True)
 
     print("from here on")
     j,delete = rs(D)
-    print("FINAL")
-    print(j)
+    #print("FINAL")
+    #print(j)
 
     json_str = serialize(j, string_output = True)
     json_str = clean_json(json_str)
 
     #save as file
-    with open('Test_clean.json', 'w') as out_file:
+    with open('C:\code\CompoST_examples\WO4502_minimized_v067\Test_clean.json', 'w') as out_file:
         out_file.write(json_str)
 
 

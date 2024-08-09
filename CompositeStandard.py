@@ -114,7 +114,6 @@ class CompositeElement(CompositeDBItem):
 class Piece(CompositeElement):
     #CompositeElement type object
     #In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
-    placementRosette: int = Field(None) # reference number to rosette in allAxisSystems
     splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
     material: Optional[str] = Field(None) #ref to material in allMaterials
 
@@ -122,7 +121,6 @@ class Piece(CompositeElement):
 class Ply(CompositeElement):
     #CompositeElement type object
     material: Optional[str] = Field(None) #ref to material in allMaterials
-    placementRosette: Optional[int] = Field(None)
     orientation: Optional[float] = Field(None)
     splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
 
@@ -131,7 +129,6 @@ class Sequence(CompositeElement):
     orientations: Optional[list[float]] = Field(None) #used for minimalistic definition where ply-objects are avoided
     materials: Optional[list['Material']] = Field(None) #listof materials - must be same lenght as orientations
     material: Optional[str] = Field(None) #ref to material in allMaterials
-    placementRosette: Optional[int] = Field(None)
     splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
 
 class CompositeComponent(CompositeElement):
