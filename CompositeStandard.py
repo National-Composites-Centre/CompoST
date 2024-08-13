@@ -35,8 +35,8 @@ class CompositeDBItem(BaseModel):
 class GeometricElement(CompositeDBItem):
     #child of Geometric elements
     source: Optional[object] = Field(default = None)
+    refFile: Optional[str] = Field(default = None)
     
-
 class Point(GeometricElement):
     #value: np.array = Field(np.asarray[0,0,0])
     #memberName: Optional[str] = Field(None) #can point out specific points for reference - group points for unexpected reasons...
@@ -66,7 +66,6 @@ class AxisSystem(GeometricElement):
     v3x: float = Field(default = 0)
     v3y: float = Field(default = 0)
     v3z: float = Field(default = 1)
-
 
 class FileMetadata(BaseModel):
     #the below might be housed in specialized class
@@ -98,7 +97,6 @@ class CompositeDB(BaseModel):
     allMaterials: Optional[list['Material']] = Field(default=None) #List of "Material" objects - all = exhaustive list
     fileMetadata: FileMetadata = Field(default = FileMetadata()) #list of all "axisSystems" objects = exhaustive list
 
-
 class CompositeElement(CompositeDBItem):
     database: Optional[object] = Field(None) #can there be multiple of these dbItems in one file? if so ==> list???
     subComponents: Optional[list['CompositeElement']] = Field(None) # list of subComponents -- all belong to the CompositeElement family
@@ -109,14 +107,11 @@ class CompositeElement(CompositeDBItem):
     referencedBy: Optional[list[int]] = Field(None) # list of int>
     status: Optional[str] = Field(None) #TODO
 
-
-
 class Piece(CompositeElement):
     #CompositeElement type object
     #In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
     splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
     material: Optional[str] = Field(None) #ref to material in allMaterials
-
 
 class Ply(CompositeElement):
     #CompositeElement type object
@@ -134,7 +129,6 @@ class Sequence(CompositeElement):
 class CompositeComponent(CompositeElement):
     #this object is mostly going to be used for bonding co-curing etc where multiple distinct composite components
     #can be defined
-
     integratedComponent: Optional[list[CompositeDB]] = Field(None) #allows for nesting another comonent within this file
 
 class SourceSystem(BaseModel):
@@ -182,7 +176,7 @@ class MeshElement(BaseModel):
     normal: list = Field(None) #x,y,z in the list
 
 class AreaMesh(GeometricElement):
-    elements: list['Element'] = Field(None) # requires element classes only
+    meshElements: list[MeshElement] = Field(None) # requires element classes only
     
 class Spline(GeometricElement):
     #can either be defined directly here as 3xX array, or can be defined as a list of points (not both)
@@ -206,6 +200,8 @@ class Wrinkle(Defect):
     maxRoC: Optional[float] = Field(None)
     size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystemID, or global axis if local not available
     size_y: Optional[float] = Field(None)
+    splineRelimitationRef: Optional[int] = Field(None) #points collected as spline relimiting the defect
+    meshRef: Optional[int] = Field(None) # area covered by defect expressed in mesh format (area or volume)
 
 
 def generate_json_schema(file_name:str):
