@@ -60,6 +60,7 @@ Object definitions
 .. py:function:: CompositeStandard.GeometricElement(CompositeDBItem)
 	
 	:param source: str - the software, script, or database that this object originated from
+	:param refFile: str - reference full name of dedicated file housing this geometry (assume same directory)
 	
 .. py:function:: CompositeStandard.CompositeElement(CompositeDBItem)
 
@@ -171,6 +172,7 @@ Object definitions
 	:param pointRefs: list - list of IDs (only use this variable if 'points' variable unused
 	:param points: `Point` - This variable prevents complex ID referencing for points that belong to this spline only
 	:param length: float - calculated lenght of spline
+	:param breaks: list - list of integers referencing points which break spline into multiple for visual representation (e.g. sharp corners), this refers to points if available, or pointRefs.
 	
 .. py:function:: CompositeStandard.Defect(CompositeDBItem)
 
@@ -188,6 +190,8 @@ Object definitions
 	:param maxRoC: float - machimum rate of changes
 	:param size_x: float
 	:param size_y: float
+	:param splineRelimitationRef: int - relimitation points collected as spline to define defect boundary
+	:param meshRef: int - mesh corresponding to defect area or volume
 
 .. py:function:: CompositeStandard.SolidComponent(CompositeElement)
 
@@ -195,6 +199,25 @@ Object definitions
 	
 	:param cadFile: str - file path to the part, or reference to PLM site
 	:param sourceSystem: `SourceSystem` -
+	
+	
+The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.
+
+.. py:function:: CompositeStandard.Tolerances(CompositeDBItem)
+	
+	:param appliedToIDs: list - list of IDs that this tolerance definition applies to (allows for grouping tolerance definitions)
+	
+	
+.. py:function:: CompositeStandard.WrinkleTolerance(Tolerances)
+
+	:param maxX: float
+	:param maxY: float
+	:param maxZ: float
+	:param axisSystemID: int
+	:param maxArea: float
+	:param maxSlope: float
+	:param maxSkew: float
+	
 	
 	
 	

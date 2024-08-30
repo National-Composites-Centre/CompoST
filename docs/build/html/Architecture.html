@@ -121,7 +121,10 @@ Points are stored withing those, as referencing is not efficient</p>
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">GeometricElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.GeometricElement" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>source</strong> – str - the software, script, or database that this object originated from</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> – str - the software, script, or database that this object originated from</p></li>
+<li><p><strong>refFile</strong> – str - reference full name of dedicated file housing this geometry (assume same directory)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -315,6 +318,7 @@ Points are stored withing those, as referencing is not efficient</p>
 <li><p><strong>pointRefs</strong> – list - list of IDs (only use this variable if ‘points’ variable unused</p></li>
 <li><p><strong>points</strong> – <cite>Point</cite> - This variable prevents complex ID referencing for points that belong to this spline only</p></li>
 <li><p><strong>length</strong> – float - calculated lenght of spline</p></li>
+<li><p><strong>breaks</strong> – list - list of integers referencing points which break spline into multiple for visual representation (e.g. sharp corners), this refers to points if available, or pointRefs.</p></li>
 </ul>
 </dd>
 </dl>
@@ -348,6 +352,8 @@ Points are stored withing those, as referencing is not efficient</p>
 <li><p><strong>maxRoC</strong> – float - machimum rate of changes</p></li>
 <li><p><strong>size_x</strong> – float</p></li>
 <li><p><strong>size_y</strong> – float</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - relimitation points collected as spline to define defect boundary</p></li>
+<li><p><strong>meshRef</strong> – int - mesh corresponding to defect area or volume</p></li>
 </ul>
 </dd>
 </dl>
@@ -362,6 +368,35 @@ Points are stored withing those, as referencing is not efficient</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cadFile</strong> – str - file path to the part, or reference to PLM site</p></li>
 <li><p><strong>sourceSystem</strong> – <cite>SourceSystem</cite> -</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Tolerances">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Tolerances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Tolerances" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>appliedToIDs</strong> – list - list of IDs that this tolerance definition applies to (allows for grouping tolerance definitions)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.WrinkleTolerance">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">WrinkleTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Tolerances</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.WrinkleTolerance" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>maxX</strong> – float</p></li>
+<li><p><strong>maxY</strong> – float</p></li>
+<li><p><strong>maxZ</strong> – float</p></li>
+<li><p><strong>axisSystemID</strong> – int</p></li>
+<li><p><strong>maxArea</strong> – float</p></li>
+<li><p><strong>maxSlope</strong> – float</p></li>
+<li><p><strong>maxSkew</strong> – float</p></li>
 </ul>
 </dd>
 </dl>
