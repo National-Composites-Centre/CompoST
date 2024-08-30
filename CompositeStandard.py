@@ -183,6 +183,7 @@ class Spline(GeometricElement):
     splineType: Optional[int] = Field(None)  #types of splines based on OCC line types?
     points: Optional[list['Point']] = Field(None) #list of point objects
     length: Optional[float] = Field(None)
+    breaks: Optional[list[int]] = Field(None) #This allows for identification of points which break continuity of spline (i.e. spline is ended and new started - used for sharp corners)
 
 class Defect(CompositeDBItem):
     
@@ -207,6 +208,39 @@ class Wrinkle(Defect):
 def generate_json_schema(file_name:str):
     with open(file_name, 'w') as f:
         f.write(json.dumps(CompositeDB.model_json_schema(), indent=4))
+
+
+#
+##
+###
+####
+#####
+#From here onwards the objects are not fully standardised - their architecture and definitions are likely to chane!
+#####
+####
+###
+##
+#
+
+def Tolerance(CompositeDBItem):
+    #inherited by all specific tolerance definition objects
+
+    appliedToIDs: Optional[list[int]] = Field(None)
+
+def WrinkleTolerance(Tolerance):
+
+    maxZ: Optional[float] = Field(None)
+    maxY: Optional[float] = Field(None)
+    maxX: Optional[float] = Field(None)
+    axisSystemID: Optional[int] = Field(None)
+    maxArea: Optional[float] = Field(None)
+    maxSlope: Optional[float] = Field(None)
+    maxSkew: Optional[float] = Field(None)
+
+
+
+
+
 
 
 #generate_json_schema('compostSchema.json')
