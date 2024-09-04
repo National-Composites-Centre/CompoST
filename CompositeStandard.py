@@ -11,7 +11,7 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.65 ####
+#### VERSION 0.67 ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #potentially replace by JSON parser for Pydantic
@@ -72,7 +72,7 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.64") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.67") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
@@ -90,11 +90,13 @@ class CompositeDB(BaseModel):
     #All elements and all geometry are all stored here and used elsewhere as refrence
     #Points are stored withing those, as referencing is not efficient
 
-    rootElements: Optional[list['CompositeElement']] = Field(default=None)   #List of "CompositeElement" type objects
+    allComposite: Optional[list['CompositeElement']] = Field(default=None)   #List of "CompositeElement" type objects
     allEvents: Optional[list] = Field(default=None) #List of "events" objects - all = exhaustive list
     allGeometry: Optional[list['GeometricElement']] = Field(default=None) # list of "GeometricElement" objects - all = exhaustive list
     allStages: Optional[list] = Field(default=None) #??? manuf process - all = exhaustive list
     allMaterials: Optional[list['Material']] = Field(default=None) #List of "Material" objects - all = exhaustive list
+    allDefects: Optional[list['Material']] = Field(default=None) # list of all defects
+    allTolerances: Optional[list['Tolerance']] = Field(default = None) # list of all Tolerances
     fileMetadata: FileMetadata = Field(default = FileMetadata()) #list of all "axisSystems" objects = exhaustive list
 
 class CompositeElement(CompositeDBItem):
@@ -235,7 +237,8 @@ def WrinkleTolerance(Tolerance):
     axisSystemID: Optional[int] = Field(None)
     maxArea: Optional[float] = Field(None)
     maxSlope: Optional[float] = Field(None)
-    maxSkew: Optional[float] = Field(None)
+    maxSkew: Optional[float] = Field(None) #TODO define
+
 
 
 
