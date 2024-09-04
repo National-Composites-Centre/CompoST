@@ -9,6 +9,7 @@
 project = 'Composite Standard (CompoST)'
 copyright = '2024, Jakub Kucera, Matthew Hardman'
 author = 'Jakub Kucera, Matthew Hardman'
+release = '0.67'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
