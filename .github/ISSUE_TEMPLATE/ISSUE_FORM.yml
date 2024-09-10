@@ -1,0 +1,56 @@
+name: "Issue: report an issue"
+description: File a new issue
+title: "[Issue]: "
+labels: ["issue"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Issue reporting
+
+  - type: textarea
+    id: project
+    attributes:
+      label: Describe the project you are working on
+      description: Include any relevant details about what you are using the format for in your project
+   
+    validations:
+      required: true
+      
+  - type: textarea
+    id: detail
+    attributes:
+      label: Describe the issue you have come across
+      description: Include the software name and version you are using, and what happened that lead to the issue
+    validations:
+      required: true
+     
+      
+  - type: textarea
+    id: specifics
+    attributes:
+      label: What features of the format does this affect?
+      description: Be as specific as possible, and list all features affected.
+     
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of the format are you using?
+      options:
+        - v0.64
+        - v0.66
+        - v0.67
+      default: 2
+    validations:
+      required: true
+ 
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell

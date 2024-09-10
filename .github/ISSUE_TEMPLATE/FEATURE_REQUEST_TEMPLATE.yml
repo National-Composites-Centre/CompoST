@@ -1,0 +1,61 @@
+name: "Feature: Request a new feature"
+description: Request a featuret to be added to the format
+title: "[Feature]: "
+labels: ["feature"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature proposal
+  - type: textarea
+    id: project
+    attributes:
+      label: Describe the project you are working on
+      description: Include details about what you are using the format for in your project
+    validations:
+      required: true
+  - type: textarea
+    id: limitation
+    attributes:
+      label: Describe what the format is lacking that you need in your project
+      description: Why can the format not be used in its current state?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: State what specific feature could be added for what you need to represent
+      description: What should the feature represent?
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: Suggest how the feature could be implemented to support this project as well as future projects that might need this feature
+      description: Include where this feature should be in the structure, the properties of the feature, and how it should be linked to any other relevant features
+   
+    validations:
+      required: false
+
+  - type: textarea
+    id: specifics
+    attributes:
+      label: Can this feature be represented already by combining  other features?
+      description: If so, how simple is it to derive?
+     
+    validations:
+      required: false
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of the format are you using?
+      options:
+        - v0.64
+        - v0.66
+        - v0.67
+      default: 2
+    validations:
+      required: true
+ 
