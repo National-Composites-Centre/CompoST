@@ -29,7 +29,9 @@ class CompositeDBItem(BaseModel):
     memberName: Optional[str] = Field(default = None)
     additionalParameters: Optional[dict] = Field(default = None) # dictionary of floats
     additionalProperties: Optional[dict] = Field(default = None) # dictionary of strings
-    stageIDs: Optional[list] = Field(default = None) #list of references to stages
+    stageID: Optional[int] = Field(default = None) #stage where this object was generated / re-generated
+    deactivate_stageID: Optional[int] = Field(default = None) #this object is not relevant after this stage - either it has been superceeded or it's purpose was fullfilled
+    active: Optional[bool] = Field(default = True) #This can be turned to False to indicate this object does not represent the latest iteration of the part
     ID: Optional[int] = Field(default = None)
 
 class GeometricElement(CompositeDBItem):
@@ -100,7 +102,7 @@ class CompositeDB(BaseModel):
     fileMetadata: FileMetadata = Field(default = FileMetadata()) #list of all "axisSystems" objects = exhaustive list
 
 class CompositeElement(CompositeDBItem):
-    database: Optional[object] = Field(None) #can there be multiple of these dbItems in one file? if so ==> list???
+
     subComponents: Optional[list['CompositeElement']] = Field(None) # list of subComponents -- all belong to the CompositeElement family
     mappedProperties: Optional[list['CompositeComponent|Sequence|Ply|Piece']] = Field(None) #list of objects - various allowed: Component, Sequence, Ply, Piece
     mappedRequirements: Optional[list] = Field(None) # list of objects - "Requirement"
@@ -191,7 +193,6 @@ class Defect(CompositeDBItem):
     
     map: Optional[CompositeDBItem] = Field(None) #any composite or geometric object
     location: Optional[list[float]] = Field(None) #x,y,z location
-    source: Optional[SourceSystem] = Field(None) #SourceSystem
     effMaterial: Optional[Material] = Field(None) #adjusted material class saved in materials
     status: Optional[object] = Field(None) #TODO
     axisSystemID: Optional[int] = Field(None) #reference to axis system stored in Geo. elements
@@ -224,12 +225,12 @@ def generate_json_schema(file_name:str):
 ##
 #
 
-def Tolerance(CompositeDBItem):
+def Tolerances(CompositeDBItem):
     #inherited by all specific tolerance definition objects
 
     appliedToIDs: Optional[list[int]] = Field(None)
 
-def WrinkleTolerance(Tolerance):
+def WrinkleTolerance(Tolerances):
 
     maxZ: Optional[float] = Field(None)
     maxY: Optional[float] = Field(None)
@@ -239,17 +240,21 @@ def WrinkleTolerance(Tolerance):
     maxSlope: Optional[float] = Field(None)
     maxSkew: Optional[float] = Field(None) #TODO define
 
+def Stage(BaseModel):
 
+    stageID: Optional[int] = Field(default=None) 
+    memberName: Optional[str] = Field(default=None)
+    source: Optional[SourceSystem] = Field(None) #SourceSystem
 
+def PlyScan(Stage):
 
+    #the name is a placeholder
 
+    machine: Optional[str] = Field(default=None) #designation name of the machine underataking scanning 
 
 
 
 #generate_json_schema('compostSchema.json')
-
-
-
 
 def test():
     #TODO make dedicated testing module
