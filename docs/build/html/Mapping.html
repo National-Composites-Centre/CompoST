@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Mapping &#8212; Composite Standard (CompoST) 0.67 documentation</title>
+    <title>Mapping and references &#8212; Composite Standard (CompoST) 0.68 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
     
@@ -19,7 +19,7 @@
     <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="IDs" href="IDs.html" />
+    <link rel="next" title="StorageFormat" href="StorageFormat.html" />
     <link rel="prev" title="Architecture" href="Architecture.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
@@ -33,13 +33,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="IDs.html" title="IDs"
+          <a href="StorageFormat.html" title="StorageFormat"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="Architecture.html" title="Architecture"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.67 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Mapping</a></li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.68 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Mapping and references</a></li> 
       </ul>
     </div>  
 
@@ -48,16 +48,36 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="mapping">
-<h1>Mapping<a class="headerlink" href="#mapping" title="Permalink to this heading">¶</a></h1>
-<p>(TODO)</p>
+  <section id="mapping-and-references">
+<h1>Mapping and references<a class="headerlink" href="#mapping-and-references" title="Permalink to this heading">¶</a></h1>
+<p>(Under development)</p>
 <p>This documentation will advice on how to translate between spline definitions and element definitions (for example).</p>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="IDs.html">IDs</a></li>
-</ul>
-</div>
+<section id="assembly-order">
+<h2>Assembly Order<a class="headerlink" href="#assembly-order" title="Permalink to this heading">¶</a></h2>
+<p>The objects are ordered from tool surface, as they appear in the <code class="docutils literal notranslate"><span class="pre">AllComposite</span></code> list within <a class="reference internal" href="Architecture.html#CompositeStandard.CompositeDB" title="CompositeStandard.CompositeDB"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.CompositeDB()</span></code></a>. This is the most practical way to structure composite object for most approaches. It might require additional operations when replacing a ply,
+as the location will have to be retreived first, but should be convenient in most cases. Dedicated explicit numbering of plies, core, etc is currrently not deemed necessary.</p>
+</section>
+<section id="reference-surface">
+<h2>Reference Surface<a class="headerlink" href="#reference-surface" title="Permalink to this heading">¶</a></h2>
+<p>On default surface should be provided within the CAD reference, usually provided as step file: see parameter <code class="docutils literal notranslate"><span class="pre">cadFile</span></code> in <a class="reference internal" href="Architecture.html#CompositeStandard.FileMetadata" title="CompositeStandard.FileMetadata"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.FileMetadata()</span></code></a>. Currently ,in ideal case
+only one main surface is loaded from the provided step file, corresponding to the tool surface.</p>
+<p>It is the intention of the developers to allow for specific references to hash numbers in the step file. This way user would be able to select specific surfaces in STEP file and
+allocate them to composite objects. However, this will require extensive exploration to understand how this might affect loading/unloading of the standard, and likely dedicated scripts
+to manage accuracy will need to be implemented when saving/re-saving files from CAD systems.</p>
+</section>
+<section id="spline-generation">
+<h2>Spline Generation<a class="headerlink" href="#spline-generation" title="Permalink to this heading">¶</a></h2>
+<p>Standard is designed to work with multiple different software that generate or export splines, some of which do not provide information on how splines are generated mathematically.
+Therefore the practical approach is to increase number of points stored in order to provide more precise spline for delimiation. This is currently considered sufficient for all
+forseen applications.</p>
+<p>Some delimations, however, will require spline breaks. Those can be specified by <code class="docutils literal notranslate"><span class="pre">breaks</span></code> parameter in <a class="reference internal" href="Architecture.html#CompositeStandard.Spline" title="CompositeStandard.Spline"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Spline()</span></code></a>. The most common purpose for these are part/ply corners.
+These should help wherever the used software struggles to provide reasonable continuity betwen points.</p>
+</section>
+<section id="ids">
+<h2>IDs<a class="headerlink" href="#ids" title="Permalink to this heading">¶</a></h2>
+<p>Every object belonging to <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code> family can have ‘ID’ parameter attributed to it. This allows for referencing geometries and composite elements without re-creating them. The most common usage of this is when ‘CompositeStandard.Piece’ uses parameter splineRelimitation to signifcy edge of the composite piece, this parameter is simply and integer - ‘ID’, and corresponding spline can be found in GeometricElement`</p>
+<p>IDs are not compulsory for any object, but it is highly recommended that most objects are given IDs, as that will facilitaty any re-use. Exceptions are objects that will definitely not see reuse, such as point only existing to create a complex spline.</p>
+</section>
 </section>
 
 
@@ -68,14 +88,27 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Mapping and references</a><ul>
+<li><a class="reference internal" href="#assembly-order">Assembly Order</a></li>
+<li><a class="reference internal" href="#reference-surface">Reference Surface</a></li>
+<li><a class="reference internal" href="#spline-generation">Spline Generation</a></li>
+<li><a class="reference internal" href="#ids">IDs</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="Architecture.html"
                           title="previous chapter">Architecture</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="IDs.html"
-                          title="next chapter">IDs</a></p>
+    <p class="topless"><a href="StorageFormat.html"
+                          title="next chapter">StorageFormat</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -105,13 +138,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="IDs.html" title="IDs"
+          <a href="StorageFormat.html" title="StorageFormat"
              >next</a> |</li>
         <li class="right" >
           <a href="Architecture.html" title="Architecture"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.67 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Mapping</a></li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.68 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Mapping and references</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

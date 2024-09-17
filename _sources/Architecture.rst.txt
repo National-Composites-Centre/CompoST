@@ -26,11 +26,13 @@ Object definitions
 	BaseModel input signifies the default generation with Pydantic library, without any local parent.
 	
 	:param name: str - name
-	:param rootElements: list - List of CompositeElement type objects
+	:param allComposite: list - List of CompositeElement type objects
 	:param allEvents: list  - List of "events" objects - all = exhaustive list
 	:param allGeometry: list - list of "GeometricElement" objects - all = exhaustive list
 	:param allStages: list - manuf process - all = exhaustive list
 	:param allMaterials: list - List of "Material" objects - all = exhaustive list
+	:param allDefects: list - List of "Defect" objects - should contain all, that are referenced elsewhere
+	:param allTolerance: list - List of "Tolerance" objects 
 	:param fileMetadata: object - list of all "axisSystems" objects = exhaustive list
 	
 .. py:function:: CompositeStandard.FileMetadata(BaseModel)
@@ -52,8 +54,10 @@ Object definitions
 	:param memberName: str - name
 	:param additionalParameters: dict - to hold use-case specific values (to be further defined)
 	:param additionalProperties: dict - to hold use-case specific objects (to be further defined)
-	:param stageIDs: (TODO) - stages will define what part of part-processing this object came from
-	:param batchIDs: (TODO) - reference to batch of components 
+	:param stageIDs: int - reference to Stage object
+	:param deactivate_stageID: int - this object is not relevant after this stage, either it has been superceeded or it's purpose was fullfilled
+	:param active: boolean - on default "True", can be turned "False" to indicate this is no longer representative of up-to-date part
+	:param batchID: (TODO) - reference to batch of components 
 	:param ID: int - used for references between objects
 
 
@@ -66,7 +70,6 @@ Object definitions
 
 	This includes any object that is used to describe composite component specifically.
 	
-	:param database: object - :py:meth:`~CompositeStandard.CompositeDB.get` 
 	:param subComponent: list - :py:meth:`~CompositeStandard.CompositeDBItem.get` , either as object or ID
 	:param mappedProperties: dict - other properties not covered by materials class or similar
 	:param mappedRequirements: list - list of objects of Requirement type, to be further specified
@@ -178,7 +181,6 @@ Object definitions
 
 	:param map: `CompositeStandard.CompositeDBItem` - any composite or geometric object
 	:param location: float - x,y,z location
-	:param source: `SourceSystem` 
 	:param effMaterial: `CompositeStandard.Material` - adjusted material class saved 
 	:param status: --- to be defined ---
 	:param axisSystemID: int - reference to `AxisSystem` object
@@ -218,6 +220,17 @@ The objects below are temporary definitions, that might still be subject to chan
 	:param maxSlope: float
 	:param maxSkew: float
 	
+.. py:function:: CompositeStandard.Stage(BaseModel)
+
+	:param stageID: int - unique stage identifier
+	:param memberName: str 
+	:param source: `SourceSystem` 
 	
+.. py:function:: CompositeStandard.PlyScan(Stage)
+
+	The name of the function is a placeholder rightn now.
+	
+	:param machine: str - designation name of the machine underataking scanning 
+	:param binderActivated: bool - indicates weather binder was activated during the layup 
 	
 	
