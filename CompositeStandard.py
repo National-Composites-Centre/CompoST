@@ -11,7 +11,7 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.67 ####
+#### VERSION 0.68b ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #potentially replace by JSON parser for Pydantic
@@ -74,7 +74,7 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.67") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.68b") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
@@ -196,6 +196,7 @@ class Defect(CompositeDBItem):
     effMaterial: Optional[Material] = Field(None) #adjusted material class saved in materials
     status: Optional[object] = Field(None) #TODO
     axisSystemID: Optional[int] = Field(None) #reference to axis system stored in Geo. elements
+    file: Optional[str] = Field(None) #reference to dedicated defect file
 
 class Wrinkle(Defect):
 
@@ -251,7 +252,7 @@ def PlyScan(Stage):
     #the name is a placeholder
 
     machine: Optional[str] = Field(default=None) #designation name of the machine underataking scanning 
-
+    binderActivated: Optional[str] = Field(default=None) # bool
 
 
 #generate_json_schema('compostSchema.json')
