@@ -98,7 +98,7 @@ class CompositeDB(BaseModel):
     allStages: Optional[list] = Field(default=None) #??? manuf process - all = exhaustive list
     allMaterials: Optional[list['Material']] = Field(default=None) #List of "Material" objects - all = exhaustive list
     allDefects: Optional[list['Material']] = Field(default=None) # list of all defects
-    allTolerances: Optional[list['Tolerance']] = Field(default = None) # list of all Tolerances
+    allTolerances: Optional[list['Tolerances']] = Field(default = None) # list of all Tolerances
     fileMetadata: FileMetadata = Field(default = FileMetadata()) #list of all "axisSystems" objects = exhaustive list
 
 class CompositeElement(CompositeDBItem):
@@ -209,9 +209,6 @@ class Wrinkle(Defect):
     meshRef: Optional[int] = Field(None) # area covered by defect expressed in mesh format (area or volume)
 
 
-def generate_json_schema(file_name:str):
-    with open(file_name, 'w') as f:
-        f.write(json.dumps(CompositeDB.model_json_schema(), indent=4))
 
 
 #
@@ -226,12 +223,12 @@ def generate_json_schema(file_name:str):
 ##
 #
 
-def Tolerances(CompositeDBItem):
+class Tolerances(CompositeDBItem):
     #inherited by all specific tolerance definition objects
 
     appliedToIDs: Optional[list[int]] = Field(None)
 
-def WrinkleTolerance(Tolerances):
+class WrinkleTolerance(Tolerances):
 
     maxZ: Optional[float] = Field(None)
     maxY: Optional[float] = Field(None)
@@ -241,13 +238,13 @@ def WrinkleTolerance(Tolerances):
     maxSlope: Optional[float] = Field(None)
     maxSkew: Optional[float] = Field(None) #TODO define
 
-def Stage(BaseModel):
+class Stage(BaseModel):
 
     stageID: Optional[int] = Field(default=None) 
     memberName: Optional[str] = Field(default=None)
     source: Optional[SourceSystem] = Field(None) #SourceSystem
 
-def PlyScan(Stage):
+class PlyScan(Stage):
 
     #the name is a placeholder
 
@@ -255,6 +252,10 @@ def PlyScan(Stage):
     binderActivated: Optional[str] = Field(default=None) # bool
 
 
+
+def generate_json_schema(file_name:str):
+    with open(file_name, 'w') as f:
+        f.write(json.dumps(CompositeDB.model_json_schema(), indent=4))
 #generate_json_schema('compostSchema.json')
 
 def test():
