@@ -184,6 +184,7 @@ Object definitions
 	:param effMaterial: `CompositeStandard.Material` - adjusted material class saved 
 	:param status: --- to be defined ---
 	:param axisSystemID: int - reference to `AxisSystem` object
+	:param file: str - reference to file which houses defect - not needed if relimitation defined directly in CompoST
 	
 .. py:function:: CompositeStandard.Wrinkle(Defect)
 
