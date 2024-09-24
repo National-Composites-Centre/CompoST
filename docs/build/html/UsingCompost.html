@@ -69,10 +69,17 @@ pip<span class="w"> </span>install<span class="w"> </span>pydantic
     <span class="n">json_str</span><span class="o">=</span> <span class="n">in_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="n">D</span> <span class="o">=</span> <span class="n">deserialize</span><span class="p">(</span><span class="n">json_str</span><span class="p">,</span><span class="n">string_input</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#Optional - makes sure that any objects that were linked before serialization, will be re-linked - and can then be edited simultaneously.</span>
+<span class="c1">#This requires further testing - might have minor bugs.</span>
+<span class="kn">from</span> <span class="nn">Utilities</span> <span class="kn">import</span> <span class="n">reLink</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">reLink</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Now “D” can be interogated according to <cite>CompositeStandard</cite> classes.</p>
 <p>Loading the file to any other language/software that accepts JSON schema should be also possible, but this has seen minimal testing (TODO).</p>
+<p>The optional <code class="xref py py-func docutils literal notranslate"><span class="pre">Utilities.reLink()</span></code> function exists as JSON natively does not store information on which objects were copies of each other (i.e. stored in memory as one).
+This function re-creates these links based on <cite>ID</cite> parameters, as the copy-based objects will share <cite>ID</cite>. Of course, if <cite>ID</cite> definition was omitted, this function will not work.</p>
 </section>
 <section id="saving-files">
 <h2>Saving Files<a class="headerlink" href="#saving-files" title="Permalink to this heading">¶</a></h2>
@@ -90,7 +97,7 @@ pip<span class="w"> </span>install<span class="w"> </span>pydantic
 <span class="n">json_str</span> <span class="o">=</span> <span class="n">serialize</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">string_output</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="c1">#Optional - makes JSON human readable</span>
-<span class="c1">#json_str = cleandict(json_str)</span>
+<span class="n">json_str</span> <span class="o">=</span> <span class="n">cleandict</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 
 <span class="c1">#save as file</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;YOUR_SAVED_JSON_FILE&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_file</span><span class="p">:</span>

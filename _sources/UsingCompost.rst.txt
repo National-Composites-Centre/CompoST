@@ -31,10 +31,18 @@ Loading CompoST JSON files is very simple in Python, the following code shows an
         json_str= in_file.read()
     
     D = deserialize(json_str,string_input=True)
+    
+    #Optional - makes sure that any objects that were linked before serialization, will be re-linked - and can then be edited simultaneously.
+    #This requires further testing - might have minor bugs.
+    from Utilities import reLink
+    D = reLink(D)
 	
 Now "D" can be interogated according to `CompositeStandard` classes.
 
 Loading the file to any other language/software that accepts JSON schema should be also possible, but this has seen minimal testing (TODO).
+
+The optional :func:`Utilities.reLink` function exists as JSON natively does not store information on which objects were copies of each other (i.e. stored in memory as one).
+This function re-creates these links based on `ID` parameters, as the copy-based objects will share `ID`. Of course, if `ID` definition was omitted, this function will not work.
 
 Saving Files
 ------------
@@ -58,7 +66,7 @@ After all required information has been saved somewhere in the tree belonging to
     json_str = serialize(d, string_output = True)
 
     #Optional - makes JSON human readable
-    #json_str = cleandict(json_str)
+    json_str = cleandict(json_str)
 
     #save as file
     with open('YOUR_SAVED_JSON_FILE', 'w') as out_file:

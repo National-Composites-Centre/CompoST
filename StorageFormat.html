@@ -50,10 +50,20 @@
 <section id="json">
 <h2>JSON<a class="headerlink" href="#json" title="Permalink to this heading">¶</a></h2>
 <p>Jsonic library used for serialization of Pydantic based Classes. Dedicated script written which simplifies the natively exported JSON file to improve human readability, without affecting the values stored (clean_json within ‘Utilities.py’)</p>
+<p>The main benefit of JSON is human readability. For new users of CompoST this allows for easier review of information stored.</p>
+<p>JSON format has some limitations. The most significant limitation is the lack of ability to store referencing links, between object and it’s copy. While the object referencing can be leveraged in CompoST before serialization, JSON
+does not have a native method for storing these links. The most relevant example is <a class="reference internal" href="Architecture.html#CompositeStandard.Defect" title="CompositeStandard.Defect"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Defect()</span></code></a> object stored under specific <a class="reference internal" href="Architecture.html#CompositeStandard.CompositeDBItem" title="CompositeStandard.CompositeDBItem"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.CompositeDBItem()</span></code></a> as “defects” parameter. The standard use
+of CompoST would suggest copy of this object would also be present in parameter <cite>allDefects</cite>. When one of these 2 objects is edited, initially both objects are edited. Once serialized into JSON and re-imported this link is removed.
+From serialization onwards both object have to be edited separately, which is inconvenient and may cause confusion down the line. To minimize the potential confusion it is recommended that either objects are stored only in one place,
+or the <cite>ID</cite> parameter is diligently used, so that the link can be infered later, and either created on deserialization or at least visible to the user.</p>
+<p>For re-creating these links after deserialization <code class="xref py py-func docutils literal notranslate"><span class="pre">Utilities.reLink()</span></code> function was created. This identifies duplicate <a href="#id1"><span class="problematic" id="id2">`</span></a>ID`s in all relevant lists, and re-generates the links for consistent, and more practical editing of Python
+objects.</p>
 </section>
 <section id="hdf5">
 <h2>HDF5<a class="headerlink" href="#hdf5" title="Permalink to this heading">¶</a></h2>
-<p>(TODO)</p>
+<p>HDF5 serialization and re-import are theoretically possible, but most up-to-date development has been done using JSON.</p>
+<p>One of the main benefits of HDF5 is that it can better follow full Python object functionality, for example links between object copies can be maintained through export/import, serializtion/deserialization.</p>
+<p>Main downside is that HDF5 is not human readable. This is not only problem for new users and their ease of use, but also in terms of troubleshooting of any potential serialization issues.</p>
 </section>
 </section>
 
