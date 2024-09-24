@@ -19,6 +19,9 @@ __pycache__/
 # C extensions
 *.so
 
+# hdf5 files -- just tests for now
+*.h5
+
 # Distribution / packaging
 .Python
 build/
