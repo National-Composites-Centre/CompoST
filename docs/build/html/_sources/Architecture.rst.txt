@@ -74,6 +74,7 @@ Object definitions
 	:param mappedProperties: dict - other properties not covered by materials class or similar
 	:param mappedRequirements: list - list of objects of Requirement type, to be further specified
 	:param defects: list - list of "defects" type objects
+	:param tolerances: list - list of "tolerance type objects
 	:param axisSystemID: int - refernce to object in allAxisSystems specified by ID
 	:param referencedBy: list - optional list of objects that currently reference this object
 	:param status: str - #TODO
@@ -88,6 +89,7 @@ Object definitions
 
 	:param points: list - list of two points , no more - no less
 	:param IDs: list - list of two IDs corresponding to points, no more - no less
+	:param length: float - can be calculated from above, but can be stored to prevent calculation duplication
 	
 	
 .. py:function:: CompositeStandard.AxisSystem(GeometricElement)
@@ -179,6 +181,9 @@ Object definitions
 	
 .. py:function:: CompositeStandard.Defect(CompositeDBItem)
 
+	Note: storing a defect belonging to this class only stores the data regarding the feature. Weather or not this classifies as a defect in enginering process, depends on comparing the data
+	stored here with the appropriate :func:`CompositeStandard.Tolerance`
+
 	:param map: `CompositeStandard.CompositeDBItem` - any composite or geometric object
 	:param location: float - x,y,z location
 	:param effMaterial: `CompositeStandard.Material` - adjusted material class saved 
@@ -194,6 +199,7 @@ Object definitions
 	:param size_x: float
 	:param size_y: float
 	:param splineRelimitationRef: int - relimitation points collected as spline to define defect boundary
+	:param splineRelimitation: `Spline` - directly including the delimitation spline object
 	:param meshRef: int - mesh corresponding to defect area or volume
 
 .. py:function:: CompositeStandard.SolidComponent(CompositeElement)
@@ -203,15 +209,15 @@ Object definitions
 	:param cadFile: str - file path to the part, or reference to PLM site
 	:param sourceSystem: `SourceSystem` -
 	
-	
-The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.
 
-.. py:function:: CompositeStandard.Tolerances(CompositeDBItem)
+.. py:function:: CompositeStandard.Tolerance(CompositeDBItem)
 	
 	:param appliedToIDs: list - list of IDs that this tolerance definition applies to (allows for grouping tolerance definitions)
+	:param splineRelimitation: `Spline` - object defining the area in question
+	:param splineRelimitationRef: int - same as above but refenced as ``ID`` only.	
 	
 	
-.. py:function:: CompositeStandard.WrinkleTolerance(Tolerances)
+.. py:function:: CompositeStandard.WrinkleTolerance(Tolerance)
 
 	:param maxX: float
 	:param maxY: float
@@ -220,6 +226,17 @@ The objects below are temporary definitions, that might still be subject to chan
 	:param maxArea: float
 	:param maxSlope: float
 	:param maxSkew: float
+	
+.. py:function:: CompositeStandard.FibreOrientations(Defect)
+	
+	:param lines: list - list of `Line` objects, as scanned and translated into points and vectors
+	:param orientations: list - list of floats that should be the same size as ``lines``. This could also be calculated from ``lines`` and ``axisSystemID``.
+	:param averageOrientation: float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.
+	:param splineRelimitation: `Spline` - object defining the area in question
+	:param splineRelimitationRef: int - same as above but refenced as ``ID`` only.
+	
+The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.
+
 	
 .. py:function:: CompositeStandard.Stage(BaseModel)
 
@@ -234,4 +251,9 @@ The objects below are temporary definitions, that might still be subject to chan
 	:param machine: str - designation name of the machine underataking scanning 
 	:param binderActivated: bool - indicates weather binder was activated during the layup 
 	
+.. py:function:: CompositeStandard.Zone(CompositeDBItem)
+
+	There are many potentially uses of Zones, but for now author refrains from fully defining this, until Zones figure in multiple use-cases. 
 	
+	:param splineRelimitation: `Spline` - object defining the area in question
+	:param splineRelimitationRef: int - same as above but refenced as ``ID`` only.	

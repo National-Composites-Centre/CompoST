@@ -144,6 +144,7 @@ Points are stored withing those, as referencing is not efficient</p>
 <li><p><strong>mappedProperties</strong> – dict - other properties not covered by materials class or similar</p></li>
 <li><p><strong>mappedRequirements</strong> – list - list of objects of Requirement type, to be further specified</p></li>
 <li><p><strong>defects</strong> – list - list of “defects” type objects</p></li>
+<li><p><strong>tolerances</strong> – list - list of “tolerance type objects</p></li>
 <li><p><strong>axisSystemID</strong> – int - refernce to object in allAxisSystems specified by ID</p></li>
 <li><p><strong>referencedBy</strong> – list - optional list of objects that currently reference this object</p></li>
 <li><p><strong>status</strong> – str - #TODO</p></li>
@@ -174,6 +175,7 @@ Points are stored withing those, as referencing is not efficient</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>points</strong> – list - list of two points , no more - no less</p></li>
 <li><p><strong>IDs</strong> – list - list of two IDs corresponding to points, no more - no less</p></li>
+<li><p><strong>length</strong> – float - can be calculated from above, but can be stored to prevent calculation duplication</p></li>
 </ul>
 </dd>
 </dl>
@@ -330,7 +332,9 @@ Points are stored withing those, as referencing is not efficient</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.Defect">
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Defect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Defect" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Note: storing a defect belonging to this class only stores the data regarding the feature. Weather or not this classifies as a defect in enginering process, depends on comparing the data
+stored here with the appropriate <a class="reference internal" href="#CompositeStandard.Tolerance" title="CompositeStandard.Tolerance"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Tolerance()</span></code></a></p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>map</strong> – <cite>CompositeStandard.CompositeDBItem</cite> - any composite or geometric object</p></li>
@@ -356,6 +360,7 @@ Points are stored withing those, as referencing is not efficient</p>
 <li><p><strong>size_x</strong> – float</p></li>
 <li><p><strong>size_y</strong> – float</p></li>
 <li><p><strong>splineRelimitationRef</strong> – int - relimitation points collected as spline to define defect boundary</p></li>
+<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - directly including the delimitation spline object</p></li>
 <li><p><strong>meshRef</strong> – int - mesh corresponding to defect area or volume</p></li>
 </ul>
 </dd>
@@ -376,20 +381,23 @@ Points are stored withing those, as referencing is not efficient</p>
 </dl>
 </dd></dl>
 
-<p>The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="CompositeStandard.Tolerances">
-<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Tolerances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Tolerances" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="CompositeStandard.Tolerance">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Tolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Tolerance" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>appliedToIDs</strong> – list - list of IDs that this tolerance definition applies to (allows for grouping tolerance definitions)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>appliedToIDs</strong> – list - list of IDs that this tolerance definition applies to (allows for grouping tolerance definitions)</p></li>
+<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - object defining the area in question</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.WrinkleTolerance">
-<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">WrinkleTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Tolerances</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.WrinkleTolerance" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">WrinkleTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Tolerance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.WrinkleTolerance" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -405,6 +413,23 @@ Points are stored withing those, as referencing is not efficient</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.FibreOrientations">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">FibreOrientations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Defect</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.FibreOrientations" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lines</strong> – list - list of <cite>Line</cite> objects, as scanned and translated into points and vectors</p></li>
+<li><p><strong>orientations</strong> – list - list of floats that should be the same size as <code class="docutils literal notranslate"><span class="pre">lines</span></code>. This could also be calculated from <code class="docutils literal notranslate"><span class="pre">lines</span></code> and <code class="docutils literal notranslate"><span class="pre">axisSystemID</span></code>.</p></li>
+<li><p><strong>averageOrientation</strong> – float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.</p></li>
+<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - object defining the area in question</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.Stage">
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Stage" title="Permalink to this definition">¶</a></dt>
@@ -428,6 +453,20 @@ Points are stored withing those, as referencing is not efficient</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>machine</strong> – str - designation name of the machine underataking scanning</p></li>
 <li><p><strong>binderActivated</strong> – bool - indicates weather binder was activated during the layup</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Zone">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Zone" title="Permalink to this definition">¶</a></dt>
+<dd><p>There are many potentially uses of Zones, but for now author refrains from fully defining this, until Zones figure in multiple use-cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - object defining the area in question</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only.</p></li>
 </ul>
 </dd>
 </dl>

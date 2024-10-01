@@ -17,6 +17,7 @@ Welcome to Composite part data Standard (CompoSt)'s documentation!
    Logic
    Mapping
    StorageFormat
+   Undecided
 
 
 Indices and tables

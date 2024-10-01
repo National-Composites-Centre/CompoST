@@ -5,11 +5,6 @@ Mapping and references
 
 This documentation will advice on how to translate between spline definitions and element definitions (for example).
 
-Assembly Order
---------------
-The objects are ordered from tool surface, as they appear in the ``AllComposite`` list within :func:`CompositeStandard.CompositeDB`. This is the most practical way to structure composite object for most approaches. It might require additional operations when replacing a ply,
-as the location will have to be retreived first, but should be convenient in most cases. Dedicated explicit numbering of plies, core, etc is currrently not deemed necessary.
-
 
 Reference Surface
 -----------------
@@ -21,16 +16,6 @@ It is the intention of the developers to allow for specific references to hash n
 allocate them to composite objects. However, this will require extensive exploration to understand how this might affect loading/unloading of the standard, and likely dedicated scripts
 to manage accuracy will need to be implemented when saving/re-saving files from CAD systems.
 
-
-Spline Generation
------------------
-
-Standard is designed to work with multiple different software that generate or export splines, some of which do not provide information on how splines are generated mathematically. 
-Therefore the practical approach is to increase number of points stored in order to provide more precise spline for delimiation. This is currently considered sufficient for all 
-forseen applications. 
-
-Some delimations, however, will require spline breaks. Those can be specified by ``breaks`` parameter in :func:`CompositeStandard.Spline`. The most common purpose for these are part/ply corners.
-These should help wherever the used software struggles to provide reasonable continuity betwen points.
 
 
    
