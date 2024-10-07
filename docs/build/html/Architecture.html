@@ -421,15 +421,26 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lines</strong> – list - list of <cite>Line</cite> objects, as scanned and translated into points and vectors</p></li>
 <li><p><strong>orientations</strong> – list - list of floats that should be the same size as <code class="docutils literal notranslate"><span class="pre">lines</span></code>. This could also be calculated from <code class="docutils literal notranslate"><span class="pre">lines</span></code> and <code class="docutils literal notranslate"><span class="pre">axisSystemID</span></code>.</p></li>
+<li><p><strong>avDiffToNominal</strong> – float - average of local differences between orientation and defined ply orientation. This is more indicative than ‘averageOrientation’ as that one can offer falsely optimistic results.</p></li>
 <li><p><strong>averageOrientation</strong> – float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.</p></li>
-<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - object defining the area in question</p></li>
-<li><p><strong>splineRelimitationRef</strong> – int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only.</p></li>
+<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <p>The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.FibreOrientationTolerance">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">FibreOrientationTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Tolerance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.FibreOrientationTolerance" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>avDiffToNominal:</strong> – float - average difference to intended ply orientation based off all sampling points within relimitation</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.Stage">
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Stage" title="Permalink to this definition">¶</a></dt>

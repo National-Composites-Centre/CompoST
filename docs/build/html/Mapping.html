@@ -60,6 +60,12 @@ only one main surface is loaded from the provided step file, corresponding to th
 allocate them to composite objects. However, this will require extensive exploration to understand how this might affect loading/unloading of the standard, and likely dedicated scripts
 to manage accuracy will need to be implemented when saving/re-saving files from CAD systems.</p>
 </section>
+<section id="material-knockdown-properties">
+<h2>Material Knockdown Properties<a class="headerlink" href="#material-knockdown-properties" title="Permalink to this heading">¶</a></h2>
+<p>The material knockdown properties are stored as a standard material. For example, if wrinkle is identified, the effective material is calculated based on severity of the wrinkle and original local material properties.</p>
+<p>This material is then appended as <code class="docutils literal notranslate"><span class="pre">effMaterial</span></code> in <a class="reference internal" href="Architecture.html#CompositeStandard.Defect" title="CompositeStandard.Defect"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Defect()</span></code></a>. In practice, this can then be used to implement into FE model with new properties for this specific area, overwriting the material properties
+noted at ply level (for example).</p>
+</section>
 <section id="ids">
 <h2>IDs<a class="headerlink" href="#ids" title="Permalink to this heading">¶</a></h2>
 <p>Every object belonging to <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code> family can have ‘ID’ parameter attributed to it. This allows for referencing geometries and composite elements without re-creating them. The most common usage of this is when ‘CompositeStandard.Piece’ uses parameter splineRelimitation to signifcy edge of the composite piece, this parameter is simply and integer - ‘ID’, and corresponding spline can be found in GeometricElement`</p>
@@ -79,6 +85,7 @@ to manage accuracy will need to be implemented when saving/re-saving files from 
     <ul>
 <li><a class="reference internal" href="#">Mapping and references</a><ul>
 <li><a class="reference internal" href="#reference-surface">Reference Surface</a></li>
+<li><a class="reference internal" href="#material-knockdown-properties">Material Knockdown Properties</a></li>
 <li><a class="reference internal" href="#ids">IDs</a></li>
 </ul>
 </li>

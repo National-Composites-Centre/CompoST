@@ -69,6 +69,12 @@ forseen applications.</p>
 <p>Some delimations, however, will require spline breaks. Those can be specified by <code class="docutils literal notranslate"><span class="pre">breaks</span></code> parameter in <a class="reference internal" href="Architecture.html#CompositeStandard.Spline" title="CompositeStandard.Spline"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Spline()</span></code></a>. The most common purpose for these are part/ply corners.
 These should help wherever the used software struggles to provide reasonable continuity betwen points.</p>
 </section>
+<section id="active-object">
+<h2>Active object<a class="headerlink" href="#active-object" title="Permalink to this heading">¶</a></h2>
+<p>Most objects contain <code class="docutils literal notranslate"><span class="pre">active</span></code>  property. This is used for cases when data needs to be kept, but is superceeded. For example, if wrinkle has been identified in a scan, the detail of the wrinkle is stored. However, user might then
+implement a process for removing that wrinkle, either eradicating it or replacing it by wrinkle with new data. In this case the property <code class="docutils literal notranslate"><span class="pre">active</span></code> will be switched from ‘True’ to ‘False’. When this property is not used, user should
+assume the object is active. This needs to be kept in mind in processes where some objects might be de-activated, as any furhter processing/analysis will need to exclude based on this property/tag.</p>
+</section>
 </section>
 
 
@@ -85,6 +91,7 @@ These should help wherever the used software struggles to provide reasonable con
 <li><a class="reference internal" href="#assembly-order">Assembly Order</a></li>
 <li><a class="reference internal" href="#variable-duplication">Variable duplication</a></li>
 <li><a class="reference internal" href="#spline-generation">Spline Generation</a></li>
+<li><a class="reference internal" href="#active-object">Active object</a></li>
 </ul>
 </li>
 </ul>

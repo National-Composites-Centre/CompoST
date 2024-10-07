@@ -26,3 +26,12 @@ forseen applications.
 
 Some delimations, however, will require spline breaks. Those can be specified by ``breaks`` parameter in :func:`CompositeStandard.Spline`. The most common purpose for these are part/ply corners.
 These should help wherever the used software struggles to provide reasonable continuity betwen points.
+
+
+Active object
+-------------
+
+Most objects contain ``active``  property. This is used for cases when data needs to be kept, but is superceeded. For example, if wrinkle has been identified in a scan, the detail of the wrinkle is stored. However, user might then
+implement a process for removing that wrinkle, either eradicating it or replacing it by wrinkle with new data. In this case the property ``active`` will be switched from 'True' to 'False'. When this property is not used, user should
+assume the object is active. This needs to be kept in mind in processes where some objects might be de-activated, as any furhter processing/analysis will need to exclude based on this property/tag.
+

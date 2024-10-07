@@ -17,6 +17,13 @@ allocate them to composite objects. However, this will require extensive explora
 to manage accuracy will need to be implemented when saving/re-saving files from CAD systems.
 
 
+Material Knockdown Properties
+-----------------------------
+
+The material knockdown properties are stored as a standard material. For example, if wrinkle is identified, the effective material is calculated based on severity of the wrinkle and original local material properties.
+
+This material is then appended as ``effMaterial`` in :func:`CompositeStandard.Defect`. In practice, this can then be used to implement into FE model with new properties for this specific area, overwriting the material properties
+noted at ply level (for example).
 
    
 IDs

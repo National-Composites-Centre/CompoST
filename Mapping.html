@@ -52,11 +52,6 @@
 <h1>Mapping and references<a class="headerlink" href="#mapping-and-references" title="Permalink to this heading">¶</a></h1>
 <p>(Under development)</p>
 <p>This documentation will advice on how to translate between spline definitions and element definitions (for example).</p>
-<section id="assembly-order">
-<h2>Assembly Order<a class="headerlink" href="#assembly-order" title="Permalink to this heading">¶</a></h2>
-<p>The objects are ordered from tool surface, as they appear in the <code class="docutils literal notranslate"><span class="pre">AllComposite</span></code> list within <a class="reference internal" href="Architecture.html#CompositeStandard.CompositeDB" title="CompositeStandard.CompositeDB"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.CompositeDB()</span></code></a>. This is the most practical way to structure composite object for most approaches. It might require additional operations when replacing a ply,
-as the location will have to be retreived first, but should be convenient in most cases. Dedicated explicit numbering of plies, core, etc is currrently not deemed necessary.</p>
-</section>
 <section id="reference-surface">
 <h2>Reference Surface<a class="headerlink" href="#reference-surface" title="Permalink to this heading">¶</a></h2>
 <p>On default surface should be provided within the CAD reference, usually provided as step file: see parameter <code class="docutils literal notranslate"><span class="pre">cadFile</span></code> in <a class="reference internal" href="Architecture.html#CompositeStandard.FileMetadata" title="CompositeStandard.FileMetadata"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.FileMetadata()</span></code></a>. Currently ,in ideal case
@@ -65,13 +60,11 @@ only one main surface is loaded from the provided step file, corresponding to th
 allocate them to composite objects. However, this will require extensive exploration to understand how this might affect loading/unloading of the standard, and likely dedicated scripts
 to manage accuracy will need to be implemented when saving/re-saving files from CAD systems.</p>
 </section>
-<section id="spline-generation">
-<h2>Spline Generation<a class="headerlink" href="#spline-generation" title="Permalink to this heading">¶</a></h2>
-<p>Standard is designed to work with multiple different software that generate or export splines, some of which do not provide information on how splines are generated mathematically.
-Therefore the practical approach is to increase number of points stored in order to provide more precise spline for delimiation. This is currently considered sufficient for all
-forseen applications.</p>
-<p>Some delimations, however, will require spline breaks. Those can be specified by <code class="docutils literal notranslate"><span class="pre">breaks</span></code> parameter in <a class="reference internal" href="Architecture.html#CompositeStandard.Spline" title="CompositeStandard.Spline"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Spline()</span></code></a>. The most common purpose for these are part/ply corners.
-These should help wherever the used software struggles to provide reasonable continuity betwen points.</p>
+<section id="material-knockdown-properties">
+<h2>Material Knockdown Properties<a class="headerlink" href="#material-knockdown-properties" title="Permalink to this heading">¶</a></h2>
+<p>The material knockdown properties are stored as a standard material. For example, if wrinkle is identified, the effective material is calculated based on severity of the wrinkle and original local material properties.</p>
+<p>This material is then appended as <code class="docutils literal notranslate"><span class="pre">effMaterial</span></code> in <a class="reference internal" href="Architecture.html#CompositeStandard.Defect" title="CompositeStandard.Defect"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Defect()</span></code></a>. In practice, this can then be used to implement into FE model with new properties for this specific area, overwriting the material properties
+noted at ply level (for example).</p>
 </section>
 <section id="ids">
 <h2>IDs<a class="headerlink" href="#ids" title="Permalink to this heading">¶</a></h2>
@@ -91,9 +84,8 @@ These should help wherever the used software struggles to provide reasonable con
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Mapping and references</a><ul>
-<li><a class="reference internal" href="#assembly-order">Assembly Order</a></li>
 <li><a class="reference internal" href="#reference-surface">Reference Surface</a></li>
-<li><a class="reference internal" href="#spline-generation">Spline Generation</a></li>
+<li><a class="reference internal" href="#material-knockdown-properties">Material Knockdown Properties</a></li>
 <li><a class="reference internal" href="#ids">IDs</a></li>
 </ul>
 </li>

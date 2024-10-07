@@ -231,12 +231,16 @@ Object definitions
 	
 	:param lines: list - list of `Line` objects, as scanned and translated into points and vectors
 	:param orientations: list - list of floats that should be the same size as ``lines``. This could also be calculated from ``lines`` and ``axisSystemID``.
+	:param avDiffToNominal: float - average of local differences between orientation and defined ply orientation. This is more indicative than 'averageOrientation' as that one can offer falsely optimistic results.
 	:param averageOrientation: float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.
-	:param splineRelimitation: `Spline` - object defining the area in question
-	:param splineRelimitationRef: int - same as above but refenced as ``ID`` only.
+	:param splineRelimitation: `Spline` - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
+	:param splineRelimitationRef: int - same as above but refenced as ``ID`` only. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
 	
 The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.
 
+.. py:function:: CompositeStandard.FibreOrientationTolerance(Tolerance)
+
+	:param avDiffToNominal:: float - average difference to intended ply orientation based off all sampling points within relimitation
 	
 .. py:function:: CompositeStandard.Stage(BaseModel)
 
