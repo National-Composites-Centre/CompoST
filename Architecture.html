@@ -362,6 +362,7 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <li><p><strong>splineRelimitationRef</strong> – int - relimitation points collected as spline to define defect boundary</p></li>
 <li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - directly including the delimitation spline object</p></li>
 <li><p><strong>meshRef</strong> – int - mesh corresponding to defect area or volume</p></li>
+<li><p><strong>amplitude</strong> – float - the size of the defect in out-of plane direction</p></li>
 </ul>
 </dd>
 </dl>
@@ -408,6 +409,7 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <li><p><strong>maxArea</strong> – float</p></li>
 <li><p><strong>maxSlope</strong> – float</p></li>
 <li><p><strong>maxSkew</strong> – float</p></li>
+<li><p><strong>maxAmplitude</strong> – float</p></li>
 </ul>
 </dd>
 </dl>
@@ -436,7 +438,7 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">FibreOrientationTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Tolerance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.FibreOrientationTolerance" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>avDiffToNominal:</strong> – float - average difference to intended ply orientation based off all sampling points within relimitation</p>
+<dd class="field-odd"><p><strong>max_avDiffToNominal:</strong> – float - average difference to intended ply orientation based off all sampling points within relimitation</p>
 </dd>
 </dl>
 </dd></dl>

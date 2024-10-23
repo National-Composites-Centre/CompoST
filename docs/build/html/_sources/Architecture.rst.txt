@@ -201,6 +201,7 @@ Object definitions
 	:param splineRelimitationRef: int - relimitation points collected as spline to define defect boundary
 	:param splineRelimitation: `Spline` - directly including the delimitation spline object
 	:param meshRef: int - mesh corresponding to defect area or volume
+	:param amplitude: float - the size of the defect in out-of plane direction
 
 .. py:function:: CompositeStandard.SolidComponent(CompositeElement)
 
@@ -226,6 +227,7 @@ Object definitions
 	:param maxArea: float
 	:param maxSlope: float
 	:param maxSkew: float
+	:param maxAmplitude: float
 	
 .. py:function:: CompositeStandard.FibreOrientations(Defect)
 	
@@ -240,7 +242,7 @@ The objects below are temporary definitions, that might still be subject to chan
 
 .. py:function:: CompositeStandard.FibreOrientationTolerance(Tolerance)
 
-	:param avDiffToNominal:: float - average difference to intended ply orientation based off all sampling points within relimitation
+	:param max_avDiffToNominal:: float - average difference to intended ply orientation based off all sampling points within relimitation
 	
 .. py:function:: CompositeStandard.Stage(BaseModel)
 
