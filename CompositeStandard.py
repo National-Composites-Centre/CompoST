@@ -10,7 +10,6 @@ from pydantic.config import ConfigDict
 
 import json
 from jsonic import serialize, deserialize
-import h5py
 
 #### VERSION 0.68c ####
 #https://github.com/National-Composites-Centre/CompoST
@@ -210,12 +209,14 @@ class Wrinkle(Defect):
     splineRelimitationRef: Optional[int] = Field(None) #points collected as spline relimiting the defect
     splineRelimitation: Optional['Spline'] = Field(None)
     meshRef: Optional[int] = Field(None) # area covered by defect expressed in mesh format (area or volume)
+    amplitude: Optional[float] = Field(None) #out of plane maxiumum size of the defect
 
 class FibreOrientations(Defect):
 
     lines: Optional[list['Line']] = Field(None) #list of lines collected to denote orientations map
     orientations: Optional[list[float]] = Field(None) #list of floats corresponding to the "lines" list 
     averageOrientation: Optional[float] = Field(None) #average of "orientations", does not account for varying lenght of lines
+    avDiffToNominal: Optional[list[float]] = Field(None) #average difference 
     splineRelimitation: Optional['Spline'] = Field(None) #area for this definition
     splineRelimitationRef: Optional[int] = Field(None) # same as above, but referenced using 'ID'
 
@@ -236,6 +237,7 @@ class WrinkleTolerance(Tolerance):
     maxArea: Optional[float] = Field(None)
     maxSlope: Optional[float] = Field(None)
     maxSkew: Optional[float] = Field(None) #TODO define
+    maxAmplitude: Optional[float] = Field(None)
 
 
 #
@@ -262,6 +264,10 @@ class PlyScan(Stage):
 
     machine: Optional[str] = Field(default=None) #designation name of the machine underataking scanning 
     binderActivated: Optional[str] = Field(default=None) # bool
+
+class FibreOrientationTolerance(Tolerance):
+    
+    max_avDiffToNominal: Optional[float] = Field(default=None) #average difference to intended ply orientation based off all sampling points within relimitation
 
 class Zone(CompositeDBItem):
 
