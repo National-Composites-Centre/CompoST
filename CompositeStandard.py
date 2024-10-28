@@ -96,7 +96,7 @@ class CompositeDB(BaseModel):
     allGeometry: Optional[list['GeometricElement']] = Field(default=None) # list of "GeometricElement" objects - all = exhaustive list
     allStages: Optional[list] = Field(default=None) #??? manuf process - all = exhaustive list
     allMaterials: Optional[list['Material']] = Field(default=None) #List of "Material" objects - all = exhaustive list
-    allDefects: Optional[list['Material']] = Field(default=None) # list of all defects
+    allDefects: Optional[list['Defect']] = Field(default=None) # list of all defects
     allTolerances: Optional[list['Tolerance']] = Field(default = None) # list of all Tolerances
     fileMetadata: FileMetadata = Field(default = FileMetadata()) #list of all "axisSystems" objects = exhaustive list
 
@@ -181,7 +181,7 @@ class MeshElement(BaseModel):
     normal: list = Field(None) #x,y,z in the list
 
 class AreaMesh(GeometricElement):
-    meshElements: list[MeshElement] = Field(None) # requires element classes only
+    meshElements: list['MeshElement'] = Field(None) # requires element classes only
     
 class Spline(GeometricElement):
     #can either be defined directly here as 3xX array, or can be defined as a list of points (not both)
@@ -238,6 +238,14 @@ class WrinkleTolerance(Tolerance):
     maxSlope: Optional[float] = Field(None)
     maxSkew: Optional[float] = Field(None) #TODO define
     maxAmplitude: Optional[float] = Field(None)
+
+class Delamination(Defect):
+
+    #Delamination occurs between two layers/plies, the convention is to append it to the one that is in the tool direction.
+
+    size_x: Optional[float] = Field(None) 
+    size_y: Optional[float] = Field(None) 
+    area: Optional[float] = Field(None)   
 
 
 #
