@@ -11,7 +11,7 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.65 ####
+#### VERSION 0.68c ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #potentially replace by JSON parser for Pydantic
@@ -23,20 +23,21 @@ from jsonic import serialize, deserialize
 #Therefore for now ID is not directly specified but is inherent in the list it belongs to)
 
 
-#IS THIS EVEN NEDED TODO
 class CompositeDBItem(BaseModel):
 
     memberName: Optional[str] = Field(default = None)
     additionalParameters: Optional[dict] = Field(default = None) # dictionary of floats
     additionalProperties: Optional[dict] = Field(default = None) # dictionary of strings
-    stageIDs: Optional[list] = Field(default = None) #list of references to stages
+    stageID: Optional[int] = Field(default = None) #stage where this object was generated / re-generated
+    deactivate_stageID: Optional[int] = Field(default = None) #this object is not relevant after this stage - either it has been superceeded or it's purpose was fullfilled
+    active: Optional[bool] = Field(default = True) #This can be turned to False to indicate this object does not represent the latest iteration of the part
     ID: Optional[int] = Field(default = None)
 
 class GeometricElement(CompositeDBItem):
     #child of Geometric elements
     source: Optional[object] = Field(default = None)
+    refFile: Optional[str] = Field(default = None)
     
-
 class Point(GeometricElement):
     #value: np.array = Field(np.asarray[0,0,0])
     #memberName: Optional[str] = Field(None) #can point out specific points for reference - group points for unexpected reasons...
@@ -67,13 +68,12 @@ class AxisSystem(GeometricElement):
     v3y: float = Field(default = 0)
     v3z: float = Field(default = 1)
 
-
 class FileMetadata(BaseModel):
     #the below might be housed in specialized class
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.64") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.68c") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
@@ -91,38 +91,35 @@ class CompositeDB(BaseModel):
     #All elements and all geometry are all stored here and used elsewhere as refrence
     #Points are stored withing those, as referencing is not efficient
 
-    rootElements: Optional[list['CompositeElement']] = Field(default=None)   #List of "CompositeElement" type objects
+    allComposite: Optional[list['CompositeElement']] = Field(default=None)   #List of "CompositeElement" type objects
     allEvents: Optional[list] = Field(default=None) #List of "events" objects - all = exhaustive list
     allGeometry: Optional[list['GeometricElement']] = Field(default=None) # list of "GeometricElement" objects - all = exhaustive list
     allStages: Optional[list] = Field(default=None) #??? manuf process - all = exhaustive list
     allMaterials: Optional[list['Material']] = Field(default=None) #List of "Material" objects - all = exhaustive list
+    allDefects: Optional[list['Defect']] = Field(default=None) # list of all defects
+    allTolerances: Optional[list['Tolerance']] = Field(default = None) # list of all Tolerances
     fileMetadata: FileMetadata = Field(default = FileMetadata()) #list of all "axisSystems" objects = exhaustive list
 
-
 class CompositeElement(CompositeDBItem):
-    database: Optional[object] = Field(None) #can there be multiple of these dbItems in one file? if so ==> list???
+
     subComponents: Optional[list['CompositeElement']] = Field(None) # list of subComponents -- all belong to the CompositeElement family
     mappedProperties: Optional[list['CompositeComponent|Sequence|Ply|Piece']] = Field(None) #list of objects - various allowed: Component, Sequence, Ply, Piece
     mappedRequirements: Optional[list] = Field(None) # list of objects - "Requirement"
-    defects: Optional[list] = Field(None) #list of objects - "defects"
+    defects: Optional[list['Defect']] = Field(None) #list of objects - "defects"
+    tolerances: Optional[list['Tolerance']] = Field(None)
     axisSystemID: Optional[int] = Field(None) #ID reference to allAxis systems 
     referencedBy: Optional[list[int]] = Field(None) # list of int>
     status: Optional[str] = Field(None) #TODO
 
-
-
 class Piece(CompositeElement):
     #CompositeElement type object
     #In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
-    placementRosette: int = Field(None) # reference number to rosette in allAxisSystems
     splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
     material: Optional[str] = Field(None) #ref to material in allMaterials
-
 
 class Ply(CompositeElement):
     #CompositeElement type object
     material: Optional[str] = Field(None) #ref to material in allMaterials
-    placementRosette: Optional[int] = Field(None)
     orientation: Optional[float] = Field(None)
     splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
 
@@ -131,13 +128,11 @@ class Sequence(CompositeElement):
     orientations: Optional[list[float]] = Field(None) #used for minimalistic definition where ply-objects are avoided
     materials: Optional[list['Material']] = Field(None) #listof materials - must be same lenght as orientations
     material: Optional[str] = Field(None) #ref to material in allMaterials
-    placementRosette: Optional[int] = Field(None)
     splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
 
 class CompositeComponent(CompositeElement):
     #this object is mostly going to be used for bonding co-curing etc where multiple distinct composite components
     #can be defined
-
     integratedComponent: Optional[list[CompositeDB]] = Field(None) #allows for nesting another comonent within this file
 
 class SourceSystem(BaseModel):
@@ -176,8 +171,9 @@ class Line(GeometricElement):
 
     #Use either IDs or points, not both. IDs recommended if the points 
     # are to be re-used for other geometries.
-    points: Optional[list[Point]] = Field() 
-    IDs: Optional[list[int]] = Field
+    points: Optional[list[Point]] = Field(None) 
+    IDs: Optional[list[int]] = Field(None)
+    lenght: Optional[float] = Field(None) #can be calculated from above, but then can be stored so calcs are not duplicated
 
 class MeshElement(BaseModel):
     #3 or 4 points, check?
@@ -185,22 +181,23 @@ class MeshElement(BaseModel):
     normal: list = Field(None) #x,y,z in the list
 
 class AreaMesh(GeometricElement):
-    elements: list['Element'] = Field(None) # requires element classes only
+    meshElements: list['MeshElement'] = Field(None) # requires element classes only
     
 class Spline(GeometricElement):
     #can either be defined directly here as 3xX array, or can be defined as a list of points (not both)
     splineType: Optional[int] = Field(None)  #types of splines based on OCC line types?
     points: Optional[list['Point']] = Field(None) #list of point objects
     length: Optional[float] = Field(None)
+    breaks: Optional[list[int]] = Field(None) #This allows for identification of points which break continuity of spline (i.e. spline is ended and new started - used for sharp corners)
 
 class Defect(CompositeDBItem):
     
     map: Optional[CompositeDBItem] = Field(None) #any composite or geometric object
     location: Optional[list[float]] = Field(None) #x,y,z location
-    source: Optional[SourceSystem] = Field(None) #SourceSystem
     effMaterial: Optional[Material] = Field(None) #adjusted material class saved in materials
     status: Optional[object] = Field(None) #TODO
     axisSystemID: Optional[int] = Field(None) #reference to axis system stored in Geo. elements
+    file: Optional[str] = Field(None) #reference to dedicated defect file
 
 class Wrinkle(Defect):
 
@@ -209,47 +206,89 @@ class Wrinkle(Defect):
     maxRoC: Optional[float] = Field(None)
     size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystemID, or global axis if local not available
     size_y: Optional[float] = Field(None)
+    splineRelimitationRef: Optional[int] = Field(None) #points collected as spline relimiting the defect
+    splineRelimitation: Optional['Spline'] = Field(None)
+    meshRef: Optional[int] = Field(None) # area covered by defect expressed in mesh format (area or volume)
+    amplitude: Optional[float] = Field(None) #out of plane maxiumum size of the defect
 
+class FibreOrientations(Defect):
+
+    lines: Optional[list['Line']] = Field(None) #list of lines collected to denote orientations map
+    orientations: Optional[list[float]] = Field(None) #list of floats corresponding to the "lines" list 
+    averageOrientation: Optional[float] = Field(None) #average of "orientations", does not account for varying lenght of lines
+    avDiffToNominal: Optional[list[float]] = Field(None) #average difference 
+    splineRelimitation: Optional['Spline'] = Field(None) #area for this definition
+    splineRelimitationRef: Optional[int] = Field(None) # same as above, but referenced using 'ID'
+
+
+class Tolerance(CompositeDBItem):
+    #inherited by all specific tolerance definition objects
+
+    appliedToIDs: Optional[list[int]] = Field(None)
+    splineRelimitation: Optional['Spline'] = Field(None) #area for this definition
+    splineRelimitationRef: Optional[int] = Field(None) # same as above, but referenced using 'ID'
+
+class WrinkleTolerance(Tolerance):
+
+    maxZ: Optional[float] = Field(None)
+    maxY: Optional[float] = Field(None)
+    maxX: Optional[float] = Field(None)
+    axisSystemID: Optional[int] = Field(None)
+    maxArea: Optional[float] = Field(None)
+    maxSlope: Optional[float] = Field(None)
+    maxSkew: Optional[float] = Field(None) #TODO define
+    maxAmplitude: Optional[float] = Field(None)
+
+class Delamination(Defect):
+
+    #Delamination occurs between two layers/plies, the convention is to append it to the one that is in the tool direction.
+
+    size_x: Optional[float] = Field(None) 
+    size_y: Optional[float] = Field(None) 
+    area: Optional[float] = Field(None)   
+
+
+#
+##
+###
+####
+#####
+#From here onwards the objects are not fully standardised - their architecture and definitions are likely to chane!
+#####
+####
+###
+##
+#
+
+class Stage(BaseModel):
+
+    stageID: Optional[int] = Field(default=None) 
+    memberName: Optional[str] = Field(default=None)
+    source: Optional[SourceSystem] = Field(None) #SourceSystem
+
+class PlyScan(Stage):
+
+    #the name is a placeholder
+
+    machine: Optional[str] = Field(default=None) #designation name of the machine underataking scanning 
+    binderActivated: Optional[str] = Field(default=None) # bool
+
+class FibreOrientationTolerance(Tolerance):
+    
+    max_avDiffToNominal: Optional[float] = Field(default=None) #average difference to intended ply orientation based off all sampling points within relimitation
+
+class Zone(CompositeDBItem):
+
+    #TODO develop based on use-case requirements
+
+    splineRelimitation: Optional['Spline'] = Field(None) #area for this definition
+    splineRelimitationRef: Optional[int] = Field(None) # same as above, but referenced using 'ID'
 
 def generate_json_schema(file_name:str):
     with open(file_name, 'w') as f:
         f.write(json.dumps(CompositeDB.model_json_schema(), indent=4))
 
-generate_json_schema('compostSchema.json')
+#generate_json_schema('compostSchema.json')
 
 
 
-
-def test():
-    #TODO make dedicated testing module
-
-    d = CompositeDB()
-    d.fileMetadata.lastModified = "10/07/2024"
-    d.name = "new"
-
-    # Convert dictionary to JSON string
-    #print(d)
-    json_str = serialize(d, string_output = True)
-
-    # Print the JSON string
-    print(json_str)
-
-    #json_str = cleandict(json_str)
-
-    #save as file
-    with open('Test_CI_dump.json', 'w') as out_file:
-        out_file.write(json_str)
-        #json.dump(json_str, out_file, sort_keys = True,
-        #        ensure_ascii = False)
-        
-    #open file
-    with open('Test_CI_dump.json',"r") as in_file:
-        json_str= in_file.read()
-    
-    
-    print(json_str)
-    D = deserialize(json_str,string_input=True)
-    print(D)
-    print(D.fileMetadata.lastModified)
-
-#test()

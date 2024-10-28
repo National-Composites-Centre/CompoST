@@ -1,66 +1,7 @@
 {
     "$defs": {
-        "AxisSystem": {
+        "CompositeComponent": {
             "properties": {
-                "pt": {
-                    "allOf": [
-                        {
-                            "$ref": "#/$defs/Point"
-                        }
-                    ],
-                    "default": {
-                        "memberName": null,
-                        "source": null,
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                },
-                "v1x": {
-                    "default": 1,
-                    "title": "V1X",
-                    "type": "number"
-                },
-                "v1y": {
-                    "default": 0,
-                    "title": "V1Y",
-                    "type": "number"
-                },
-                "v1z": {
-                    "default": 0,
-                    "title": "V1Z",
-                    "type": "number"
-                },
-                "v2x": {
-                    "default": 0,
-                    "title": "V2X",
-                    "type": "number"
-                },
-                "v2y": {
-                    "default": 1,
-                    "title": "V2Y",
-                    "type": "number"
-                },
-                "v2z": {
-                    "default": 0,
-                    "title": "V2Z",
-                    "type": "number"
-                },
-                "v3x": {
-                    "default": 0,
-                    "title": "V3X",
-                    "type": "number"
-                },
-                "v3y": {
-                    "default": 0,
-                    "title": "V3Y",
-                    "type": "number"
-                },
-                "v3z": {
-                    "default": 1,
-                    "title": "V3Z",
-                    "type": "number"
-                },
                 "memberName": {
                     "anyOf": [
                         {
@@ -72,13 +13,56 @@
                     ],
                     "default": null,
                     "title": "Membername"
-                }
-            },
-            "title": "AxisSystem",
-            "type": "object"
-        },
-        "CompositeComponent": {
-            "properties": {
+                },
+                "additionalParameters": {
+                    "anyOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Additionalparameters"
+                },
+                "additionalProperties": {
+                    "anyOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Additionalproperties"
+                },
+                "stageIDs": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Stageids"
+                },
+                "ID": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Id"
+                },
                 "database": {
                     "anyOf": [
                         {},
@@ -89,7 +73,7 @@
                     "default": null,
                     "title": "Database"
                 },
-                "subComponent": {
+                "subComponents": {
                     "anyOf": [
                         {
                             "items": {
@@ -102,7 +86,7 @@
                         }
                     ],
                     "default": null,
-                    "title": "Subcomponent"
+                    "title": "Subcomponents"
                 },
                 "mappedProperties": {
                     "anyOf": [
@@ -158,20 +142,17 @@
                     "default": null,
                     "title": "Defects"
                 },
-                "axisSystemIDs": {
+                "axisSystemID": {
                     "anyOf": [
                         {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
+                            "type": "integer"
                         },
                         {
                             "type": "null"
                         }
                     ],
                     "default": null,
-                    "title": "Axissystemids"
+                    "title": "Axissystemid"
                 },
                 "referencedBy": {
                     "anyOf": [
@@ -200,11 +181,11 @@
                     "default": null,
                     "title": "Status"
                 },
-                "sequence": {
+                "integratedComponent": {
                     "anyOf": [
                         {
                             "items": {
-                                "$ref": "#/$defs/Sequence"
+                                "$ref": "#/$defs/CompositeDB"
                             },
                             "type": "array"
                         },
@@ -212,50 +193,21 @@
                             "type": "null"
                         }
                     ],
-                    "title": "Sequence"
-                },
-                "memberName": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "title": "Membername"
-                },
-                "compositeElement": {
-                    "anyOf": [
-                        {},
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "title": "Compositeelement"
+                    "default": null,
+                    "title": "Integratedcomponent"
                 }
             },
-            "required": [
-                "sequence",
-                "memberName",
-                "compositeElement"
-            ],
             "title": "CompositeComponent",
             "type": "object"
         },
-        "CompositeElement": {
+        "CompositeDB": {
             "properties": {
-                "database": {
-                    "anyOf": [
-                        {},
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Database"
+                "name": {
+                    "default": "test",
+                    "title": "Name",
+                    "type": "string"
                 },
-                "subComponent": {
+                "rootElements": {
                     "anyOf": [
                         {
                             "items": {
@@ -268,7 +220,172 @@
                         }
                     ],
                     "default": null,
-                    "title": "Subcomponent"
+                    "title": "Rootelements"
+                },
+                "allEvents": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Allevents"
+                },
+                "allGeometry": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "$ref": "#/$defs/GeometricElement"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Allgeometry"
+                },
+                "allStages": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Allstages"
+                },
+                "allMaterials": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "$ref": "#/$defs/Material"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Allmaterials"
+                },
+                "fileMetadata": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/FileMetadata"
+                        }
+                    ],
+                    "default": {
+                        "lastModified": null,
+                        "lastModifiedBy": null,
+                        "author": null,
+                        "version": "0.64",
+                        "layupDefinitionVersion": null,
+                        "cadFile": null,
+                        "cadFilePath": null,
+                        "maxID": 0
+                    }
+                }
+            },
+            "title": "CompositeDB",
+            "type": "object"
+        },
+        "CompositeElement": {
+            "properties": {
+                "memberName": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Membername"
+                },
+                "additionalParameters": {
+                    "anyOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Additionalparameters"
+                },
+                "additionalProperties": {
+                    "anyOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Additionalproperties"
+                },
+                "stageIDs": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Stageids"
+                },
+                "ID": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Id"
+                },
+                "database": {
+                    "anyOf": [
+                        {},
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Database"
+                },
+                "subComponents": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "$ref": "#/$defs/CompositeElement"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Subcomponents"
                 },
                 "mappedProperties": {
                     "anyOf": [
@@ -324,20 +441,17 @@
                     "default": null,
                     "title": "Defects"
                 },
-                "axisSystemIDs": {
+                "axisSystemID": {
                     "anyOf": [
                         {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
+                            "type": "integer"
                         },
                         {
                             "type": "null"
                         }
                     ],
                     "default": null,
-                    "title": "Axissystemids"
+                    "title": "Axissystemid"
                 },
                 "referencedBy": {
                     "anyOf": [
@@ -417,7 +531,7 @@
                             "type": "null"
                         }
                     ],
-                    "default": "0.63",
+                    "default": "0.64",
                     "title": "Version"
                 },
                 "layupDefinitionVersion": {
@@ -455,6 +569,11 @@
                     ],
                     "default": null,
                     "title": "Cadfilepath"
+                },
+                "maxID": {
+                    "default": 0,
+                    "title": "Maxid",
+                    "type": "integer"
                 }
             },
             "title": "FileMetadata",
@@ -473,6 +592,55 @@
                     ],
                     "default": null,
                     "title": "Membername"
+                },
+                "additionalParameters": {
+                    "anyOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Additionalparameters"
+                },
+                "additionalProperties": {
+                    "anyOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Additionalproperties"
+                },
+                "stageIDs": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Stageids"
+                },
+                "ID": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Id"
                 },
                 "source": {
                     "anyOf": [
@@ -598,7 +766,7 @@
                     "default": null,
                     "title": "Density"
                 },
-                "permeability": {
+                "permeability_1": {
                     "anyOf": [
                         {
                             "type": "number"
@@ -608,7 +776,31 @@
                         }
                     ],
                     "default": null,
-                    "title": "Permeability"
+                    "title": "Permeability 1"
+                },
+                "permeability_2": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Permeability 2"
+                },
+                "permeability_3": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Permeability 3"
                 },
                 "type": {
                     "anyOf": [
@@ -628,137 +820,6 @@
         },
         "Piece": {
             "properties": {
-                "database": {
-                    "anyOf": [
-                        {},
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Database"
-                },
-                "subComponent": {
-                    "anyOf": [
-                        {
-                            "items": {
-                                "$ref": "#/$defs/CompositeElement"
-                            },
-                            "type": "array"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Subcomponent"
-                },
-                "mappedProperties": {
-                    "anyOf": [
-                        {
-                            "items": {
-                                "anyOf": [
-                                    {
-                                        "$ref": "#/$defs/CompositeComponent"
-                                    },
-                                    {
-                                        "$ref": "#/$defs/Sequence"
-                                    },
-                                    {
-                                        "$ref": "#/$defs/Ply"
-                                    },
-                                    {
-                                        "$ref": "#/$defs/Piece"
-                                    }
-                                ]
-                            },
-                            "type": "array"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Mappedproperties"
-                },
-                "mappedRequirements": {
-                    "anyOf": [
-                        {
-                            "items": {},
-                            "type": "array"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Mappedrequirements"
-                },
-                "defects": {
-                    "anyOf": [
-                        {
-                            "items": {},
-                            "type": "array"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Defects"
-                },
-                "axisSystemIDs": {
-                    "anyOf": [
-                        {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Axissystemids"
-                },
-                "referencedBy": {
-                    "anyOf": [
-                        {
-                            "items": {
-                                "type": "integer"
-                            },
-                            "type": "array"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Referencedby"
-                },
-                "status": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Status"
-                },
-                "placementRosette": {
-                    "default": null,
-                    "title": "Placementrosette",
-                    "type": "integer"
-                },
-                "batch": {
-                    "default": null,
-                    "title": "Batch",
-                    "type": "integer"
-                },
                 "memberName": {
                     "anyOf": [
                         {
@@ -771,32 +832,55 @@
                     "default": null,
                     "title": "Membername"
                 },
-                "splineRelimitation": {
+                "additionalParameters": {
                     "anyOf": [
-                        {},
+                        {
+                            "type": "object"
+                        },
                         {
                             "type": "null"
                         }
                     ],
                     "default": null,
-                    "title": "Splinerelimitation"
+                    "title": "Additionalparameters"
                 },
-                "compositeElement": {
+                "additionalProperties": {
                     "anyOf": [
-                        {},
+                        {
+                            "type": "object"
+                        },
                         {
                             "type": "null"
                         }
                     ],
                     "default": null,
-                    "title": "Compositeelement"
-                }
-            },
-            "title": "Piece",
-            "type": "object"
-        },
-        "Ply": {
-            "properties": {
+                    "title": "Additionalproperties"
+                },
+                "stageIDs": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Stageids"
+                },
+                "ID": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Id"
+                },
                 "database": {
                     "anyOf": [
                         {},
@@ -807,7 +891,7 @@
                     "default": null,
                     "title": "Database"
                 },
-                "subComponent": {
+                "subComponents": {
                     "anyOf": [
                         {
                             "items": {
@@ -820,7 +904,7 @@
                         }
                     ],
                     "default": null,
-                    "title": "Subcomponent"
+                    "title": "Subcomponents"
                 },
                 "mappedProperties": {
                     "anyOf": [
@@ -876,20 +960,17 @@
                     "default": null,
                     "title": "Defects"
                 },
-                "axisSystemIDs": {
+                "axisSystemID": {
                     "anyOf": [
                         {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
+                            "type": "integer"
                         },
                         {
                             "type": "null"
                         }
                     ],
                     "default": null,
-                    "title": "Axissystemids"
+                    "title": "Axissystemid"
                 },
                 "referencedBy": {
                     "anyOf": [
@@ -918,7 +999,73 @@
                     "default": null,
                     "title": "Status"
                 },
-                "cutPieces": {
+                "splineRelimitationRef": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Splinerelimitationref"
+                },
+                "material": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Material"
+                }
+            },
+            "title": "Piece",
+            "type": "object"
+        },
+        "Ply": {
+            "properties": {
+                "memberName": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Membername"
+                },
+                "additionalParameters": {
+                    "anyOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Additionalparameters"
+                },
+                "additionalProperties": {
+                    "anyOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Additionalproperties"
+                },
+                "stageIDs": {
                     "anyOf": [
                         {
                             "items": {},
@@ -929,7 +1076,137 @@
                         }
                     ],
                     "default": null,
-                    "title": "Cutpieces"
+                    "title": "Stageids"
+                },
+                "ID": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Id"
+                },
+                "database": {
+                    "anyOf": [
+                        {},
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Database"
+                },
+                "subComponents": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "$ref": "#/$defs/CompositeElement"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Subcomponents"
+                },
+                "mappedProperties": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "$ref": "#/$defs/CompositeComponent"
+                                    },
+                                    {
+                                        "$ref": "#/$defs/Sequence"
+                                    },
+                                    {
+                                        "$ref": "#/$defs/Ply"
+                                    },
+                                    {
+                                        "$ref": "#/$defs/Piece"
+                                    }
+                                ]
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Mappedproperties"
+                },
+                "mappedRequirements": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Mappedrequirements"
+                },
+                "defects": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Defects"
+                },
+                "axisSystemID": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Axissystemid"
+                },
+                "referencedBy": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "integer"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Referencedby"
+                },
+                "status": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Status"
                 },
                 "material": {
                     "anyOf": [
@@ -943,30 +1220,6 @@
                     "default": null,
                     "title": "Material"
                 },
-                "placementRosette": {
-                    "anyOf": [
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Placementrosette"
-                },
-                "memberName": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Membername"
-                },
                 "orientation": {
                     "anyOf": [
                         {
@@ -979,21 +1232,23 @@
                     "default": null,
                     "title": "Orientation"
                 },
-                "compositeElement": {
+                "splineRelimitationRef": {
                     "anyOf": [
-                        {},
+                        {
+                            "type": "integer"
+                        },
                         {
                             "type": "null"
                         }
                     ],
                     "default": null,
-                    "title": "Compositeelement"
+                    "title": "Splinerelimitationref"
                 }
             },
             "title": "Ply",
             "type": "object"
         },
-        "Point": {
+        "Sequence": {
             "properties": {
                 "memberName": {
                     "anyOf": [
@@ -1007,37 +1262,55 @@
                     "default": null,
                     "title": "Membername"
                 },
-                "source": {
+                "additionalParameters": {
                     "anyOf": [
-                        {},
+                        {
+                            "type": "object"
+                        },
                         {
                             "type": "null"
                         }
                     ],
                     "default": null,
-                    "title": "Source"
+                    "title": "Additionalparameters"
                 },
-                "x": {
-                    "default": 0,
-                    "title": "X",
-                    "type": "number"
+                "additionalProperties": {
+                    "anyOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Additionalproperties"
                 },
-                "y": {
-                    "default": 0,
-                    "title": "Y",
-                    "type": "number"
+                "stageIDs": {
+                    "anyOf": [
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Stageids"
                 },
-                "z": {
-                    "default": 0,
-                    "title": "Z",
-                    "type": "number"
-                }
-            },
-            "title": "Point",
-            "type": "object"
-        },
-        "Sequence": {
-            "properties": {
+                "ID": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Id"
+                },
                 "database": {
                     "anyOf": [
                         {},
@@ -1048,7 +1321,7 @@
                     "default": null,
                     "title": "Database"
                 },
-                "subComponent": {
+                "subComponents": {
                     "anyOf": [
                         {
                             "items": {
@@ -1061,7 +1334,7 @@
                         }
                     ],
                     "default": null,
-                    "title": "Subcomponent"
+                    "title": "Subcomponents"
                 },
                 "mappedProperties": {
                     "anyOf": [
@@ -1117,20 +1390,17 @@
                     "default": null,
                     "title": "Defects"
                 },
-                "axisSystemIDs": {
+                "axisSystemID": {
                     "anyOf": [
                         {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
+                            "type": "integer"
                         },
                         {
                             "type": "null"
                         }
                     ],
                     "default": null,
-                    "title": "Axissystemids"
+                    "title": "Axissystemid"
                 },
                 "referencedBy": {
                     "anyOf": [
@@ -1159,33 +1429,37 @@
                     "default": null,
                     "title": "Status"
                 },
-                "plies": {
+                "orientations": {
                     "anyOf": [
                         {
-                            "items": {},
+                            "items": {
+                                "type": "number"
+                            },
                             "type": "array"
                         },
                         {
                             "type": "null"
                         }
                     ],
-                    "default": [],
-                    "title": "Plies"
+                    "default": null,
+                    "title": "Orientations"
                 },
-                "components": {
+                "materials": {
                     "anyOf": [
                         {
-                            "items": {},
+                            "items": {
+                                "$ref": "#/$defs/Material"
+                            },
                             "type": "array"
                         },
                         {
                             "type": "null"
                         }
                     ],
-                    "default": [],
-                    "title": "Components"
+                    "default": null,
+                    "title": "Materials"
                 },
-                "memberName": {
+                "material": {
                     "anyOf": [
                         {
                             "type": "string"
@@ -1195,151 +1469,28 @@
                         }
                     ],
                     "default": null,
-                    "title": "Membername"
+                    "title": "Material"
                 },
-                "compositeElement": {
+                "splineRelimitationRef": {
                     "anyOf": [
                         {
-                            "$ref": "#/$defs/CompositeElement"
+                            "type": "integer"
                         },
                         {
                             "type": "null"
                         }
                     ],
-                    "default": null
+                    "default": null,
+                    "title": "Splinerelimitationref"
                 }
             },
             "title": "Sequence",
             "type": "object"
         }
     },
-    "properties": {
-        "name": {
-            "default": "test",
-            "title": "Name",
-            "type": "string"
-        },
-        "rootElements": {
-            "anyOf": [
-                {
-                    "items": {
-                        "$ref": "#/$defs/CompositeElement"
-                    },
-                    "type": "array"
-                },
-                {
-                    "type": "null"
-                }
-            ],
-            "default": null,
-            "title": "Rootelements"
-        },
-        "allEvents": {
-            "anyOf": [
-                {
-                    "items": {},
-                    "type": "array"
-                },
-                {
-                    "type": "null"
-                }
-            ],
-            "default": null,
-            "title": "Allevents"
-        },
-        "allGeometry": {
-            "anyOf": [
-                {
-                    "items": {
-                        "$ref": "#/$defs/GeometricElement"
-                    },
-                    "type": "array"
-                },
-                {
-                    "type": "null"
-                }
-            ],
-            "default": null,
-            "title": "Allgeometry"
-        },
-        "allStages": {
-            "anyOf": [
-                {
-                    "items": {},
-                    "type": "array"
-                },
-                {
-                    "type": "null"
-                }
-            ],
-            "default": null,
-            "title": "Allstages"
-        },
-        "allMaterials": {
-            "anyOf": [
-                {
-                    "items": {
-                        "$ref": "#/$defs/Material"
-                    },
-                    "type": "array"
-                },
-                {
-                    "type": "null"
-                }
-            ],
-            "default": null,
-            "title": "Allmaterials"
-        },
-        "allAxisSystems": {
-            "anyOf": [
-                {
-                    "additionalProperties": {
-                        "$ref": "#/$defs/AxisSystem"
-                    },
-                    "type": "object"
-                },
-                {
-                    "type": "null"
-                }
-            ],
-            "default": {
-                "pt": {
-                    "memberName": null,
-                    "source": null,
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "v1x": 1.0,
-                "v1y": 0.0,
-                "v1z": 0.0,
-                "v2x": 0.0,
-                "v2y": 1.0,
-                "v2z": 0.0,
-                "v3x": 0.0,
-                "v3y": 0.0,
-                "v3z": 1.0,
-                "memberName": null
-            },
-            "title": "Allaxissystems"
-        },
-        "fileMetadata": {
-            "allOf": [
-                {
-                    "$ref": "#/$defs/FileMetadata"
-                }
-            ],
-            "default": {
-                "lastModified": null,
-                "lastModifiedBy": null,
-                "author": null,
-                "version": "0.63",
-                "layupDefinitionVersion": null,
-                "cadFile": null,
-                "cadFilePath": null
-            }
+    "allOf": [
+        {
+            "$ref": "#/$defs/CompositeDB"
         }
-    },
-    "title": "CompositeDB",
-    "type": "object"
+    ]
 }
