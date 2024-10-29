@@ -23,7 +23,7 @@ const initialiseBizStyle = () => {
 }
 
 window.addEventListener("resize",
-  () => (document.querySelector("li.nav-item-0 a").innerText = (window.innerWidth <= 776) ? "Top" : "Composite Standard (CompoST) 0.68b documentation")
+  () => (document.querySelector("li.nav-item-0 a").innerText = (window.innerWidth <= 776) ? "Top" : "Composite Standard (CompoST) 0.70a documentation")
 )
 
 if (document.readyState !== "loading") initialiseBizStyle()

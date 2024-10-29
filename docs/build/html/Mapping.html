@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Mapping and references &#8212; Composite Standard (CompoST) 0.68b documentation</title>
+    <title>Mapping and references &#8212; Composite Standard (CompoST) 0.70a documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
     
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="Logic.html" title="Logic and philosophy"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.68b documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.70a documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Mapping and references</a></li> 
       </ul>
     </div>  
@@ -71,6 +71,12 @@ noted at ply level (for example).</p>
 <p>Every object belonging to <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code> family can have ‘ID’ parameter attributed to it. This allows for referencing geometries and composite elements without re-creating them. The most common usage of this is when ‘CompositeStandard.Piece’ uses parameter splineRelimitation to signifcy edge of the composite piece, this parameter is simply and integer - ‘ID’, and corresponding spline can be found in GeometricElement`</p>
 <p>IDs are not compulsory for any object, but it is highly recommended that most objects are given IDs, as that will facilitaty any re-use. Exceptions are objects that will definitely not see reuse, such as point only existing to create a complex spline.</p>
 </section>
+<section id="duplication-of-properties">
+<h2>Duplication of properties<a class="headerlink" href="#duplication-of-properties" title="Permalink to this heading">¶</a></h2>
+<p>Many objects share parameters, and can become each others parent/child. This may lead to situation where paramters are duplicated. This is intended so that one can define a parameter for a complete sequence, but than specify differing
+parameter for a specific ply.</p>
+<p>The rule for which parameter takes effect is as follows: Where the same attribute is being called in parent and child (e.g. axis being referenced in ply, and in some of corresponding cut pieces), the more detailed (child) component supersedes the corresponding parent definition.</p>
+</section>
 </section>
 
 
@@ -87,6 +93,7 @@ noted at ply level (for example).</p>
 <li><a class="reference internal" href="#reference-surface">Reference Surface</a></li>
 <li><a class="reference internal" href="#material-knockdown-properties">Material Knockdown Properties</a></li>
 <li><a class="reference internal" href="#ids">IDs</a></li>
+<li><a class="reference internal" href="#duplication-of-properties">Duplication of properties</a></li>
 </ul>
 </li>
 </ul>
@@ -135,7 +142,7 @@ noted at ply level (for example).</p>
         <li class="right" >
           <a href="Logic.html" title="Logic and philosophy"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.68b documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.70a documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Mapping and references</a></li> 
       </ul>
     </div>

@@ -35,3 +35,11 @@ Every object belonging to :py:meth:`~CompositeStandard.CompositeDBItem.get` fami
 IDs are not compulsory for any object, but it is highly recommended that most objects are given IDs, as that will facilitaty any re-use. Exceptions are objects that will definitely not see reuse, such as point only existing to create a complex spline.
 
 
+Duplication of properties
+-------------------------
+
+Many objects share parameters, and can become each others parent/child. This may lead to situation where paramters are duplicated. This is intended so that one can define a parameter for a complete sequence, but than specify differing
+parameter for a specific ply.
+
+The rule for which parameter takes effect is as follows: Where the same attribute is being called in parent and child (e.g. axis being referenced in ply, and in some of corresponding cut pieces), the more detailed (child) component supersedes the corresponding parent definition.
+

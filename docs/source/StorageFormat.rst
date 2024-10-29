@@ -17,7 +17,7 @@ of CompoST would suggest copy of this object would also be present in parameter 
 From serialization onwards both object have to be edited separately, which is inconvenient and may cause confusion down the line. To minimize the potential confusion it is recommended that either objects are stored only in one place, 
 or the `ID` parameter is diligently used, so that the link can be infered later, and either created on deserialization or at least visible to the user.
 
-For re-creating these links after deserialization :func:`Utilities.reLink` function was created. This identifies duplicate `ID`s in all relevant lists, and re-generates the links for consistent, and more practical editing of Python
+For re-creating these links after deserialization :func:`Utilities.reLink` function was created. This identifies duplicate `ID` in all relevant lists, and re-generates the links for consistent, and more practical editing of Python
 objects.
 
 
