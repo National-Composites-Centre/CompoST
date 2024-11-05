@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, ConfigDict, ValidationError, SerializeAsAny
+from pydantic import BaseModel, Field, ConfigDict, ValidationError, SerializeAsAny, root_validator
 import numpy as np
 from typing import Optional, Tuple, Union, Annotated
 from datetime import date, time, timedelta
@@ -51,22 +51,33 @@ class AxisSystem(GeometricElement):
     #Axis system on default uses root axis system values - upon initionation any changes must be applied on all axes
 
     #point of origin
-    pt: Point = Field(default=Point())
+    o_pt: Point = Field(default=Point(x=0,y=0,z=0))
 
-    # 1st asxis of axis system (adjusted x) - expressed in global
-    v1x: float = Field(default = 1)
-    v1y: float = Field(default = 0)
-    v1z: float = Field(default = 0)
+    #point that defines x axis - origin_pt ==> x_pt is the acciss as vector
+    x_pt: Point = Field(default=Point(x=1,y=0,z=0))
 
-    # 1st asxis of axis system (adjusted y) - expressed in global
-    v2x: float = Field(default = 0)
-    v2y: float = Field(default = 1)
-    v2z: float = Field(default = 0)
+    #point that defines y axis - origin_pt ==> y_pt is the acciss as vector
+    y_pt: Point = Field(default=Point(x=0,y=1,z=0))
+    #when x_pt and y_pt are not perpendicular y_pt.z is adjusted so they are
+    # 
+    #point that defines z axis - origin_pt ==> z_pt is the acciss as vector
+    z_pt: Point = Field(default=Point(x=0,y=0,z=1))
 
-    # 1st asxis of axis system (adjusted z) - expressed in global
-    v3x: float = Field(default = 0)
-    v3y: float = Field(default = 0)
-    v3z: float = Field(default = 1)
+    @root_validator(pre=True)
+    def calculateZ(cls,values):
+        u = np.asarray([values.get('x_pt').x-values.get('o_pt').x,values.get('x_pt').y-values.get('o_pt').y,values.get('x_pt').z-values.get('o_pt').z])
+        v = np.asarray([values.get('y_pt').x-values.get('o_pt').x,values.get('y_pt').y-values.get('o_pt').y,values.get('y_pt').z-values.get('o_pt').z])
+        #cross product
+        cp = np.cross(u,v)
+        #point rather than vector
+        cp = cp +  np.asarray(values.get('o_pt').x,values.get('o_pt').y,values.get('o_pt').z)
+        values['z_pt'] = Point(x=cp[0],y=cp[1],z=cp[2])
+        return(values)
+
+    #TODO add method to recalculate on any update of y_pt,x_pt,o_pt
+
+    #TODO add method to check if x vector and y vector are perpendicular - if not fix y vector after calculating z vector
+
 
 class FileMetadata(BaseModel):
     #the below might be housed in specialized class
@@ -243,9 +254,26 @@ class Delamination(Defect):
 
     #Delamination occurs between two layers/plies, the convention is to append it to the one that is in the tool direction.
 
-    size_x: Optional[float] = Field(None) 
-    size_y: Optional[float] = Field(None) 
-    area: Optional[float] = Field(None)   
+    size_x: Optional[float] = Field(None) #length in x axis direction
+    size_y: Optional[float] = Field(None) #length in y axis direction
+    area: Optional[float] = Field(None)  
+
+class DelaminationTolerance(Tolerance):
+
+    maxX: Optional[float] = Field(None) #maximum length in x axis direction
+    maxY: Optional[float] = Field(None) #maximum length in y axis direction
+    maxArea: Optional[float] = Field(None) #maximume allowed area per defect
+
+class BoundaryDeviation(Defect):
+    
+    maxDeviation: Optional[float] = Field(None) #maximum distance of a measured point from intended boundary
+    avDeviation: Optional[float] = Field(None) #average deviation along the boundary
+
+class BoundaryTolerance(Defect):
+
+    maxAllowedDev: Optional[float] = Field(None) #maximum allowed distance of a measured point from intended boundary
+    maxAv: Optional[float] = Field(None) #
+
 
 
 #

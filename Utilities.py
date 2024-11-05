@@ -1,6 +1,7 @@
 
 import numpy as np
 from numpy.linalg import norm
+from numpy import (array, dot, arccos, clip)
 import math
 import CompositeStandard as cs
 
@@ -28,6 +29,23 @@ def clean_json(strin):
             tabs = tabs + 1
     #returns a human readable JSON
     return(new_str)
+
+# def make3rdAxis(po,pt1,pt2):
+#     #po origin poitn, pt1 point in x, pt2 point in y
+#     u = np.asarray([pt1.x-po.x,pt1.y-po.y,pt1.z-po.z])
+#     v = np.asarray([pt2.x-po.x,pt2.y-po.y,pt2.z-po.z])
+#     c = dot(u,v)/norm(u)/norm(v)
+#     angle = arccos(clip(c,-1,1))*180/math.pi
+#     print(angle)
+
+po = cs.Point(x=3,y=3,z=3)
+px = cs.Point(x=4,y=3,z=3)
+py = cs.Point(x=3,y=4,z=6)
+axisA = cs.AxisSystem(o_pt =po,x_pt=px,y_pt=py)
+axisA.x_pt = cs.Point(x=15,y=3,z=3)
+print(axisA.z_pt)
+# make3rdAxis(po,px,py)
+
 
 
 def rs(strin):
@@ -120,24 +138,24 @@ def rs(strin):
 
 
 #test remove_specific
-from jsonic import serialize, deserialize
-#with open("D:\\CompoST\Test_clean.json","r") as X:
-with open("C:\code\CompoST_examples\WO4502_minimized_v067\WO4502_layup.json","r") as X:
-    json_str= X.read()
+# from jsonic import serialize, deserialize
+# #with open("D:\\CompoST\Test_clean.json","r") as X:
+# with open("C:\code\CompoST_examples\WO4502_minimized_v067\WO4502_layup.json","r") as X:
+#     json_str= X.read()
 
-    D = deserialize(json_str,string_input=True)
+#     D = deserialize(json_str,string_input=True)
 
-    print("from here on")
-    j,delete = rs(D)
-    #print("FINAL")
-    #print(j)
+#     print("from here on")
+#     j,delete = rs(D)
+#     #print("FINAL")
+#     #print(j)
 
-    json_str = serialize(j, string_output = True)
-    json_str = clean_json(json_str)
+#     json_str = serialize(j, string_output = True)
+#     json_str = clean_json(json_str)
 
-    #save as file
-    with open('C:\code\CompoST_examples\WO4502_minimized_v067\Test_clean.json', 'w') as out_file:
-        out_file.write(json_str)
+#     #save as file
+#     with open('C:\code\CompoST_examples\WO4502_minimized_v067\Test_clean.json', 'w') as out_file:
+#         out_file.write(json_str)
 
 
 def findDupID(loc_obj,temp,dup):
