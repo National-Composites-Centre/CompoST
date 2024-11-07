@@ -94,18 +94,23 @@ Object definitions
 	
 .. py:function:: CompositeStandard.AxisSystem(GeometricElement)
 	
-	The three vectors listed bewow must be perpendicular to each other
+	The three vectors listed bewow must be perpendicular to each other.
 	
-	:param pt: `CompositeStandard.Point` - location of axis system expressed in global axis system
-	:param v1x: float - first vector of axis system, first direction
-	:param v1y: float - first vector of axis system, second direction
-	:param v1z: float - first vector of axis system, third direction
-	:param v2x: float - second vector of axis system, first direction
-	:param v2y: float - second vector of axis system, second direction
-	:param v2z: float - second vector of axis system, third direction
-	:param v3x: float - third vector of axis system, first direction
-	:param v3y: float - third vector of axis system, second direction
-	:param v3z: float - third vector of axis system, third direction
+	:param o_pt: `CompositeStandard.Point` - origin location of axis system expressed in global axis system
+	:param x_pt: `CompositeStandard.Point` - point, (x_pt-o_pt) denoting x-vector of new axis system
+	:param y_pt: `CompositeStandard.Point` - point, (y_pt-o_pt) denoting y-vector of new axis system
+	:param z_pt: `CompositeStandard.Point` - point, (z_pt-o_pt) denoting z-vector of new axis system (this one is auto-calculated)
+	
+	There were 3 main core requirements for definition of Axis System. It should be possible to write out reasonably simple axis system by user,
+	without any calculations. Minimum number of values should be used for initial full definition of the axis system (8). The perpendicularity of
+	the 3 axis should be enforeced without user participation.
+	
+	The class definition automatically calculates z_pt, when this object is initialized or altered.
+	
+	If y_pt made axis is not perpendicular to x_pt made axis, y_pt is recalculated using z_pt. User is encouraged to specify first 2 axis perpendicular
+	to each other. However, if user fails to do so the object adjusts itself (at least when using the standard CompoST library in Python).
+	
+	User cannot set z_pt on it's own. Upon any changes this is recalculated from x_pt, y_pt and o_pt.
 	
 .. py:function:: CompositeStandard.Material(BaseModel)
 

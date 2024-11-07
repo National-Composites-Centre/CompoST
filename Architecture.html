@@ -184,23 +184,24 @@ Points are stored withing those, as referencing is not efficient</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.AxisSystem">
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">AxisSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GeometricElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.AxisSystem" title="Permalink to this definition">¶</a></dt>
-<dd><p>The three vectors listed bewow must be perpendicular to each other</p>
+<dd><p>The three vectors listed bewow must be perpendicular to each other.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pt</strong> – <cite>CompositeStandard.Point</cite> - location of axis system expressed in global axis system</p></li>
-<li><p><strong>v1x</strong> – float - first vector of axis system, first direction</p></li>
-<li><p><strong>v1y</strong> – float - first vector of axis system, second direction</p></li>
-<li><p><strong>v1z</strong> – float - first vector of axis system, third direction</p></li>
-<li><p><strong>v2x</strong> – float - second vector of axis system, first direction</p></li>
-<li><p><strong>v2y</strong> – float - second vector of axis system, second direction</p></li>
-<li><p><strong>v2z</strong> – float - second vector of axis system, third direction</p></li>
-<li><p><strong>v3x</strong> – float - third vector of axis system, first direction</p></li>
-<li><p><strong>v3y</strong> – float - third vector of axis system, second direction</p></li>
-<li><p><strong>v3z</strong> – float - third vector of axis system, third direction</p></li>
+<li><p><strong>o_pt</strong> – <cite>CompositeStandard.Point</cite> - origin location of axis system expressed in global axis system</p></li>
+<li><p><strong>x_pt</strong> – <cite>CompositeStandard.Point</cite> - point, (x_pt-o_pt) denoting x-vector of new axis system</p></li>
+<li><p><strong>y_pt</strong> – <cite>CompositeStandard.Point</cite> - point, (y_pt-o_pt) denoting y-vector of new axis system</p></li>
+<li><p><strong>z_pt</strong> – <cite>CompositeStandard.Point</cite> - point, (z_pt-o_pt) denoting z-vector of new axis system (this one is auto-calculated)</p></li>
 </ul>
 </dd>
 </dl>
+<p>There were 3 main core requirements for definition of Axis System. It should be possible to write out reasonably simple axis system by user,
+without any calculations. Minimum number of values should be used for initial full definition of the axis system (8). The perpendicularity of
+the 3 axis should be enforeced without user participation.</p>
+<p>The class definition automatically calculates z_pt, when this object is initialized or altered.</p>
+<p>If y_pt made axis is not perpendicular to x_pt made axis, y_pt is recalculated using z_pt. User is encouraged to specify first 2 axis perpendicular
+to each other. However, if user fails to do so the object adjusts itself (at least when using the standard CompoST library in Python).</p>
+<p>User cannot set z_pt on it’s own. Upon any changes this is recalculated from x_pt, y_pt and o_pt.</p>
 </dd></dl>
 
 <dl class="py function">
