@@ -5,7 +5,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Logic and philosophy &#8212; Composite Standard (CompoST) 0.70a documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -75,6 +75,20 @@ These should help wherever the used software struggles to provide reasonable con
 implement a process for removing that wrinkle, either eradicating it or replacing it by wrinkle with new data. In this case the property <code class="docutils literal notranslate"><span class="pre">active</span></code> will be switched from ‘True’ to ‘False’. When this property is not used, user should
 assume the object is active. This needs to be kept in mind in processes where some objects might be de-activated, as any furhter processing/analysis will need to exclude based on this property/tag.</p>
 </section>
+<section id="stages">
+<span id="stages-reference"></span><h2>Stages<a class="headerlink" href="#stages" title="Permalink to this heading">¶</a></h2>
+<p>Stages help with tracking information sources, allowing for history of changes to the part. Each object can have reference so stages (<cite>Stage</cite> object) to indicate when and how was this object edited.</p>
+<p>On default if <cite>Stage</cite> is not assigned to an object it should be assumed this object was last edited during the component design stage.</p>
+<p>Stages should all be stored in <cite>allStages</cite> list for iteration. When new stage is created the <cite>StageID</cite> should be selected to be +1 to the highest number currently listed.</p>
+<p>There are two suggested workflows for working with stages. First option is to pre-define all stages at design, assuming the designer knows all the processes that will utilize CompoST in the design, manufacture, and potentially lifecycle of the product.
+In this case the <cite>Stage</cite> objects are already all stored, and at each stage new objects are simply created with appropriate ID. For second method the <cite>allStages</cite> list is left empty at design stage, and each stage is created when the data is being stored.
+Which option is selected will depend on where in the design process decisions are being made about the product. The first option allows the <cite>allStages</cite> to also be a workflow definition, with majority of the information being stored in process documents
+referenced in individual stages. The second option allows for more flexibility.</p>
+<p>When an object is invalidated by a new stage, the old object’s <cite>active</cite> property should be changed to <cite>False</cite> (it is <cite>True</cite> on default). The example of this is a Wrinkle found in a ply, that was fixed by subsequent operation. In this case it may be desirable
+to keep the Wrinkle stored for traceability, to to de-activate the object to indicate it no longer affects the part.</p>
+<p>To define <cite>Stage</cite> the default object <cite>Stage</cite> can be used, with majority  of information being stored in reference documents. However, it is assumed that companies might want to create specific <cite>Stage</cite> objects that can then be reused for multiple parts.
+These bespoke objects should be stored in local version of <cite>CompositeStandard</cite>.</p>
+</section>
 </section>
 
 
@@ -92,6 +106,7 @@ assume the object is active. This needs to be kept in mind in processes where so
 <li><a class="reference internal" href="#variable-duplication">Variable duplication</a></li>
 <li><a class="reference internal" href="#spline-generation">Spline Generation</a></li>
 <li><a class="reference internal" href="#active-object">Active object</a></li>
+<li><a class="reference internal" href="#stages">Stages</a></li>
 </ul>
 </li>
 </ul>

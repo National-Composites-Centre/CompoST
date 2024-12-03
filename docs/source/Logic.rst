@@ -35,3 +35,26 @@ Most objects contain ``active``  property. This is used for cases when data need
 implement a process for removing that wrinkle, either eradicating it or replacing it by wrinkle with new data. In this case the property ``active`` will be switched from 'True' to 'False'. When this property is not used, user should
 assume the object is active. This needs to be kept in mind in processes where some objects might be de-activated, as any furhter processing/analysis will need to exclude based on this property/tag.
 
+.. _stages-reference:
+
+Stages
+------
+
+Stages help with tracking information sources, allowing for history of changes to the part. Each object can have reference so stages (`Stage` object) to indicate when and how was this object edited.
+
+On default if `Stage` is not assigned to an object it should be assumed this object was last edited during the component design stage.
+
+Stages should all be stored in `allStages` list for iteration. When new stage is created the `StageID` should be selected to be +1 to the highest number currently listed. 
+
+There are two suggested workflows for working with stages. First option is to pre-define all stages at design, assuming the designer knows all the processes that will utilize CompoST in the design, manufacture, and potentially lifecycle of the product.
+In this case the `Stage` objects are already all stored, and at each stage new objects are simply created with appropriate ID. For second method the `allStages` list is left empty at design stage, and each stage is created when the data is being stored.
+Which option is selected will depend on where in the design process decisions are being made about the product. The first option allows the `allStages` to also be a workflow definition, with majority of the information being stored in process documents 
+referenced in individual stages. The second option allows for more flexibility.
+
+When an object is invalidated by a new stage, the old object's `active` property should be changed to `False` (it is `True` on default). The example of this is a Wrinkle found in a ply, that was fixed by subsequent operation. In this case it may be desirable 
+to keep the Wrinkle stored for traceability, to to de-activate the object to indicate it no longer affects the part.
+
+To define `Stage` the default object `Stage` can be used, with majority  of information being stored in reference documents. However, it is assumed that companies might want to create specific `Stage` objects that can then be reused for multiple parts.
+These bespoke objects should be stored in local version of `CompositeStandard`. 
+
+ 

@@ -195,6 +195,8 @@ Object definitions
 	:param status: --- to be defined ---
 	:param axisSystemID: int - reference to `AxisSystem` object
 	:param file: str - reference to file which houses defect - not needed if relimitation defined directly in CompoST
+	:param splineRelimitation: `Spline` - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
+	:param splineRelimitationRef: int - same as above but refenced as ``ID`` only. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
 	
 .. py:function:: CompositeStandard.Wrinkle(Defect)
 
@@ -203,8 +205,6 @@ Object definitions
 	:param maxRoC: float - machimum rate of changes
 	:param size_x: float
 	:param size_y: float
-	:param splineRelimitationRef: int - relimitation points collected as spline to define defect boundary
-	:param splineRelimitation: `Spline` - directly including the delimitation spline object
 	:param meshRef: int - mesh corresponding to defect area or volume
 	:param amplitude: float - the size of the defect in out-of plane direction
 
@@ -240,8 +240,7 @@ Object definitions
 	:param orientations: list - list of floats that should be the same size as ``lines``. This could also be calculated from ``lines`` and ``axisSystemID``.
 	:param avDiffToNominal: float - average of local differences between orientation and defined ply orientation. This is more indicative than 'averageOrientation' as that one can offer falsely optimistic results.
 	:param averageOrientation: float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.
-	:param splineRelimitation: `Spline` - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
-	:param splineRelimitationRef: int - same as above but refenced as ``ID`` only. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
+
 	
 The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.
 
@@ -251,13 +250,17 @@ The objects below are temporary definitions, that might still be subject to chan
 	
 .. py:function:: CompositeStandard.Stage(BaseModel)
 
+	`Stage` can be used as standalone object that is related to an actual process (NDT/Manufacturing/Analysis...). Users can also create their own sub-object that correspond to their processes, `PlyScan` below is such example.
+	More details about the intended purpose of stages are available in :ref:`stages-reference`.
+
 	:param stageID: int - unique stage identifier
 	:param memberName: str 
 	:param source: `SourceSystem` 
+	:param processRef: str - This is used to reference a file which describes process in question. CompoST is part focused, so processes are only referened here, rather than process details being stored.
 	
 .. py:function:: CompositeStandard.PlyScan(Stage)
 
-	The name of the function is a placeholder rightn now.
+	(EXAMPLE) This is an example of `Stage` child defined by user. Right now it is assumed stages will be defined for each company according to their needs.
 	
 	:param machine: str - designation name of the machine underataking scanning 
 	:param binderActivated: bool - indicates weather binder was activated during the layup 

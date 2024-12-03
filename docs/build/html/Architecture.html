@@ -5,7 +5,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Architecture &#8212; Composite Standard (CompoST) 0.70a documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -50,7 +50,8 @@
             
   <section id="architecture">
 <h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading">¶</a></h1>
-<a class="reference internal image-reference" href="_images/NCC-TEC-4376.jpg"><img alt="_images/NCC-TEC-4376.jpg" src="_images/NCC-TEC-4376.jpg" style="width: 1000px;" /></a>
+<a class="reference internal image-reference" href="_images/NCC-TEC-4376.jpg"><img alt="_images/NCC-TEC-4376.jpg" src="_images/NCC-TEC-4376.jpg" style="width: 1000px;" />
+</a>
 <p>On the figure above, arrows point from an object 1 to object 2, where object 1 inherits from object 2.</p>
 <p>The figure is also work-in-progress. The outline titled “mostly fixed” houses the objects that have been implemented and used. These will hopefully see only minor adjustments. Objects outside this area might end up being standardised differently than currently suggested.</p>
 <p>All fields are optional unless otherwise specified, or unless required to construct specific object.</p>
@@ -344,6 +345,8 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <li><p><strong>status</strong> – — to be defined —</p></li>
 <li><p><strong>axisSystemID</strong> – int - reference to <cite>AxisSystem</cite> object</p></li>
 <li><p><strong>file</strong> – str - reference to file which houses defect - not needed if relimitation defined directly in CompoST</p></li>
+<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.</p></li>
 </ul>
 </dd>
 </dl>
@@ -360,8 +363,6 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <li><p><strong>maxRoC</strong> – float - machimum rate of changes</p></li>
 <li><p><strong>size_x</strong> – float</p></li>
 <li><p><strong>size_y</strong> – float</p></li>
-<li><p><strong>splineRelimitationRef</strong> – int - relimitation points collected as spline to define defect boundary</p></li>
-<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - directly including the delimitation spline object</p></li>
 <li><p><strong>meshRef</strong> – int - mesh corresponding to defect area or volume</p></li>
 <li><p><strong>amplitude</strong> – float - the size of the defect in out-of plane direction</p></li>
 </ul>
@@ -426,8 +427,6 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <li><p><strong>orientations</strong> – list - list of floats that should be the same size as <code class="docutils literal notranslate"><span class="pre">lines</span></code>. This could also be calculated from <code class="docutils literal notranslate"><span class="pre">lines</span></code> and <code class="docutils literal notranslate"><span class="pre">axisSystemID</span></code>.</p></li>
 <li><p><strong>avDiffToNominal</strong> – float - average of local differences between orientation and defined ply orientation. This is more indicative than ‘averageOrientation’ as that one can offer falsely optimistic results.</p></li>
 <li><p><strong>averageOrientation</strong> – float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.</p></li>
-<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.</p></li>
-<li><p><strong>splineRelimitationRef</strong> – int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.</p></li>
 </ul>
 </dd>
 </dl>
@@ -447,12 +446,15 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.Stage">
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Stage" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p><cite>Stage</cite> can be used as standalone object that is related to an actual process (NDT/Manufacturing/Analysis…). Users can also create their own sub-object that correspond to their processes, <cite>PlyScan</cite> below is such example.
+More details about the intended purpose of stages are available in <a class="reference internal" href="Logic.html#stages-reference"><span class="std std-ref">Stages</span></a>.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>stageID</strong> – int - unique stage identifier</p></li>
 <li><p><strong>memberName</strong> – str</p></li>
 <li><p><strong>source</strong> – <cite>SourceSystem</cite></p></li>
+<li><p><strong>processRef</strong> – str - This is used to reference a file which describes process in question. CompoST is part focused, so processes are only referened here, rather than process details being stored.</p></li>
 </ul>
 </dd>
 </dl>
@@ -461,7 +463,7 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.PlyScan">
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">PlyScan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Stage</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.PlyScan" title="Permalink to this definition">¶</a></dt>
-<dd><p>The name of the function is a placeholder rightn now.</p>
+<dd><p>(EXAMPLE) This is an example of <cite>Stage</cite> child defined by user. Right now it is assumed stages will be defined for each company according to their needs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
