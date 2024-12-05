@@ -192,7 +192,6 @@ Object definitions
 	:param map: `CompositeStandard.CompositeDBItem` - any composite or geometric object
 	:param location: float - x,y,z location
 	:param effMaterial: `CompositeStandard.Material` - adjusted material class saved 
-	:param status: --- to be defined ---
 	:param axisSystemID: int - reference to `AxisSystem` object
 	:param file: str - reference to file which houses defect - not needed if relimitation defined directly in CompoST
 	:param splineRelimitation: `Spline` - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
