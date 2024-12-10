@@ -15,7 +15,7 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.70c ####
+#### VERSION 0.70d ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #documentation link in the repository Readme
@@ -124,7 +124,7 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.70c") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.70d") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
@@ -225,7 +225,7 @@ class Line(GeometricElement):
     IDs: Optional[list[int]] = Field(None)
     lenght: Optional[float] = Field(None) #can be calculated from above, but then can be stored so calcs are not duplicated
 
-class MeshElement(BaseModel):
+class MeshElement(GeometricElement):
     #3 or 4 points, check?
     nodes: list['Point'] = Field(None) # only accept Point classes
     normal: list = Field(None) #x,y,z in the list
