@@ -77,7 +77,6 @@ Object definitions
 	:param tolerances: list - list of "tolerance type objects
 	:param axisSystemID: int - refernce to object in allAxisSystems specified by ID
 	:param referencedBy: list - optional list of objects that currently reference this object
-	:param status: str - #TODO
 	
 .. py:function:: CompositeStandard.Point(GeometricElement)
 
