@@ -1,8 +1,12 @@
-from pydantic import BaseModel, Field, ConfigDict, ValidationError, SerializeAsAny
+from pydantic import BaseModel, Field, ConfigDict, ValidationError, SerializeAsAny, root_validator
 import numpy as np
-from typing import Optional, Tuple, Union, Annotated
+from typing import Optional, Tuple, Union, Annotated, Any
 from datetime import date, time, timedelta
 
+#specifically for axis calcualtions
+from numpy import (array, dot, arccos, clip)
+from numpy.linalg import norm
+import math
 
 from enum import Enum
 from pydantic import BaseModel, Field, TypeAdapter
@@ -11,17 +15,10 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.68c ####
+#### VERSION 0.70d ####
 #https://github.com/National-Composites-Centre/CompoST
 
-#potentially replace by JSON parser for Pydantic
-#However, for now largely bespoke scripted breakdown for good control of format
-
-#"CompositeElement" type objects include: Piece, Ply, SolidComponent, CompositeComponent
-
-#anything that can be referenced must have an ID, this ID should correspond to the order in which it is stored. 
-#Therefore for now ID is not directly specified but is inherent in the list it belongs to)
-
+#documentation link in the repository Readme
 
 class CompositeDBItem(BaseModel):
 
@@ -39,41 +36,95 @@ class GeometricElement(CompositeDBItem):
     refFile: Optional[str] = Field(default = None)
     
 class Point(GeometricElement):
-    #value: np.array = Field(np.asarray[0,0,0])
-    #memberName: Optional[str] = Field(None) #can point out specific points for reference - group points for unexpected reasons...
+    
     x: float = Field(default = 0)
     y: float = Field(default = 0)
     z: float = Field(default = 0)
 
 class AxisSystem(GeometricElement):
-    #^^ point + 3x vector ==> implement check that the 3 axis are perpendicular to each other
+    #Axis system on default uses root axis system values
 
-    #Axis system on default uses root axis system values - upon initionation any changes must be applied on all axes
+    #Axes are defined as points - the vector/axis itself is 
+    #the point minus the origin.
+
+    #User should only specify origin point and two of the axes.
+    #Third axis is calculated when this object is initialized 
+    #and re-calculated when any parameter is changed.
+
+    #The user should not be manually editing z_pt. 
 
     #point of origin
-    pt: Point = Field(default=Point())
+    o_pt: Point = Field(default=Point(x=0,y=0,z=0))
 
-    # 1st asxis of axis system (adjusted x) - expressed in global
-    v1x: float = Field(default = 1)
-    v1y: float = Field(default = 0)
-    v1z: float = Field(default = 0)
+    #point that defines x axis - origin_pt ==> x_pt is the axis as vector
+    x_pt: Point = Field(default=Point(x=1,y=0,z=0))
 
-    # 1st asxis of axis system (adjusted y) - expressed in global
-    v2x: float = Field(default = 0)
-    v2y: float = Field(default = 1)
-    v2z: float = Field(default = 0)
+    #point that defines y axis - origin_pt ==> y_pt is the axic as vector
+    y_pt: Point = Field(default=Point(x=0,y=1,z=0))
 
-    # 1st asxis of axis system (adjusted z) - expressed in global
-    v3x: float = Field(default = 0)
-    v3y: float = Field(default = 0)
-    v3z: float = Field(default = 1)
+    #When x_pt and y_pt are not perpendicular y_pt.z is adjusted so that they are.
+    #Point that defines z axis - origin_pt ==> z_pt is the axis as vector.
+    z_pt: Point = Field(default=Point(x=0,y=0,z=1))
+
+
+    def __init__(self, **data):
+        super().__init__(**data)
+        self._calculateZ()
+
+    #pass local data to recalcZ method for new z_pt 
+    def _calculateZ(self) -> None:
+        self.__dict__['z_pt'], self.__dict__['y_pt'] = self.recalcZ(self)
+        return(self)   
+
+    @staticmethod
+    def recalcZ(self):
+        #calculate the third vector and find the point to store
+        u = np.asarray([self.x_pt.x-self.o_pt.x, self.x_pt.y-self.o_pt.y, self.x_pt.z-self.o_pt.z])
+        v = np.asarray([self.y_pt.x-self.o_pt.x, self.y_pt.y-self.o_pt.y, self.y_pt.z-self.o_pt.z])
+        #cross product
+        cp = np.cross(u,v)
+        #point rather than vector
+        ptZ = cp +  np.asarray([self.o_pt.x, self.o_pt.y, self.o_pt.z])
+        z_pt = Point(x=ptZ[0],y=ptZ[1],z=ptZ[2])
+
+        #check whether the secondary (y_pt) vector is perpendicular to primary (x_pt)
+        c = dot(u,v)/norm(u)/norm(v)
+        angle = arccos(clip(c,-1,1))*180/math.pi
+        #check if right angle - giving small margin in case rounding errors on input
+        if (angle < 89.9) or (angle >  90.1):
+            cp2 = np.cross(u,cp)
+            ptY = cp2 +  np.asarray([self.o_pt.x, self.o_pt.y, self.o_pt.z])
+            y_pt = Point(x=ptY[0],y=ptY[1],z=ptY[2])
+
+            print("Secondary axix of an AxisSystem is not perpendicular to primary, this is automatically recalculated.")
+
+            #TEMP CHECK 
+            #c = dot(u,cp2)/norm(u)/norm(cp2)
+            #angle = arccos(clip(c,-1,1))*180/math.pi
+            #print("fixed angle is: ",angle)
+        else:
+            #keep y_pt the same
+            y_pt = self.y_pt
+
+        return(z_pt,y_pt)
+
+    def __setattr__(self, name: str, value: Any) -> None:
+        # Override setattr - responds to changes in o_pt, x_pt, or y_pt
+        super().__setattr__(name, value)
+        if name in {"o_pt", "x_pt", "y_pt"}:
+            self._calculateZ()
+    
+    class Config:
+        populate_by_name = True
+        arbitrary_types_allowed = True
+
 
 class FileMetadata(BaseModel):
     #the below might be housed in specialized class
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.68c") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.70d") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
@@ -109,7 +160,6 @@ class CompositeElement(CompositeDBItem):
     tolerances: Optional[list['Tolerance']] = Field(None)
     axisSystemID: Optional[int] = Field(None) #ID reference to allAxis systems 
     referencedBy: Optional[list[int]] = Field(None) # list of int>
-    status: Optional[str] = Field(None) #TODO
 
 class Piece(CompositeElement):
     #CompositeElement type object
@@ -175,7 +225,7 @@ class Line(GeometricElement):
     IDs: Optional[list[int]] = Field(None)
     lenght: Optional[float] = Field(None) #can be calculated from above, but then can be stored so calcs are not duplicated
 
-class MeshElement(BaseModel):
+class MeshElement(GeometricElement):
     #3 or 4 points, check?
     nodes: list['Point'] = Field(None) # only accept Point classes
     normal: list = Field(None) #x,y,z in the list
@@ -198,6 +248,8 @@ class Defect(CompositeDBItem):
     status: Optional[object] = Field(None) #TODO
     axisSystemID: Optional[int] = Field(None) #reference to axis system stored in Geo. elements
     file: Optional[str] = Field(None) #reference to dedicated defect file
+    splineRelimitationRef: Optional[int] = Field(None) #points collected as spline relimiting the defect
+    splineRelimitation: Optional['Spline'] = Field(None)
 
 class Wrinkle(Defect):
 
@@ -206,8 +258,6 @@ class Wrinkle(Defect):
     maxRoC: Optional[float] = Field(None)
     size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystemID, or global axis if local not available
     size_y: Optional[float] = Field(None)
-    splineRelimitationRef: Optional[int] = Field(None) #points collected as spline relimiting the defect
-    splineRelimitation: Optional['Spline'] = Field(None)
     meshRef: Optional[int] = Field(None) # area covered by defect expressed in mesh format (area or volume)
     amplitude: Optional[float] = Field(None) #out of plane maxiumum size of the defect
 
@@ -217,8 +267,6 @@ class FibreOrientations(Defect):
     orientations: Optional[list[float]] = Field(None) #list of floats corresponding to the "lines" list 
     averageOrientation: Optional[float] = Field(None) #average of "orientations", does not account for varying lenght of lines
     avDiffToNominal: Optional[list[float]] = Field(None) #average difference 
-    splineRelimitation: Optional['Spline'] = Field(None) #area for this definition
-    splineRelimitationRef: Optional[int] = Field(None) # same as above, but referenced using 'ID'
 
 
 class Tolerance(CompositeDBItem):
@@ -243,10 +291,25 @@ class Delamination(Defect):
 
     #Delamination occurs between two layers/plies, the convention is to append it to the one that is in the tool direction.
 
-    size_x: Optional[float] = Field(None) 
-    size_y: Optional[float] = Field(None) 
-    area: Optional[float] = Field(None)   
+    size_x: Optional[float] = Field(None) #length in x axis direction
+    size_y: Optional[float] = Field(None) #length in y axis direction
+    area: Optional[float] = Field(None)  
 
+class DelaminationTolerance(Tolerance):
+
+    maxX: Optional[float] = Field(None) #maximum length in x axis direction
+    maxY: Optional[float] = Field(None) #maximum length in y axis direction
+    maxArea: Optional[float] = Field(None) #maximume allowed area per defect
+
+class BoundaryDeviation(Defect):
+    
+    maxDeviation: Optional[float] = Field(None) #maximum distance of a measured point from intended boundary
+    avDeviation: Optional[float] = Field(None) #average deviation along the boundary
+
+class BoundaryTolerance(Defect):
+
+    maxAllowedDev: Optional[float] = Field(None) #maximum allowed distance of a measured point from intended boundary
+    maxAv: Optional[float] = Field(None) #
 
 #
 ##
@@ -265,6 +328,7 @@ class Stage(BaseModel):
     stageID: Optional[int] = Field(default=None) 
     memberName: Optional[str] = Field(default=None)
     source: Optional[SourceSystem] = Field(None) #SourceSystem
+    processRef: Optional[str] = Field(None) #this is reference to process that corresponds to current stage (e.g. instruction sheet pdf location)
 
 class PlyScan(Stage):
 
