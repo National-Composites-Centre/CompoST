@@ -301,7 +301,7 @@ The objects below are temporary definitions, that might still be subject to chan
 	:param maxDeviation: float - maximum distance of a measured point from intended boundary
 	:param avDeviation: float - average deviation along the boundary
 	
-.. py:function:: CompositeStandard.BoundaryTolerance(Defect)
+.. py:function:: CompositeStandard.BoundaryTolerance(Tolerance)
 
 	:param maxAllowedDev: float - maximum allowed distance of a measured point from intended boundary
 	:param maxAv: float - maximum allowed average deviation along the entire boundary

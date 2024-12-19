@@ -57,4 +57,9 @@ to keep the Wrinkle stored for traceability, to to de-activate the object to ind
 To define `Stage` the default object `Stage` can be used, with majority  of information being stored in reference documents. However, it is assumed that companies might want to create specific `Stage` objects that can then be reused for multiple parts.
 These bespoke objects should be stored in local version of `CompositeStandard`. 
 
- 
+Edge of Part
+------------
+
+On default all composite objects are defined with the "manufacturing edge of ply". The 'EngEdgeofPart' simulates the final trimming operation, and simply relimits the part according to final trimming operation.
+
+(This logic can still be modified based on real examples and induced limitations)
