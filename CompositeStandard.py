@@ -15,7 +15,7 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.70d ####
+#### VERSION 0.71a ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #documentation link in the repository Readme
@@ -124,14 +124,14 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.70d") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.71a") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
     cadFile: Optional[str] = Field(default=None)
     cadFilePath: Optional[str] = Field(default=None)
 
-    #v.064
+    #
     maxID: int = Field(default =0)
 
 class CompositeDB(BaseModel):
@@ -164,21 +164,24 @@ class CompositeElement(CompositeDBItem):
 class Piece(CompositeElement):
     #CompositeElement type object
     #In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
-    splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
+    splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
+    splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
     material: Optional[str] = Field(None) #ref to material in allMaterials
 
 class Ply(CompositeElement):
     #CompositeElement type object
     material: Optional[str] = Field(None) #ref to material in allMaterials
     orientation: Optional[float] = Field(None)
-    splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
+    splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
+    splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
 
 class Sequence(CompositeElement):
     #CompositeElement type object
     orientations: Optional[list[float]] = Field(None) #used for minimalistic definition where ply-objects are avoided
     materials: Optional[list['Material']] = Field(None) #listof materials - must be same lenght as orientations
     material: Optional[str] = Field(None) #ref to material in allMaterials
-    splineRelimitationRef: Optional[int] = Field(None) #reference to spline object
+    splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
+    splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
 
 class CompositeComponent(CompositeElement):
     #this object is mostly going to be used for bonding co-curing etc where multiple distinct composite components
@@ -194,6 +197,15 @@ class SolidComponent(CompositeElement):
     #had shapes - for example when including 3D core
     cadFile: Optional[str] = Field(None)
     sourceSystem: Optional[SourceSystem] = Field(None) #SourceSystem object
+
+class EngEdgeOfPart(CompositeElement):
+    #Engineering edge of part
+    #This allows for overriding definition of where the part is to be trimmed at the end of manufacture
+    
+    splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
+    splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
+    source: Optional['SourceSystem'] = Field(None) #defines which CAD system was this created in
+    referenceGeometry: Optional[str] = Field(None) #reference to the name (string) of geometry that defines this in source CAD system
 
 class Material(BaseModel):
     #this will be extended over time - it should allow for storing different level materials (i.e. stack vs ply)
@@ -242,10 +254,9 @@ class Spline(GeometricElement):
 
 class Defect(CompositeDBItem):
     
-    map: Optional[CompositeDBItem] = Field(None) #any composite or geometric object
     location: Optional[list[float]] = Field(None) #x,y,z location
     effMaterial: Optional[Material] = Field(None) #adjusted material class saved in materials
-    status: Optional[object] = Field(None) #TODO
+    status: Optional[bool] = Field(None) #TODO
     axisSystemID: Optional[int] = Field(None) #reference to axis system stored in Geo. elements
     file: Optional[str] = Field(None) #reference to dedicated defect file
     splineRelimitationRef: Optional[int] = Field(None) #points collected as spline relimiting the defect
