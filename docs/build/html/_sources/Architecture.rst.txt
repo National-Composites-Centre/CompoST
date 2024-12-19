@@ -135,13 +135,15 @@ Object definitions
 
 	In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
 
-	:param splineRelimitationRef: int - reference to spline delimiting the boundary of this piece
+	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
+	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
 	:param material: str - reference materialName (IDs not used here, as material can be located in external database)
 	
 	
 .. py:function:: CompositeStandard.Ply(CompositeElement)
 
-	:param splineRelimitationRef: int - reference to spline delimiting the boundary of this ply	
+	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
+	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
 	:param material: str - reference materialName (IDs not used here, as material can be located in external database) 	
 	:param orientation: float - direction of lay-up with reference to x-axis of placementRosette
 	
@@ -158,7 +160,16 @@ Object definitions
 	:param orientations: list - list of floats, orientations listed with reference to placementRosette
 	:param materials: list - list of strings, materialName's
 	:param singleMaterial: str - used only if 1 material is used through-out the sequence
-	:param splineRelimitationRef: int - used when all plies end at the same boundary and the lists above are being used	
+	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
+	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
+
+.. py:function:: EndEdgeOfPart(CompositeElement)
+	Stands for engineering edge of part.
+	
+	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
+	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
+	:param source: 'SourceSystem' - CAD system where this was defined
+	:param referenceGeometry: str - the name of edge of part defining geometry, as used inside CAD system
 
 .. py:function:: CompositeStandard.CompositeComponent(CompositeElement)
 
@@ -187,8 +198,7 @@ Object definitions
 
 	Note: storing a defect belonging to this class only stores the data regarding the feature. Weather or not this classifies as a defect in enginering process, depends on comparing the data
 	stored here with the appropriate :func:`CompositeStandard.Tolerance`
-
-	:param map: `CompositeStandard.CompositeDBItem` - any composite or geometric object
+	:param status: bool - None = not evaluated, True = defect outside of tolerance, False = deviation but fits within tolerance
 	:param location: float - x,y,z location
 	:param effMaterial: `CompositeStandard.Material` - adjusted material class saved 
 	:param axisSystemID: int - reference to `AxisSystem` object

@@ -19,6 +19,7 @@ Welcome to Composite part data Standard (CompoSt)'s documentation!
    StorageFormat
    Undecided
    DevelopmentPlan
+   Versions
 
 
 Indices and tables

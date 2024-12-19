@@ -236,7 +236,8 @@ to each other. However, if user fails to do so the object adjusts itself (at lea
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>splineRelimitationRef</strong> – int - reference to spline delimiting the boundary of this piece</p></li>
+<li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
 <li><p><strong>material</strong> – str - reference materialName (IDs not used here, as material can be located in external database)</p></li>
 </ul>
 </dd>
@@ -249,7 +250,8 @@ to each other. However, if user fails to do so the object adjusts itself (at lea
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>splineRelimitationRef</strong> – int - reference to spline delimiting the boundary of this ply</p></li>
+<li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
 <li><p><strong>material</strong> – str - reference materialName (IDs not used here, as material can be located in external database)</p></li>
 <li><p><strong>orientation</strong> – float - direction of lay-up with reference to x-axis of placementRosette</p></li>
 </ul>
@@ -270,7 +272,25 @@ to each other. However, if user fails to do so the object adjusts itself (at lea
 <li><p><strong>orientations</strong> – list - list of floats, orientations listed with reference to placementRosette</p></li>
 <li><p><strong>materials</strong> – list - list of strings, materialName’s</p></li>
 <li><p><strong>singleMaterial</strong> – str - used only if 1 material is used through-out the sequence</p></li>
-<li><p><strong>splineRelimitationRef</strong> – int - used when all plies end at the same boundary and the lists above are being used</p></li>
+<li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EndEdgeOfPart">
+<span class="sig-name descname"><span class="pre">EndEdgeOfPart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EndEdgeOfPart" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Stands</span> <span class="pre">for</span> <span class="pre">engineering</span> <span class="pre">edge</span> <span class="pre">of</span> <span class="pre">part.</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
+<li><p><strong>source</strong> – ‘SourceSystem’ - CAD system where this was defined</p></li>
+<li><p><strong>referenceGeometry</strong> – str - the name of edge of part defining geometry, as used inside CAD system</p></li>
 </ul>
 </dd>
 </dl>
@@ -333,20 +353,14 @@ to each other. However, if user fails to do so the object adjusts itself (at lea
 <dt class="sig sig-object py" id="CompositeStandard.Defect">
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Defect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Defect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Note: storing a defect belonging to this class only stores the data regarding the feature. Weather or not this classifies as a defect in enginering process, depends on comparing the data
-stored here with the appropriate <a class="reference internal" href="#CompositeStandard.Tolerance" title="CompositeStandard.Tolerance"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Tolerance()</span></code></a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>map</strong> – <cite>CompositeStandard.CompositeDBItem</cite> - any composite or geometric object</p></li>
-<li><p><strong>location</strong> – float - x,y,z location</p></li>
-<li><p><strong>effMaterial</strong> – <cite>CompositeStandard.Material</cite> - adjusted material class saved</p></li>
-<li><p><strong>axisSystemID</strong> – int - reference to <cite>AxisSystem</cite> object</p></li>
-<li><p><strong>file</strong> – str - reference to file which houses defect - not needed if relimitation defined directly in CompoST</p></li>
-<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.</p></li>
-<li><p><strong>splineRelimitationRef</strong> – int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.</p></li>
-</ul>
-</dd>
-</dl>
+stored here with the appropriate <a class="reference internal" href="#CompositeStandard.Tolerance" title="CompositeStandard.Tolerance"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Tolerance()</span></code></a>
+:param status: bool - None = not evaluated, True = defect outside of tolerance, False = deviation but fits within tolerance
+:param location: float - x,y,z location
+:param effMaterial: <cite>CompositeStandard.Material</cite> - adjusted material class saved
+:param axisSystemID: int - reference to <cite>AxisSystem</cite> object
+:param file: str - reference to file which houses defect - not needed if relimitation defined directly in CompoST
+:param splineRelimitation: <cite>Spline</cite> - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
+:param splineRelimitationRef: int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.</p>
 </dd></dl>
 
 <dl class="py function">
