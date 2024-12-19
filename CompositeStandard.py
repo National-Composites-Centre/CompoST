@@ -256,7 +256,7 @@ class Defect(CompositeDBItem):
     
     location: Optional[list[float]] = Field(None) #x,y,z location
     effMaterial: Optional[Material] = Field(None) #adjusted material class saved in materials
-    status: Optional[bool] = Field(None) #TODO
+    status: Optional[bool] = Field(None) # None = not evaluated, True = defect outside of tolerance, False = deviation but fits within tolerance
     axisSystemID: Optional[int] = Field(None) #reference to axis system stored in Geo. elements
     file: Optional[str] = Field(None) #reference to dedicated defect file
     splineRelimitationRef: Optional[int] = Field(None) #points collected as spline relimiting the defect
@@ -317,7 +317,7 @@ class BoundaryDeviation(Defect):
     maxDeviation: Optional[float] = Field(None) #maximum distance of a measured point from intended boundary
     avDeviation: Optional[float] = Field(None) #average deviation along the boundary
 
-class BoundaryTolerance(Defect):
+class BoundaryTolerance(Tolerance):
 
     maxAllowedDev: Optional[float] = Field(None) #maximum allowed distance of a measured point from intended boundary
     maxAv: Optional[float] = Field(None) #
