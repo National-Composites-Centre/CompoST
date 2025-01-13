@@ -208,11 +208,11 @@ Object definitions
 	
 .. py:function:: CompositeStandard.Wrinkle(Defect)
 
-	:param area: float 
+	:param area: float - can be calculated in various more precise ways, but in general this can be approximated by size_x*size_y 
 	:param aspectRatio: float - typically size_x/size_y
-	:param maxRoC: float - machimum rate of changes
-	:param size_x: float
-	:param size_y: float
+	:param maxRoC: float - machimum "rate of changes" (RoC), or slope, is the angle of deviation towards the apex, in simplest case of wrinkle in x direction it can be approximated by: [ RoC = arctan(maxAmplitude/(0.5*maxX)) ]. In Radians.
+	:param size_x: float - maximum size of the deviation in x direction of the relavant axis system
+	:param size_y: float - maximum size of the deviation in y direction of the relavant axis system
 	:param meshRef: int - mesh corresponding to defect area or volume
 	:param amplitude: float - the size of the defect in out-of plane direction
 
@@ -233,14 +233,13 @@ Object definitions
 	
 .. py:function:: CompositeStandard.WrinkleTolerance(Tolerance)
 
-	:param maxX: float
-	:param maxY: float
-	:param maxZ: float
-	:param axisSystemID: int
-	:param maxArea: float
-	:param maxSlope: float
-	:param maxSkew: float
-	:param maxAmplitude: float
+	:param maxX: float - maximum size of the deviation in x direction of the relavant axis system
+	:param maxY: float - maximum size of the deviation in y direction of the relavant axis system
+	:param axisSystemID: int - 'axisSystem' reference 
+	:param maxArea: float - can be calculated in various more precise ways, but in general this can be approximated by maxX*maxY
+	:param maxRoC: float - Rate of change (RoC), or slope, is the angle of deviation towards the apex, in simplest case of wrinkle in x direction it can be approximated by: [ RoC = arctan(maxAmplitude/(0.5*maxX)) ]. In Radians.
+	:param maxSkew: float - [definition to be croudsourced later]
+	:param maxAmplitude: float - maximum out of plane deviation
 	
 .. py:function:: CompositeStandard.FibreOrientations(Defect)
 	

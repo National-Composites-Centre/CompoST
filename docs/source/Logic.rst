@@ -63,3 +63,10 @@ Edge of Part
 On default all composite objects are defined with the "manufacturing edge of ply". The 'EngEdgeofPart' simulates the final trimming operation, and simply relimits the part according to final trimming operation.
 
 (This logic can still be modified based on real examples and induced limitations)
+
+Tolerances
+----------
+
+Tolerances are an important part of CompoST. Howerver, STEP already has a standard for many geometric tolerances. Therefore it is suggested that that standard takes precedence for geometric tolerances. The CompoST tolerances are to be used
+where the STEP does not have appropriate information to apply tolerances on, specific composite objects. Ultimately it is up to the user, to chose if a specific tolerance is to be defined in STEP or in CompoST. However, the focus here is on 
+tolernaces not covered by STEP, or not covered sufficiently for specific composite applications.

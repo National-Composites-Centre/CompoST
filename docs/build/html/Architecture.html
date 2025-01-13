@@ -369,11 +369,11 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>area</strong> – float</p></li>
+<li><p><strong>area</strong> – float - can be calculated in various more precise ways, but in general this can be approximated by size_x*size_y</p></li>
 <li><p><strong>aspectRatio</strong> – float - typically size_x/size_y</p></li>
-<li><p><strong>maxRoC</strong> – float - machimum rate of changes</p></li>
-<li><p><strong>size_x</strong> – float</p></li>
-<li><p><strong>size_y</strong> – float</p></li>
+<li><p><strong>maxRoC</strong> – float - machimum “rate of changes” (RoC), or slope, is the angle of deviation towards the apex, in simplest case of wrinkle in x direction it can be approximated by: [ RoC = arctan(maxAmplitude/(0.5*maxX)) ]. In Radians.</p></li>
+<li><p><strong>size_x</strong> – float - maximum size of the deviation in x direction of the relavant axis system</p></li>
+<li><p><strong>size_y</strong> – float - maximum size of the deviation in y direction of the relavant axis system</p></li>
 <li><p><strong>meshRef</strong> – int - mesh corresponding to defect area or volume</p></li>
 <li><p><strong>amplitude</strong> – float - the size of the defect in out-of plane direction</p></li>
 </ul>
@@ -415,14 +415,13 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>maxX</strong> – float</p></li>
-<li><p><strong>maxY</strong> – float</p></li>
-<li><p><strong>maxZ</strong> – float</p></li>
-<li><p><strong>axisSystemID</strong> – int</p></li>
-<li><p><strong>maxArea</strong> – float</p></li>
-<li><p><strong>maxSlope</strong> – float</p></li>
-<li><p><strong>maxSkew</strong> – float</p></li>
-<li><p><strong>maxAmplitude</strong> – float</p></li>
+<li><p><strong>maxX</strong> – float - maximum size of the deviation in x direction of the relavant axis system</p></li>
+<li><p><strong>maxY</strong> – float - maximum size of the deviation in y direction of the relavant axis system</p></li>
+<li><p><strong>axisSystemID</strong> – int - ‘axisSystem’ reference</p></li>
+<li><p><strong>maxArea</strong> – float - can be calculated in various more precise ways, but in general this can be approximated by maxX*maxY</p></li>
+<li><p><strong>maxRoC</strong> – float - Rate of change (RoC), or slope, is the angle of deviation towards the apex, in simplest case of wrinkle in x direction it can be approximated by: [ RoC = arctan(maxAmplitude/(0.5*maxX)) ]. In Radians.</p></li>
+<li><p><strong>maxSkew</strong> – float - [definition to be croudsourced later]</p></li>
+<li><p><strong>maxAmplitude</strong> – float - maximum out of plane deviation</p></li>
 </ul>
 </dd>
 </dl>
