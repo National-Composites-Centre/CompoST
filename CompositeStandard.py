@@ -15,7 +15,7 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.71a ####
+#### VERSION 0.71b ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #documentation link in the repository Readme
@@ -124,7 +124,7 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.71a") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.71b") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
@@ -289,12 +289,11 @@ class Tolerance(CompositeDBItem):
 
 class WrinkleTolerance(Tolerance):
 
-    maxZ: Optional[float] = Field(None)
     maxY: Optional[float] = Field(None)
     maxX: Optional[float] = Field(None)
     axisSystemID: Optional[int] = Field(None)
     maxArea: Optional[float] = Field(None)
-    maxSlope: Optional[float] = Field(None)
+    maxRoC: Optional[float] = Field(None) #maximum rate of change, in radians
     maxSkew: Optional[float] = Field(None) #TODO define
     maxAmplitude: Optional[float] = Field(None)
 
