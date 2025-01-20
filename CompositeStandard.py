@@ -182,11 +182,13 @@ class Sequence(CompositeElement):
     material: Optional[str] = Field(None) #ref to material in allMaterials
     splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
     splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
+    EP: Optional['EffectiveProperties'] = Field(None) #Effective properties : if the component has uniform effective properties
 
 class CompositeComponent(CompositeElement):
     #this object is mostly going to be used for bonding co-curing etc where multiple distinct composite components
     #can be defined
     integratedComponent: Optional[list[CompositeDB]] = Field(None) #allows for nesting another comonent within this file
+    EP: Optional['EffectiveProperties'] = Field(None) #Effective properties : if the component has uniform effective properties
 
 class SourceSystem(BaseModel):
     softwareName: Optional[str] = Field(None)
@@ -320,6 +322,25 @@ class BoundaryTolerance(Tolerance):
 
     maxAllowedDev: Optional[float] = Field(None) #maximum allowed distance of a measured point from intended boundary
     maxAv: Optional[float] = Field(None) #
+
+class EffectiveProperties(BaseModel):
+    #this object is used for objects that need homogenized material properties
+
+    #TODO this will require additions
+
+    E1: Optional[float] = Field(None) 
+    E2: Optional[float] = Field(None)
+    G23: Optional[float] = Field(None)
+    G12: Optional[float] = Field(None)
+    v12: Optional[float] = Field(None)
+    sourceSystem: Optional['SourceSystem'] = Field(None)
+    thickness: Optional[float] = Field(None)
+    density: Optional[float] = Field(None)
+    K1: Optional[float] = Field(None) #principle direction permeability
+    K2: Optional[float] = Field(None) #transverse permeability
+    K3: Optional[float] = Field(None) # through thickness permeability
+    Vf: Optional[float] = Field(None) #fibre volume fraction
+
 
 #
 ##
