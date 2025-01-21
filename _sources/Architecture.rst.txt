@@ -162,6 +162,7 @@ Object definitions
 	:param singleMaterial: str - used only if 1 material is used through-out the sequence
 	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
 	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
+	:param EP: 'EffectiveProperties' - effective properties for the entire sequence
 
 .. py:function:: EndEdgeOfPart(CompositeElement)
 	Stands for engineering edge of part.
@@ -174,6 +175,7 @@ Object definitions
 .. py:function:: CompositeStandard.CompositeComponent(CompositeElement)
 
 	:param integratedComponents: list - allows for integrating othre complete CompoST databases as sub-components
+	:param ED: 'EffectivePropertie' - Effective properties are only specified when applicable for the complete 'CompositeComponent'
 
 .. py:function:: CompositeStandard.SourceSystem(BaseModel)
 	
@@ -248,6 +250,22 @@ Object definitions
 	:param avDiffToNominal: float - average of local differences between orientation and defined ply orientation. This is more indicative than 'averageOrientation' as that one can offer falsely optimistic results.
 	:param averageOrientation: float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.
 
+.. py:function:: CompositeStandard.EffectiveProperties(BaseModel)
+
+	TODO - might need splitting between mechanical and dry-fibre flow properties 
+	
+	:param E1: float - Elastic modulus in principle direction (x)
+	:param E2: float - Elastic modulus in transverse direction (y)
+	:param G12: float - Shear Modulus in plane
+	:param G23: float - out of plane shear modulus
+	:param v12: float - poisson ratio
+	:param sourceSystem: 'SourceSystem' - Source software or analytical method used to calculate the effective properties
+	:param thickness: float
+	:param density: float
+	:param K1: float - permeability in principle direction
+	:param K2: float - permeability in transverse direction
+	:param K3: float - permeability thorugh thickness
+	:param Vf: float - volume fraction
 	
 The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.
 

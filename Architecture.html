@@ -274,6 +274,7 @@ to each other. However, if user fails to do so the object adjusts itself (at lea
 <li><p><strong>singleMaterial</strong> – str - used only if 1 material is used through-out the sequence</p></li>
 <li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
 <li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
+<li><p><strong>EP</strong> – ‘EffectiveProperties’ - effective properties for the entire sequence</p></li>
 </ul>
 </dd>
 </dl>
@@ -301,7 +302,10 @@ to each other. However, if user fails to do so the object adjusts itself (at lea
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeComponent" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>integratedComponents</strong> – list - allows for integrating othre complete CompoST databases as sub-components</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>integratedComponents</strong> – list - allows for integrating othre complete CompoST databases as sub-components</p></li>
+<li><p><strong>ED</strong> – ‘EffectivePropertie’ - Effective properties are only specified when applicable for the complete ‘CompositeComponent’</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -437,6 +441,30 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <li><p><strong>orientations</strong> – list - list of floats that should be the same size as <code class="docutils literal notranslate"><span class="pre">lines</span></code>. This could also be calculated from <code class="docutils literal notranslate"><span class="pre">lines</span></code> and <code class="docutils literal notranslate"><span class="pre">axisSystemID</span></code>.</p></li>
 <li><p><strong>avDiffToNominal</strong> – float - average of local differences between orientation and defined ply orientation. This is more indicative than ‘averageOrientation’ as that one can offer falsely optimistic results.</p></li>
 <li><p><strong>averageOrientation</strong> – float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.EffectiveProperties">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">EffectiveProperties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.EffectiveProperties" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO - might need splitting between mechanical and dry-fibre flow properties</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E1</strong> – float - Elastic modulus in principle direction (x)</p></li>
+<li><p><strong>E2</strong> – float - Elastic modulus in transverse direction (y)</p></li>
+<li><p><strong>G12</strong> – float - Shear Modulus in plane</p></li>
+<li><p><strong>G23</strong> – float - out of plane shear modulus</p></li>
+<li><p><strong>v12</strong> – float - poisson ratio</p></li>
+<li><p><strong>sourceSystem</strong> – ‘SourceSystem’ - Source software or analytical method used to calculate the effective properties</p></li>
+<li><p><strong>thickness</strong> – float</p></li>
+<li><p><strong>density</strong> – float</p></li>
+<li><p><strong>K1</strong> – float - permeability in principle direction</p></li>
+<li><p><strong>K2</strong> – float - permeability in transverse direction</p></li>
+<li><p><strong>K3</strong> – float - permeability thorugh thickness</p></li>
+<li><p><strong>Vf</strong> – float - volume fraction</p></li>
 </ul>
 </dd>
 </dl>
