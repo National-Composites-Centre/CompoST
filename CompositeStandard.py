@@ -15,7 +15,7 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.71b ####
+#### VERSION 0.71c ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #documentation link in the repository Readme
@@ -124,7 +124,7 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.71b") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.71c") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
@@ -327,6 +327,7 @@ class EffectiveProperties(BaseModel):
     #this object is used for objects that need homogenized material properties
 
     #TODO this will require additions
+    #TODO - might need splitting between mechanical and dry-fibre flow properties 
 
     E1: Optional[float] = Field(None) 
     E2: Optional[float] = Field(None)
@@ -341,6 +342,11 @@ class EffectiveProperties(BaseModel):
     K3: Optional[float] = Field(None) # through thickness permeability
     Vf: Optional[float] = Field(None) #fibre volume fraction
 
+class UnclassifiedDefect(Defect):
+    #this object is to be used when the defect you are storing does not have dedicated definition
+    #use the title field to classify it
+
+    title: Optional[str] = Field(None)
 
 #
 ##
@@ -353,6 +359,7 @@ class EffectiveProperties(BaseModel):
 ###
 ##
 #
+
 
 class Stage(BaseModel):
 
