@@ -166,11 +166,11 @@ class Piece(CompositeElement):
     #In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
     splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
     splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
-    material: Optional[str] = Field(None) #ref to material in allMaterials
+    material: Optional['Material'] = Field(None) #material from allMaterials
 
 class Ply(CompositeElement):
     #CompositeElement type object
-    material: Optional[str] = Field(None) #ref to material in allMaterials
+    material: Optional['Material'] = Field(None) #material from allMaterials
     orientation: Optional[float] = Field(None)
     splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
     splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
@@ -179,7 +179,7 @@ class Sequence(CompositeElement):
     #CompositeElement type object
     orientations: Optional[list[float]] = Field(None) #used for minimalistic definition where ply-objects are avoided
     materials: Optional[list['Material']] = Field(None) #listof materials - must be same lenght as orientations
-    material: Optional[str] = Field(None) #ref to material in allMaterials
+    material: Optional['Material'] = Field(None) #material from allMaterials
     splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
     splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
     EP: Optional['EffectiveProperties'] = Field(None) #Effective properties : if the component has uniform effective properties
@@ -257,7 +257,7 @@ class Spline(GeometricElement):
 class Defect(CompositeDBItem):
     
     location: Optional[list[float]] = Field(None) #x,y,z location
-    effMaterial: Optional[Material] = Field(None) #adjusted material class saved in materials
+    effMaterial: Optional['EffectiveProperties'] = Field(None) #adjusted material class saved in materials
     status: Optional[bool] = Field(None) # None = not evaluated, True = defect outside of tolerance, False = deviation but fits within tolerance
     axisSystemID: Optional[int] = Field(None) #reference to axis system stored in Geo. elements
     file: Optional[str] = Field(None) #reference to dedicated defect file
