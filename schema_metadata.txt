@@ -1,0 +1,5 @@
+schema_version: 0.7.2
+description: This schema defines the default CompoST.
+author: Jakub Kucera
+last_updated: 2025-01-22
+license: MIT
