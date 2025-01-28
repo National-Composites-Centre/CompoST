@@ -137,14 +137,14 @@ Object definitions
 
 	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
 	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
-	:param material: str - reference materialName (IDs not used here, as material can be located in external database)
+	:param material: 'Material' - reference 'Material' object
 	
 	
 .. py:function:: CompositeStandard.Ply(CompositeElement)
 
 	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
 	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
-	:param material: str - reference materialName (IDs not used here, as material can be located in external database) 	
+	:param material: 'Material' - reference 'Material' object
 	:param orientation: float - direction of lay-up with reference to x-axis of placementRosette
 	
 .. py:function:: CompositeStandard.Sequence(CompositeElement)
@@ -158,8 +158,8 @@ Object definitions
 	The subComponents in sequence must be ordered tool placement (first object is initial ply placed on the tool)
 
 	:param orientations: list - list of floats, orientations listed with reference to placementRosette
-	:param materials: list - list of strings, materialName's
-	:param singleMaterial: str - used only if 1 material is used through-out the sequence
+	:param materials: list - list of 'Material' objects
+	:param singleMaterial: 'Material' - reference 'Material' object
 	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
 	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
 	:param EP: 'EffectiveProperties' - effective properties for the entire sequence
@@ -202,11 +202,12 @@ Object definitions
 	stored here with the appropriate :func:`CompositeStandard.Tolerance`
 	:param status: bool - None = not evaluated, True = defect outside of tolerance, False = deviation but fits within tolerance
 	:param location: float - x,y,z location
-	:param effMaterial: `CompositeStandard.Material` - adjusted material class saved 
+	:param effMaterial: `EffectiveProperties` - adjusted material class saved 
 	:param axisSystemID: int - reference to `AxisSystem` object
 	:param file: str - reference to file which houses defect - not needed if relimitation defined directly in CompoST
 	:param splineRelimitation: `Spline` - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
 	:param splineRelimitationRef: int - same as above but refenced as ``ID`` only. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
+	
 	
 .. py:function:: CompositeStandard.Wrinkle(Defect)
 
@@ -304,6 +305,12 @@ The objects below are temporary definitions, that might still be subject to chan
 	:param size_x: float - length in x axis direction 
 	:param size_y: float - length in y axis direction
 	:param area: float
+	
+.. py:function:: CompositeStandar.UnclassifiedDefect(Defect)
+	
+	This class is to be used when the defect you are storing about does not have dedicated class
+	
+	:param title: str - this is to be used to assgin classification to the defect
 	
 .. py:function:: CompositeStandard.DelaminationTolerance(Tolerance)
 

@@ -238,7 +238,7 @@ to each other. However, if user fails to do so the object adjusts itself (at lea
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
 <li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
-<li><p><strong>material</strong> – str - reference materialName (IDs not used here, as material can be located in external database)</p></li>
+<li><p><strong>material</strong> – ‘Material’ - reference ‘Material’ object</p></li>
 </ul>
 </dd>
 </dl>
@@ -252,7 +252,7 @@ to each other. However, if user fails to do so the object adjusts itself (at lea
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
 <li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
-<li><p><strong>material</strong> – str - reference materialName (IDs not used here, as material can be located in external database)</p></li>
+<li><p><strong>material</strong> – ‘Material’ - reference ‘Material’ object</p></li>
 <li><p><strong>orientation</strong> – float - direction of lay-up with reference to x-axis of placementRosette</p></li>
 </ul>
 </dd>
@@ -270,8 +270,8 @@ to each other. However, if user fails to do so the object adjusts itself (at lea
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>orientations</strong> – list - list of floats, orientations listed with reference to placementRosette</p></li>
-<li><p><strong>materials</strong> – list - list of strings, materialName’s</p></li>
-<li><p><strong>singleMaterial</strong> – str - used only if 1 material is used through-out the sequence</p></li>
+<li><p><strong>materials</strong> – list - list of ‘Material’ objects</p></li>
+<li><p><strong>singleMaterial</strong> – ‘Material’ - reference ‘Material’ object</p></li>
 <li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
 <li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
 <li><p><strong>EP</strong> – ‘EffectiveProperties’ - effective properties for the entire sequence</p></li>
@@ -360,7 +360,7 @@ to each other. However, if user fails to do so the object adjusts itself (at lea
 stored here with the appropriate <a class="reference internal" href="#CompositeStandard.Tolerance" title="CompositeStandard.Tolerance"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Tolerance()</span></code></a>
 :param status: bool - None = not evaluated, True = defect outside of tolerance, False = deviation but fits within tolerance
 :param location: float - x,y,z location
-:param effMaterial: <cite>CompositeStandard.Material</cite> - adjusted material class saved
+:param effMaterial: <cite>EffectiveProperties</cite> - adjusted material class saved
 :param axisSystemID: int - reference to <cite>AxisSystem</cite> object
 :param file: str - reference to file which houses defect - not needed if relimitation defined directly in CompoST
 :param splineRelimitation: <cite>Spline</cite> - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
@@ -537,6 +537,17 @@ More details about the intended purpose of stages are available in <a class="ref
 <li><p><strong>size_y</strong> – float - length in y axis direction</p></li>
 <li><p><strong>area</strong> – float</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandar.UnclassifiedDefect">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandar.</span></span><span class="sig-name descname"><span class="pre">UnclassifiedDefect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Defect</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandar.UnclassifiedDefect" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is to be used when the defect you are storing about does not have dedicated class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>title</strong> – str - this is to be used to assgin classification to the defect</p>
 </dd>
 </dl>
 </dd></dl>
