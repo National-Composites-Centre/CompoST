@@ -209,9 +209,8 @@ class EngEdgeOfPart(CompositeElement):
     source: Optional['SourceSystem'] = Field(None) #defines which CAD system was this created in
     referenceGeometry: Optional[str] = Field(None) #reference to the name (string) of geometry that defines this in source CAD system
 
-class Material(BaseModel):
+class Material(CompositeDBItem):
     #this will be extended over time - it should allow for storing different level materials (i.e. stack vs ply)
-    materialName: Optional[str] = Field(None)
     E1: Optional[float] = Field(None)
     E2: Optional[float] = Field(None)
     G12: Optional[float] = Field(None)
