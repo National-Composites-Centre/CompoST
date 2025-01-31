@@ -111,13 +111,12 @@ Object definitions
 	
 	User cannot set z_pt on it's own. Upon any changes this is recalculated from x_pt, y_pt and o_pt.
 	
-.. py:function:: CompositeStandard.Material(BaseModel)
+.. py:function:: CompositeStandard.Material(CompositeDBItem)
 
 	To be expanded...
 	
 	User of the format is responsible for using consistent units. CompoST does not enforce units used.
 
-	:param materialName: str
 	:param E1: float - young's modulus in primary direction
 	:param E2: float - young's modulus in secondary direction (in-plane)
 	:param G23: float - shear modulus
