@@ -10,7 +10,7 @@ readme = "README.md"
 license = {file = "LICENSE"}
 classifiers = ["License :: OSI Approved :: MIT License"]
 version = "0.7.4"
-dependencies = ["Python>=3.11.8","pydantic>=2.6.4","jsonic>=0.0.2"]
+dependencies = ["Python>=3.11","pydantic>=2.6.4","jsonic>=0.0.2"]
 
 [project.urls]
 Home = "https://github.com/National-Composites-Centre/CompoST"
