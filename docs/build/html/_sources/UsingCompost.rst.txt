@@ -6,15 +6,26 @@ This page provides instructions on how to use CompoST.
 Eventually CompoST will become pip-installable library, but for now it is recommended to clone the repository and copy "CompositeStandard.py" file into your project.
 
 
-Pre-requisites
+Installation
 --------------
-
-Libraries to install: Pydantic, jsonic 
+Compost can be installed into an environemnt using pip, as per below.
 
 .. code-block:: bash
 
-	pip install py-jsonic
-	pip install pydantic
+	pip install git+https://github.com/National-Composites-Centre/CompoST.git
+	
+The recommended import to a Python script looks as follows:
+
+.. code-block:: Python
+
+	from CompoST import CompositeStandard as cs
+
+
+Libraries automatically installed with CompoST: pydantic, jsonic ,numpy
+
+"numpy" is required for generation of axis systems. "jsonic" is used for serializing and desirializing the objects into and from JSON. "pydantic" helps with class definitions and validations.
+
+
 
 
 Loading Files

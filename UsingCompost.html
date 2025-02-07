@@ -52,13 +52,18 @@
 <h1>UsingCompost<a class="headerlink" href="#usingcompost" title="Permalink to this heading">¶</a></h1>
 <p>This page provides instructions on how to use CompoST.</p>
 <p>Eventually CompoST will become pip-installable library, but for now it is recommended to clone the repository and copy “CompositeStandard.py” file into your project.</p>
-<section id="pre-requisites">
-<h2>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this heading">¶</a></h2>
-<p>Libraries to install: Pydantic, jsonic</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>py-jsonic
-pip<span class="w"> </span>install<span class="w"> </span>pydantic
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<p>Compost can be installed into an environemnt using pip, as per below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/National-Composites-Centre/CompoST.git
 </pre></div>
 </div>
+<p>The recommended import to a Python script looks as follows:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">CompoST</span> <span class="kn">import</span> <span class="n">CompositeStandard</span> <span class="k">as</span> <span class="n">cs</span>
+</pre></div>
+</div>
+<p>Libraries automatically installed with CompoST: pydantic, jsonic ,numpy</p>
+<p>“numpy” is required for generation of axis systems. “jsonic” is used for serializing and desirializing the objects into and from JSON. “pydantic” helps with class definitions and validations.</p>
 </section>
 <section id="loading-files">
 <h2>Loading Files<a class="headerlink" href="#loading-files" title="Permalink to this heading">¶</a></h2>
@@ -124,7 +129,7 @@ This function re-creates these links based on <cite>ID</cite> parameters, as the
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">UsingCompost</a><ul>
-<li><a class="reference internal" href="#pre-requisites">Pre-requisites</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#loading-files">Loading Files</a></li>
 <li><a class="reference internal" href="#saving-files">Saving Files</a></li>
 <li><a class="reference internal" href="#utility-scripts">Utility Scripts</a></li>
