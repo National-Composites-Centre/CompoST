@@ -1,0 +1,20 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "CompositeStandard"
+authors = [{name = "Jakub Kucera"}]
+readme = "https://national-composites-centre.github.io/CompoST/"
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: MIT License"]
+dynamic = ["version", "description"]
+version = 0.7.4
+dependencies = [
+	"Python>=3.11.8",
+	"pydantic>=2.6.4",
+    "jsonic>=0.0.2",
+]
+
+[project.urls]
+Home = "https://github.com/National-Composites-Centre/CompoST"

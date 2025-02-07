@@ -10,6 +10,8 @@ abaqusfiles*
 CAD/*
 abaqusis.env
 modules/
+Legacy/
+TestScripts/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
