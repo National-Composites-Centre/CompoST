@@ -366,13 +366,14 @@ class Stage(BaseModel):
     memberName: Optional[str] = Field(default=None)
     source: Optional[SourceSystem] = Field(None) #SourceSystem
     processRef: Optional[str] = Field(None) #this is reference to process that corresponds to current stage (e.g. instruction sheet pdf location)
+    stageParameters: Optional[dict] = Field (None) #dictionary of bespoke Stage related parameters
 
-class PlyScan(Stage):
+# class PlyScan(Stage):
 
-    #the name is a placeholder
+#     #the name is a placeholder
 
-    machine: Optional[str] = Field(default=None) #designation name of the machine underataking scanning 
-    binderActivated: Optional[str] = Field(default=None) # bool
+#     machine: Optional[str] = Field(default=None) #designation name of the machine underataking scanning 
+#     binderActivated: Optional[str] = Field(default=None) # bool
 
 class FibreOrientationTolerance(Tolerance):
     
