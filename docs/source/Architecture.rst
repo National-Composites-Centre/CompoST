@@ -275,20 +275,14 @@ The objects below are temporary definitions, that might still be subject to chan
 	
 .. py:function:: CompositeStandard.Stage(BaseModel)
 
-	`Stage` can be used as standalone object that is related to an actual process (NDT/Manufacturing/Analysis...). Users can also create their own sub-object that correspond to their processes, `PlyScan` below is such example.
+	`Stage` can be used as standalone object that is related to an actual process (NDT/Manufacturing/Analysis...).
 	More details about the intended purpose of stages are available in :ref:`stages-reference`.
 
 	:param stageID: int - unique stage identifier
 	:param memberName: str 
 	:param source: `SourceSystem` 
 	:param processRef: str - This is used to reference a file which describes process in question. CompoST is part focused, so processes are only referened here, rather than process details being stored.
-	
-.. py:function:: CompositeStandard.PlyScan(Stage)
-
-	(EXAMPLE) This is an example of `Stage` child defined by user. Right now it is assumed stages will be defined for each company according to their needs.
-	
-	:param machine: str - designation name of the machine underataking scanning 
-	:param binderActivated: bool - indicates weather binder was activated during the layup 
+	:param stageParameters: dict - This dictionary allows for bespoke definitions of extra stage parameters, by the user.
 	
 .. py:function:: CompositeStandard.Zone(CompositeDBItem)
 

@@ -483,7 +483,7 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.Stage">
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Stage" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>Stage</cite> can be used as standalone object that is related to an actual process (NDT/Manufacturing/Analysis…). Users can also create their own sub-object that correspond to their processes, <cite>PlyScan</cite> below is such example.
+<dd><p><cite>Stage</cite> can be used as standalone object that is related to an actual process (NDT/Manufacturing/Analysis…).
 More details about the intended purpose of stages are available in <a class="reference internal" href="Logic.html#stages-reference"><span class="std std-ref">Stages</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -492,20 +492,7 @@ More details about the intended purpose of stages are available in <a class="ref
 <li><p><strong>memberName</strong> – str</p></li>
 <li><p><strong>source</strong> – <cite>SourceSystem</cite></p></li>
 <li><p><strong>processRef</strong> – str - This is used to reference a file which describes process in question. CompoST is part focused, so processes are only referened here, rather than process details being stored.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="CompositeStandard.PlyScan">
-<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">PlyScan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Stage</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.PlyScan" title="Permalink to this definition">¶</a></dt>
-<dd><p>(EXAMPLE) This is an example of <cite>Stage</cite> child defined by user. Right now it is assumed stages will be defined for each company according to their needs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>machine</strong> – str - designation name of the machine underataking scanning</p></li>
-<li><p><strong>binderActivated</strong> – bool - indicates weather binder was activated during the layup</p></li>
+<li><p><strong>stageParameters</strong> – dict - This dictionary allows for bespoke definitions of extra stage parameters, by the user.</p></li>
 </ul>
 </dd>
 </dl>

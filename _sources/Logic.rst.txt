@@ -54,8 +54,8 @@ referenced in individual stages. The second option allows for more flexibility.
 When an object is invalidated by a new stage, the old object's `active` property should be changed to `False` (it is `True` on default). The example of this is a Wrinkle found in a ply, that was fixed by subsequent operation. In this case it may be desirable 
 to keep the Wrinkle stored for traceability, to to de-activate the object to indicate it no longer affects the part.
 
-To define `Stage` the default object `Stage` can be used, with majority  of information being stored in reference documents. However, it is assumed that companies might want to create specific `Stage` objects that can then be reused for multiple parts.
-These bespoke objects should be stored in local version of `CompositeStandard`. 
+To define `Stage` the default object `Stage` can be used, with majority  of information being stored in reference documents. However, each stage will likely need bespoke parameters stored, this is what the 'stageParameters' dictionary, which is fully defined 
+by user.
 
 Edge of Part
 ------------

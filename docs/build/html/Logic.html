@@ -86,8 +86,8 @@ Which option is selected will depend on where in the design process decisions ar
 referenced in individual stages. The second option allows for more flexibility.</p>
 <p>When an object is invalidated by a new stage, the old object’s <cite>active</cite> property should be changed to <cite>False</cite> (it is <cite>True</cite> on default). The example of this is a Wrinkle found in a ply, that was fixed by subsequent operation. In this case it may be desirable
 to keep the Wrinkle stored for traceability, to to de-activate the object to indicate it no longer affects the part.</p>
-<p>To define <cite>Stage</cite> the default object <cite>Stage</cite> can be used, with majority  of information being stored in reference documents. However, it is assumed that companies might want to create specific <cite>Stage</cite> objects that can then be reused for multiple parts.
-These bespoke objects should be stored in local version of <cite>CompositeStandard</cite>.</p>
+<p>To define <cite>Stage</cite> the default object <cite>Stage</cite> can be used, with majority  of information being stored in reference documents. However, each stage will likely need bespoke parameters stored, this is what the ‘stageParameters’ dictionary, which is fully defined
+by user.</p>
 </section>
 <section id="edge-of-part">
 <h2>Edge of Part<a class="headerlink" href="#edge-of-part" title="Permalink to this heading">¶</a></h2>
