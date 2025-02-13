@@ -1,7 +1,7 @@
 import json
 from jsonic import serialize, deserialize
 
-import CompositeStandard as cs
+import CompoST.CompositeStandard as cs
 
 def testJSON():
     #TODO make dedicated testing module

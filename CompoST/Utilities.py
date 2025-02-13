@@ -1,17 +1,16 @@
 import numpy as np
 from numpy.linalg import norm
 from numpy import (array, dot, arccos, clip)
-import math
-import CompositeStandard as cs
+import CompoST.CompositeStandard as cs
 
-import sys, inspect
+import inspect
 import copy
 
 def clean_json(strin):
+    #This function creates spaces between objects, to make the JSON file more human readable
     #strin = input json string to clean
     s = strin.replace("{","\n{\n")
     s = s.replace("}","\n}\n")
-
 
     tabs = 0
     new_str = ""
@@ -29,116 +28,6 @@ def clean_json(strin):
     #returns a human readable JSON
     return(new_str)
 
-
-
-def rs(strin):
-    #this is recursive function that digs through nested classes
-    #It identifies classes listed below, and deletes them from dictionaries if their value is None
-
-    #This is so that inheritence can be built into classes, but JSON files are not too bloated.
-
-
-    delete = False
-    ac = []
-    for name, obj in inspect.getmembers(cs):
-        if inspect.isclass(obj):
-            ac.append(obj)  
-
-    #list of all classes that should not be stored if corresponding value is "None"
-    #Please keep alphabetic. This list will be growing a lot as the scope of standard expands.
-
-    forRemove = ["additionalParameters","additionalProperties",
-                 "batch",
-                 "database","defects",
-                 "length",
-                 "mappedProperties",
-                 "mappedRequirements",
-                 "memberName",
-                 "referencedBy",
-                 "source",
-                 "splineType",
-                 "stageIDs","status",
-                 "subComponent"]
-
-    #if list
-    if type(strin) == list:
-        tbd = []
-        for i,O1 in enumerate(strin):
-            O1, delete = rs(O1)
-            if delete == True:
-                print("DELETED THROUGH METHOD 3")
-                tbd.append(i)
-
-        for i in tbd:
-            del strin[i]
-
-    #iftuple
-    elif type(strin) == tuple:
-
-        if (strin[0] in forRemove) and (strin[1] == None):
-            print("this would be deleted")
-            delete = True
-
-    #if dictionary
-    elif type(strin) == dict: 
-        #create a list of dict members to delete
-        tbd = []
-        for S in strin.keys():
-
-            if (S in forRemove):
-                
-                if (strin[S] == None):
-                    #Most common deletion comes from this section
-                    tbd.append(S)
-                        
-            else:
-                #discard end values: str
-                if type(strin) != str:
-                    #discard end values: floats
-                    if type(strin[S]) == float:
-                        pass
-                    elif strin[S] != None:
-                        strin[S],delete = rs(strin[S])
-                        if delete == True:
-                            #rare - if at all possible TODO : check if needed
-                            tbd.append(S)
-
-        #remove identified members
-        for i in tbd:
-            if i in strin:
-                del strin[i]
-
-    #!!! this not good, it keeps the format as dictionary when saving!!!    
-    elif type(strin) in ac:
-        #If object, turn dictionary, pass back in
-        ds = strin.__dict__
-        strin,delete = rs(ds)
-        print("this happens now")
-
-    return(strin,delete)
-
-
-
-
-#test remove_specific
-# from jsonic import serialize, deserialize
-# #with open("D:\\CompoST\Test_clean.json","r") as X:
-# with open("C:\code\CompoST_examples\WO4502_minimized_v067\WO4502_layup.json","r") as X:
-#     json_str= X.read()
-
-#     D = deserialize(json_str,string_input=True)
-
-#     print("from here on")
-#     j,delete = rs(D)
-#     #print("FINAL")
-#     #print(j)
-
-#     json_str = serialize(j, string_output = True)
-#     json_str = clean_json(json_str)
-
-#     #save as file
-#     with open('C:\code\CompoST_examples\WO4502_minimized_v067\Test_clean.json', 'w') as out_file:
-#         out_file.write(json_str)
 
 
 def findDupID(loc_obj,temp,dup):
@@ -232,24 +121,27 @@ def reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c):
     return(D,f,nestS,nestN,NS_c,NN_c)
 
 def reLink(D):
+    #This function is to be used following deserialization. It translates objects with same ID into the same object. 
+    #This compensates for serialization in JSON losing object links in Python.
+    #This prevenets one copy of object from accidentally being edited without the details propagating to all it's other instances.
 
-    #Minimal testing done so far. 
+    #TODO unit test function not developed for this yet 
+
 
     temp = []
     #first number of dup array is ID, second is number of copies
+
+    #relevant lists 
+    #TODO add to changes required when major new developments are added
+    #It is key to include all lists that require re-linking between each other.
+    reLists = [D.allComposite,D.allGeometry,D.allDefects,D.allTolerances]
+
+    #find duplicate 
     dup = np.asarray([[0,0]])
-    if D.allComposite != None:
-        for o in D.allComposite:
-            temp, dup = findDupID(o,temp,dup)
-    if D.allGeometry != None:
-        for o in D.allGeometry: 
-            temp, dup = findDupID(o,temp,dup)
-    if D.allDefects != None:
-        for o in D.allDefects:
-            temp, dup = findDupID(o,temp,dup)
-    if D.allTolerances != None:
-        for o in D.allTolerance:
-            temp, dup = findDupID(o,temp,dup)
+    for RL in reLists:
+        if RL != None:
+            for o in RL:
+                temp, dup = findDupID(o,temp,dup)
 
     #now iterate to find the objects and re-write with copy
 
@@ -265,7 +157,11 @@ def reLink(D):
     for count, i in enumerate(dup[:,0]):
         f = dup[count,1]
         #Go through all known groups of objects that could be shared and contain IDs
-        #Can definitely be streamlined.
+        for RL in reLists:
+            #TODO XXX replace the below by iterating through this
+            #TODO XXX will require "allComposite" etc to be extracted from the print below
+            print(type(RL))
+
         if D.allComposite != None:
             for ii, o in enumerate(D.allComposite):
                 nestS.append("allComposite")
@@ -296,13 +192,3 @@ def reLink(D):
                 nestS = nestS[:-1]
 
     return(D)
-
-
-#TEST
-'''
-with open("D:\\CAD_library_sampling\\TestCad_SmartDFM\\X\\x_test_128.txt","r") as X:
-    jstr = str(X.read())
-    #print(jstr)
-    clean_json(jstr)
-
-'''

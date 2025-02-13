@@ -7,6 +7,7 @@ from datetime import date, time, timedelta
 from numpy import (array, dot, arccos, clip)
 from numpy.linalg import norm
 import math
+import os
 
 from enum import Enum
 from pydantic import BaseModel, Field, TypeAdapter
@@ -15,7 +16,9 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-#### VERSION 0.7.4 ####
+import Utilities
+
+#### VERSION 0.7.5 ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #documentation link in the repository Readme
@@ -124,7 +127,7 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.7.4") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.7.5") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
@@ -366,13 +369,14 @@ class Stage(BaseModel):
     memberName: Optional[str] = Field(default=None)
     source: Optional[SourceSystem] = Field(None) #SourceSystem
     processRef: Optional[str] = Field(None) #this is reference to process that corresponds to current stage (e.g. instruction sheet pdf location)
+    stageParameters: Optional[dict] = Field (None) #dictionary of bespoke Stage related parameters
 
-class PlyScan(Stage):
+# class PlyScan(Stage):
 
-    #the name is a placeholder
+#     #the name is a placeholder
 
-    machine: Optional[str] = Field(default=None) #designation name of the machine underataking scanning 
-    binderActivated: Optional[str] = Field(default=None) # bool
+#     machine: Optional[str] = Field(default=None) #designation name of the machine underataking scanning 
+#     binderActivated: Optional[str] = Field(default=None) # bool
 
 class FibreOrientationTolerance(Tolerance):
     
@@ -388,6 +392,47 @@ class Zone(CompositeDBItem):
 def generate_json_schema(file_name:str):
     with open(file_name, 'w') as f:
         f.write(json.dumps(CompositeDB.model_json_schema(), indent=4))
+
+def Open(file,path=""):
+    #Opens a CompoST file, currently the CompoST file should be same version as this script
+
+    with open(path+"\\"+file+".json","r") as in_file:
+        json_str= in_file.read()
+
+    #turn file into workable classes
+    D = deserialize(json_str,string_input=True)
+
+    #re-link objects
+    D = Utilities.reLink(D)
+
+    return(D)
+
+def Save(CompositeDB,file,path="",overwrite=False):
+
+    #turn data back to JSON
+    json_str = serialize(CompositeDB, string_output = True)
+
+    #clean the JSON
+    json_str = Utilities.clean_json(json_str)
+
+    #save as file
+    #TODO interactive option for overwrite?
+    if overwrite == True:
+
+        print("saving as:",path+"\\"+file+".json")
+        with open(path+"\\"+file+".json", 'w') as out_file:
+            out_file.write(json_str)
+
+    else:
+        if os.path.exists(path+"\\"+file+".json"):
+            print("file: "+path+"\\"+file+".json"+" already exists. To overwrite it, set overwrite parameter to True")
+
+        else:
+            print("saving as:",path+"\\"+file+".json")
+            with open(path+"\\"+file+".json", 'w') as out_file:
+                out_file.write(json_str)
+
+    return()
 
 #generate_json_schema('compostSchema.json')
 
