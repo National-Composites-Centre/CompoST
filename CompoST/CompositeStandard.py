@@ -16,7 +16,7 @@ from pydantic.config import ConfigDict
 import json
 from jsonic import serialize, deserialize
 
-import Utilities
+import CompoST.Utilities
 
 #### VERSION 0.7.5 ####
 #https://github.com/National-Composites-Centre/CompoST
