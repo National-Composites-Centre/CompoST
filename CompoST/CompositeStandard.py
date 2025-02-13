@@ -7,6 +7,7 @@ from datetime import date, time, timedelta
 from numpy import (array, dot, arccos, clip)
 from numpy.linalg import norm
 import math
+import os
 
 from enum import Enum
 from pydantic import BaseModel, Field, TypeAdapter
@@ -14,6 +15,8 @@ from pydantic.config import ConfigDict
 
 import json
 from jsonic import serialize, deserialize
+
+import Utilities
 
 #### VERSION 0.7.4 ####
 #https://github.com/National-Composites-Centre/CompoST
@@ -389,6 +392,47 @@ class Zone(CompositeDBItem):
 def generate_json_schema(file_name:str):
     with open(file_name, 'w') as f:
         f.write(json.dumps(CompositeDB.model_json_schema(), indent=4))
+
+def Open(file,path=""):
+    #Opens a CompoST file, currently the CompoST file should be same version as this script
+
+    with open(path+"\\"+file+".json","r") as in_file:
+        json_str= in_file.read()
+
+    #turn file into workable classes
+    D = deserialize(json_str,string_input=True)
+
+    #re-link objects
+    D = Utilities.reLink(D)
+
+    return(D)
+
+def Save(CompositeDB,file,path="",overwrite=False):
+
+    #turn data back to JSON
+    json_str = serialize(CompositeDB, string_output = True)
+
+    #clean the JSON
+    json_str = Utilities.clean_json(json_str)
+
+    #save as file
+    #TODO interactive option for overwrite?
+    if overwrite == True:
+
+        print("saving as:",path+"\\"+file+".json")
+        with open(path+"\\"+file+".json", 'w') as out_file:
+            out_file.write(json_str)
+
+    else:
+        if os.path.exists(path+"\\"+file+".json"):
+            print("file: "+path+"\\"+file+".json"+" already exists. To overwrite it, set overwrite parameter to True")
+
+        else:
+            print("saving as:",path+"\\"+file+".json")
+            with open(path+"\\"+file+".json", 'w') as out_file:
+                out_file.write(json_str)
+
+    return()
 
 #generate_json_schema('compostSchema.json')
 

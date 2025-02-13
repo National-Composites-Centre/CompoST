@@ -1,7 +1,7 @@
 import h5py
 from pydantic import BaseModel, Field
 import json
-import CompositeStandard as cs
+import CompoST.CompositeStandard as cs
 
 #CURRENTLY DOESNT REALLY WORK -- UNDER DEVELOPMENT
 
