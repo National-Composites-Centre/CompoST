@@ -325,7 +325,7 @@ class BoundaryTolerance(Tolerance):
     maxAllowedDev: Optional[float] = Field(None) #maximum allowed distance of a measured point from intended boundary
     maxAv: Optional[float] = Field(None) #
 
-class EffectiveProperties(BaseModel):
+class EffectiveProperties(CompositeDBItem):
     #this object is used for objects that need homogenized material properties
 
     #TODO this will require additions
