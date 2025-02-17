@@ -184,8 +184,8 @@ def reLink(D):
                 nestN = nestN[:-1]
                 nestS = nestS[:-1]
         if D.allTolerances != None:
-            for ii,o in enumerate(D.allTolerance):
-                nestS.append("allTolerance")
+            for ii,o in enumerate(D.allTolerances):
+                nestS.append("allTolerances")
                 nestN.append(ii)
                 D,f,nestS,nestN,NS_c,NN_c = reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c)
                 nestN = nestN[:-1]

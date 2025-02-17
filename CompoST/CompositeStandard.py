@@ -403,7 +403,7 @@ def Open(file,path=""):
     D = deserialize(json_str,string_input=True)
 
     #re-link objects
-    D = Utilities.reLink(D)
+    D = CompoST.Utilities.reLink(D)
 
     return(D)
 
@@ -413,7 +413,7 @@ def Save(CompositeDB,file,path="",overwrite=False):
     json_str = serialize(CompositeDB, string_output = True)
 
     #clean the JSON
-    json_str = Utilities.clean_json(json_str)
+    json_str = CompoST.Utilities.clean_json(json_str)
 
     #save as file
     #TODO interactive option for overwrite?
