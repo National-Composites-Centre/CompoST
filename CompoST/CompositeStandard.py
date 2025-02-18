@@ -373,6 +373,16 @@ class UnclassifiedDefect(Defect):
 ##
 #
 
+class DrapingSimulation(SimulationData):
+    #TODO this is to be validated by multiple simulaiton tools working with it
+
+    initialDrapePoint: Optional['Point'] = Field(default=None) #location of first intended contact between ply and tool
+    plyID: Optional[int] = Field(default = None) #ply ID - one DrapingSimulation object for each ply
+    newOrientation: Optional[float] = Field(default = None) #Prescribed orientation of ply at the initial draping location
+    maxShearAngle: Optional[float] = Field(default = None) #maximum predicted shear angle in the full ply
+    acceptedDarts: Optional[list['Line']] = Field(default = None) #list of lines indicating accepted locations for darts
+    drapeDirections: Optional[list['Spline']] = Field(default = None) #list of splines indicating draping directions, only one spline is to be provided in the list if only initial draping direction matters
+
 
 class Stage(BaseModel):
 
