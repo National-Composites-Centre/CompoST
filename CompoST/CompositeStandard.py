@@ -18,7 +18,7 @@ from jsonic import serialize, deserialize
 
 import CompoST.Utilities
 
-#### VERSION 0.8.0 ####
+#### VERSION 0.8.1 ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #documentation link in the repository Readme
@@ -138,7 +138,7 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.8.0") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.8.1") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
