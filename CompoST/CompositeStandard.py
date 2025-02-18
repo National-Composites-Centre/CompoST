@@ -382,7 +382,8 @@ class DrapingSimulation(SimulationData):
     maxShearAngle: Optional[float] = Field(default = None) #maximum predicted shear angle in the full ply
     acceptedDarts: Optional[list['Line']] = Field(default = None) #list of lines indicating accepted locations for darts
     drapeDirections: Optional[list['Spline']] = Field(default = None) #list of splines indicating draping directions, only one spline is to be provided in the list if only initial draping direction matters
-
+    drapedMesh: Optional['AreaMesh'] = Field(default = None) #Mesh object - corresponds to mesh after draping
+    mappedShearAngles: Optional[list[float]] = Field(default = None) # list ordered accroding to dreapedMesh that it its mapped against
 
 class Stage(BaseModel):
 
