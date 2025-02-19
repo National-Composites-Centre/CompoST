@@ -18,7 +18,7 @@ from jsonic import serialize, deserialize
 
 import CompoST.Utilities
 
-#### VERSION 0.7.6 ####
+#### VERSION 0.8.1 ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #documentation link in the repository Readme
@@ -26,12 +26,23 @@ import CompoST.Utilities
 class CompositeDBItem(BaseModel):
 
     memberName: Optional[str] = Field(default = None)
-    additionalParameters: Optional[dict] = Field(default = None) # dictionary of floats
-    additionalProperties: Optional[dict] = Field(default = None) # dictionary of strings
+    additionalParameters: Optional[dict] = Field(default = None) # 
+    additionalProperties: Optional[dict] = Field(default = None) # 
     stageID: Optional[int] = Field(default = None) #stage where this object was generated / re-generated
     deactivate_stageID: Optional[int] = Field(default = None) #this object is not relevant after this stage - either it has been superceeded or it's purpose was fullfilled
     active: Optional[bool] = Field(default = True) #This can be turned to False to indicate this object does not represent the latest iteration of the part
     ID: Optional[int] = Field(default = None)
+
+class SimulationData(BaseModel):
+
+    memberName: Optional[str] = Field(default = None)
+    additionalParameters: Optional[dict] = Field(default = None) # dictionary of bespoke parameters needed for specific simulation, not standardised 
+    stageID: Optional[int] = Field(default = None) #stage where this object was generated / re-generated
+    active: Optional[bool] = Field(default = True) #This can be turned to False to indicate this object does not represent the latest iteration of the part
+    ID: Optional[int] = Field(default = None) #shares ID numbering with all other CompoST objects except Stages
+    sourceSystem: Optional['SourceSystem'] = Field(default = None) #software or tool used for simulation 
+    cadFile: Optional[str] = Field(default=None) #path and filename of reference CAD - TODO rework
+    axisSystemID: Optional[int] = Field(default=None) #reference to axis system ID
 
 class GeometricElement(CompositeDBItem):
     #child of Geometric elements
@@ -127,14 +138,13 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.7.6") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.8.1") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
     cadFile: Optional[str] = Field(default=None)
     cadFilePath: Optional[str] = Field(default=None)
 
-    #
     maxID: int = Field(default =0)
 
 class CompositeDB(BaseModel):
@@ -153,6 +163,7 @@ class CompositeDB(BaseModel):
     allDefects: Optional[list['Defect']] = Field(default=None) # list of all defects
     allTolerances: Optional[list['Tolerance']] = Field(default = None) # list of all Tolerances
     fileMetadata: FileMetadata = Field(default = FileMetadata()) #list of all "axisSystems" objects = exhaustive list
+    allSimulations: Optional[list['SimulationData']] = Field(default = None) #List of simulation data objects
 
 class CompositeElement(CompositeDBItem):
 
@@ -362,6 +373,17 @@ class UnclassifiedDefect(Defect):
 ##
 #
 
+class DrapingSimulation(SimulationData):
+    #TODO this is to be validated by multiple simulaiton tools working with it
+
+    initialDrapePoint: Optional['Point'] = Field(default=None) #location of first intended contact between ply and tool
+    plyID: Optional[int] = Field(default = None) #ply ID - one DrapingSimulation object for each ply
+    newOrientation: Optional[float] = Field(default = None) #Prescribed orientation of ply at the initial draping location
+    maxShearAngle: Optional[float] = Field(default = None) #maximum predicted shear angle in the full ply
+    acceptedDarts: Optional[list['Line']] = Field(default = None) #list of lines indicating accepted locations for darts
+    drapeDirections: Optional[list['Spline']] = Field(default = None) #list of splines indicating draping directions, only one spline is to be provided in the list if only initial draping direction matters
+    drapedMesh: Optional['AreaMesh'] = Field(default = None) #Mesh object - corresponds to mesh after draping
+    mappedShearAngles: Optional[list[float]] = Field(default = None) # list ordered accroding to dreapedMesh that it its mapped against
 
 class Stage(BaseModel):
 
