@@ -34,6 +34,7 @@ Object definitions
 	:param allDefects: list - List of "Defect" objects - should contain all, that are referenced elsewhere
 	:param allTolerance: list - List of "Tolerance" objects 
 	:param fileMetadata: object - list of all "axisSystems" objects = exhaustive list
+	:param allSimulations: list - List of "SimulationData" objects
 	
 .. py:function:: CompositeStandard.FileMetadata(BaseModel)
 	
@@ -60,6 +61,16 @@ Object definitions
 	:param batchID: (TODO) - reference to batch of components 
 	:param ID: int - used for references between objects
 
+.. py:function:: CompositeStandard.SimulationData(BaseModel)
+
+	:param memberName: str - name
+	:param additionalParameters: dict - to hold use-case specific values (to be further defined)
+	:param stageIDs: int - reference to Stage object
+	:param active: boolean - on default "True", can be turned "False" to indicate this is no longer representative of up-to-date part
+	:param ID: int - used for references between objects
+	:param axisSystemID: int - reference to axis system ID
+	:param sourceSystem: `SourceSystem` - the software or tool used for analysis
+	:param cadFile: str - path and name to CAD file (possibly to be reworked)
 
 .. py:function:: CompositeStandard.GeometricElement(CompositeDBItem)
 	
@@ -250,7 +261,7 @@ Object definitions
 	:param avDiffToNominal: float - average of local differences between orientation and defined ply orientation. This is more indicative than 'averageOrientation' as that one can offer falsely optimistic results.
 	:param averageOrientation: float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.
 
-.. py:function:: CompositeStandard.EffectiveProperties(BaseModel)
+.. py:function:: CompositeStandard.EffectiveProperties(CompositeDBItem)
 
 	TODO - might need splitting between mechanical and dry-fibre flow properties 
 	
@@ -272,6 +283,18 @@ The objects below are temporary definitions, that might still be subject to chan
 .. py:function:: CompositeStandard.FibreOrientationTolerance(Tolerance)
 
 	:param max_avDiffToNominal:: float - average difference to intended ply orientation based off all sampling points within relimitation
+	
+.. py:function:: CompositeStandard.DrapingSimulation(SimulationData)
+
+	:param initialDrapePoint: point - location of first intended contact between ply and tool
+	:param plyID: int - ply ID, one DrapingSimulation object for each ply
+	:param newOrientation: float - Prescribed orientation of ply at the initial draping location
+	:param maxShearAngle: float - maximum predicted shear angle in the full ply
+	:param acceptedDarts: list of `Line` objects - list of lines indicating accepted locations for darts
+	:param drapeDirections: list of `Spline` objects - list of splines indicating draping directions, only one spline is to be provided in the list if only initial draping direction matters
+	:param drapeMesh: `AreaMesh` - this mesh object corresponds to drapped ply, and is used for mapping shear angles
+	:param mappedShearAngles: list of floats - list of shear angles ordered according to elements in drapeMesh
+	
 	
 .. py:function:: CompositeStandard.Stage(BaseModel)
 

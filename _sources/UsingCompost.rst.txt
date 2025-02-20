@@ -31,8 +31,16 @@ Libraries automatically installed with CompoST: pydantic, jsonic ,numpy
 Loading Files
 -------------
 
-Loading CompoST JSON files is very simple in Python, the following code shows an example.
+Loading CompoST JSON files is very simple in Python, the following code shows an example. The following code is applicable from 0.7.5 onwards.
 
+.. code-block:: python
+
+	from CompoST import CompositeStandard as cs
+	D = cs.Open(CompoST_file,path=path)
+
+Thie opens "CompoST_file" located at "path", and assigns it variable "D". The funciton also re-links any objects with same ID so these automatically update simultaneously when changed.
+
+For older versions opening, deserializing and re-linking is done as individual operations:
 
 .. code-block:: python
 
@@ -68,7 +76,18 @@ To save the CompoST data structure it first has to be initiated. This can either
 	
 The date and name are included only as example, it is up to user which of the variables available are useful to them.
 
-After all required information has been saved somewhere in the tree belonging to `CompositeDB` object, the following code serializes the data into JSON string and saves it.
+After all required information has been saved somewhere in the tree belonging to `CompositeDB` object, the following code serializes the data into JSON string and saves it. The function also adds line-breaks to the file so
+that it becomes human readable to some extent.
+
+.. code-block:: python
+
+	from CompoST import CompositeStandard as cs
+	#D is the CompositeDB object
+	cs.Save(D,filename,path=path)
+	
+The funciton takes the CompoST main object, filename and path. If path is not provided it will be saved in current directory.
+
+In older versions the expanded saving method is as follows:
 
 .. code-block:: python
 

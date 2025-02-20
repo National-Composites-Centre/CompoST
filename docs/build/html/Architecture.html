@@ -76,6 +76,7 @@ Points are stored withing those, as referencing is not efficient</p>
 <li><p><strong>allDefects</strong> – list - List of “Defect” objects - should contain all, that are referenced elsewhere</p></li>
 <li><p><strong>allTolerance</strong> – list - List of “Tolerance” objects</p></li>
 <li><p><strong>fileMetadata</strong> – object - list of all “axisSystems” objects = exhaustive list</p></li>
+<li><p><strong>allSimulations</strong> – list - List of “SimulationData” objects</p></li>
 </ul>
 </dd>
 </dl>
@@ -115,6 +116,25 @@ Points are stored withing those, as referencing is not efficient</p>
 <li><p><strong>active</strong> – boolean - on default “True”, can be turned “False” to indicate this is no longer representative of up-to-date part</p></li>
 <li><p><strong>batchID</strong> – (TODO) - reference to batch of components</p></li>
 <li><p><strong>ID</strong> – int - used for references between objects</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.SimulationData">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">SimulationData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.SimulationData" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>memberName</strong> – str - name</p></li>
+<li><p><strong>additionalParameters</strong> – dict - to hold use-case specific values (to be further defined)</p></li>
+<li><p><strong>stageIDs</strong> – int - reference to Stage object</p></li>
+<li><p><strong>active</strong> – boolean - on default “True”, can be turned “False” to indicate this is no longer representative of up-to-date part</p></li>
+<li><p><strong>ID</strong> – int - used for references between objects</p></li>
+<li><p><strong>axisSystemID</strong> – int - reference to axis system ID</p></li>
+<li><p><strong>sourceSystem</strong> – <cite>SourceSystem</cite> - the software or tool used for analysis</p></li>
+<li><p><strong>cadFile</strong> – str - path and name to CAD file (possibly to be reworked)</p></li>
 </ul>
 </dd>
 </dl>
@@ -447,7 +467,7 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.EffectiveProperties">
-<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">EffectiveProperties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.EffectiveProperties" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">EffectiveProperties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.EffectiveProperties" title="Permalink to this definition">¶</a></dt>
 <dd><p>TODO - might need splitting between mechanical and dry-fibre flow properties</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -476,6 +496,25 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>max_avDiffToNominal:</strong> – float - average difference to intended ply orientation based off all sampling points within relimitation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.DrapingSimulation">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">DrapingSimulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SimulationData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.DrapingSimulation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initialDrapePoint</strong> – point - location of first intended contact between ply and tool</p></li>
+<li><p><strong>plyID</strong> – int - ply ID, one DrapingSimulation object for each ply</p></li>
+<li><p><strong>newOrientation</strong> – float - Prescribed orientation of ply at the initial draping location</p></li>
+<li><p><strong>maxShearAngle</strong> – float - maximum predicted shear angle in the full ply</p></li>
+<li><p><strong>acceptedDarts</strong> – list of <cite>Line</cite> objects - list of lines indicating accepted locations for darts</p></li>
+<li><p><strong>drapeDirections</strong> – list of <cite>Spline</cite> objects - list of splines indicating draping directions, only one spline is to be provided in the list if only initial draping direction matters</p></li>
+<li><p><strong>drapeMesh</strong> – <cite>AreaMesh</cite> - this mesh object corresponds to drapped ply, and is used for mapping shear angles</p></li>
+<li><p><strong>mappedShearAngles</strong> – list of floats - list of shear angles ordered according to elements in drapeMesh</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

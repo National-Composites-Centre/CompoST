@@ -67,7 +67,13 @@
 </section>
 <section id="loading-files">
 <h2>Loading Files<a class="headerlink" href="#loading-files" title="Permalink to this heading">¶</a></h2>
-<p>Loading CompoST JSON files is very simple in Python, the following code shows an example.</p>
+<p>Loading CompoST JSON files is very simple in Python, the following code shows an example. The following code is applicable from 0.7.5 onwards.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">CompoST</span> <span class="kn">import</span> <span class="n">CompositeStandard</span> <span class="k">as</span> <span class="n">cs</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">CompoST_file</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Thie opens “CompoST_file” located at “path”, and assigns it variable “D”. The funciton also re-links any objects with same ID so these automatically update simultaneously when changed.</p>
+<p>For older versions opening, deserializing and re-linking is done as individual operations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jsonic</span> <span class="kn">import</span> <span class="n">serialize</span><span class="p">,</span> <span class="n">deserialize</span>
 <span class="c1">#open file</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">IMPORTED_JSON_FILE</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">in_file</span><span class="p">:</span>
@@ -96,7 +102,15 @@ This function re-creates these links based on <cite>ID</cite> parameters, as the
 </pre></div>
 </div>
 <p>The date and name are included only as example, it is up to user which of the variables available are useful to them.</p>
-<p>After all required information has been saved somewhere in the tree belonging to <cite>CompositeDB</cite> object, the following code serializes the data into JSON string and saves it.</p>
+<p>After all required information has been saved somewhere in the tree belonging to <cite>CompositeDB</cite> object, the following code serializes the data into JSON string and saves it. The function also adds line-breaks to the file so
+that it becomes human readable to some extent.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">CompoST</span> <span class="kn">import</span> <span class="n">CompositeStandard</span> <span class="k">as</span> <span class="n">cs</span>
+<span class="c1">#D is the CompositeDB object</span>
+<span class="n">cs</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The funciton takes the CompoST main object, filename and path. If path is not provided it will be saved in current directory.</p>
+<p>In older versions the expanded saving method is as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jsonic</span> <span class="kn">import</span> <span class="n">serialize</span><span class="p">,</span> <span class="n">deserialize</span>
 <span class="c1"># Convert dictionary to JSON string</span>
 <span class="n">json_str</span> <span class="o">=</span> <span class="n">serialize</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">string_output</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
