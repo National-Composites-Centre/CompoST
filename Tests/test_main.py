@@ -132,7 +132,6 @@ def create_example():
 
     #TODO here we add various simulatins
 
-
     #Observing defects
 
     #Create a stage for defects
@@ -162,12 +161,9 @@ def create_example():
     D.allDefects.append(bd)
 
 
-
-
     #To verify 
     #Verify once manually, from then on, verify automatically 
     #^^i.e. edit one of pair, and check both changed after serialization when edited
-
 
     #TODO 
     #cs.EngEdgeOfPart
@@ -178,5 +174,132 @@ def create_example():
 
     return(D)
 
-D = create_example()
-cs.Save(D,"TEST_Compost","C:\\temp")
+#MANUAL check for file created
+# D = create_example()
+# print("lenC",len(D.allComposite))
+# print("lenG",len(D.allGeometry))
+# print("lenD",len(D.allDefects))
+# print("lenT",len(D.allTolerances))
+# print("lenM",len(D.allMaterials))
+# cs.Save(D,"TEST_Compost","C:\\temp")
+
+def NewFileComparison(D):
+    #This function is used to verify the test component was created as expected
+
+    print("Running generation test...")
+    #countErrors
+    noErr = 0
+
+    #check number of objects in main lists
+    if len(D.allComposite) !=3:
+        print("Error: Wrong number of IDed composites in main list.")
+        noErr += 1
+    if len(D.allGeometry) !=10:
+        print("Error: Wrong number of IDed geometries in main list.")
+        noErr += 1
+    if len(D.allDefects) !=4:
+        print("Error: Wrong number of IDed defects in main list.")
+        noErr += 1
+    if len(D.allTolerances) !=4:
+        print("Error: Wrong number of IDed tolerances in main list.")
+        noErr += 1
+    if len(D.allMaterials) !=2:
+        print("Error: Wrong number of IDed materials in main list.")
+        noErr += 1
+    
+    #check maximum ID
+    if D.fileMetadata.maxID != 26:
+        print("Error: incorrect maxID")
+        noErr += 1
+
+    #TODO add anything else that should be checked as required
+
+    return(noErr)
+
+def testReLink(D):
+    
+    print("Running re-link test...")
+
+    noErr = 0
+
+    #edit one of the ID linked pair
+
+    #Check point re-used in mesh
+    for G in D.allGeometry:
+        if G.ID == 4:
+            G.x = 567 
+    #assume error until verified it does not exist
+    tErr = True
+    for G in D.allGeometry:
+        if type(G) == type(cs.AreaMesh()):
+            for E in G.meshElements:
+                for N in E.nodes:
+                    if N.ID == 4:
+                        if N.x == 567:
+                            tErr = False
+                            break
+    if tErr == True:
+        noErr += 1
+        print("Error: Re-link error, the modificication of ID=4 point was not propagated to the copies of the object.")
+
+    
+    for C in D.allComposite:
+        if C.ID == 13:
+            C.memberName = "EDIT_TESTING"
+
+    #assume error until proven otherwise
+    tErr = True
+    for C in D.allComposite:
+        if C.ID == 18:
+            for s1 in C.subComponents:
+                if s1.ID == 14:
+                    for s2 in s1.subComponents:
+                        if s2.ID == 13:
+                            if s2.memberName == "EDIT_TESTING":
+                                tErr = False
+                                break
+    if tErr == True:
+        noErr += 1
+        print("Error: Re-link error, the modificication of ID=13 piece was not propagated to the copies of the object.")
+    #assume error until proven otherwise
+    tErr = True
+    for C in D.allComposite:
+        if C.ID == 14:
+            for s2 in C.subComponents:
+                if s2.ID == 13:
+                    if s2.memberName == "EDIT_TESTING":
+                        tErr = False
+                        break
+    if tErr == True:
+        noErr += 1
+        print("Error: Re-link error, the modificication of ID=13 piece was not propagated to the copies of the object.")
+
+
+    #TODO try more re-links when adding functionality (expanding list in Utilities)
+    #copied objects 20,2,24...
+
+    return(noErr)
+
+class TestMainCompoST(unittest.TestCase):
+
+    #create file 
+    D = create_example()
+
+    #save file in temp
+    cs.Save(D,"test_save","C:\\temp",overwrite=True)
+    
+    #load file
+    D = cs.Open("test_save","C:\\temp")
+
+    #test initial file 
+    def test_generation(self):
+        self.assertEqual(NewFileComparison(self.D),0)
+
+    #test re-link method
+    def test_link(self):
+        self.assertEqual(testReLink(self.D),0)
+
+    #any more tests needed?
+
+if __name__ == "__main__":
+    unittest.main()
