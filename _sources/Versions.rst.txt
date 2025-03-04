@@ -26,3 +26,16 @@ Effective properties introduced.
 -----
 
 pip installation from GitHub enabled.
+
+
+0.8.0
+-----
+
+Contains initial object for simulations
+Save and Load functions available in the main 'CompositeStandard' file.
+
+0.8.2
+-----
+
+Initial unit-test functions implemented.
+Re-link improved, now reliable for mixture of lists and objects in tree.

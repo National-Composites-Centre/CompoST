@@ -104,6 +104,7 @@ In older versions the expanded saving method is as follows:
 		
 The `cleandict` funciton can be find in main CompoST repository under `Utilities.py` module. It is recommended that this step is added for human readability.
 
+
 Utility Scripts
 ---------------
 
@@ -111,3 +112,4 @@ Sister repository has been created to store various utility scripts. These scrip
 
 https://github.com/National-Composites-Centre/CST_utils 
 
+These are extra utility scripts that are not maintained as well as the core utility scripts in this repository, as per above.

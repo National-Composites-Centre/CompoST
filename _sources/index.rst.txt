@@ -18,8 +18,9 @@ Welcome to Composite part data Standard (CompoSt)'s documentation!
    Mapping
    StorageFormat
    Undecided
-   DevelopmentPlan
+   Development
    Versions
+   UseCases
 
 
 Indices and tables

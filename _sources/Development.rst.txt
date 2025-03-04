@@ -1,5 +1,5 @@
-Development Plan
-================
+Development
+===========
 
 (Under Development)
 
@@ -12,6 +12,31 @@ visibility.
 
 Once use-cases for majority of applications have been demonstrated, only minimal edits to core CompoST should be done. Process of approvals and evaluation of effects will be developed at this stage. However, everyone is always
 free to clone core CompoST and modify it locally for their purposes. The only downside of this is will be that the community developed script might not function of the shelf as intended.
+
+Unit Testing
+------------
+
+Unit testing enables development of CompoST without affecting built in core utility functions.
+
+This will be expanded as the functionality expands. Each utility function should have dedicated test function in 'Tests\test_main.py', this function is then called from 'TestMainCompoST'.
+To run the tests the following command should be used in the root CompoST directory:
+
+.. code-block:: bash
+
+	python -m unittest discover -s tests
+
+The following function creates a dedicated example CompoST. This object contains various different ways to store information. For example, 'CompositeStandard.Piece' is stored as part of a 'CompositeStandard.Ply', as well as part of 'CompositeStandard.Sequence', and as well as within the overarching 'allComposites' list.
+
+.. py:function:: create_example()
+
+This following function is used to check that re-linking of objects after deserialization works, i.e. objects with same ID continue to be treated as one object and it's life copies.
+
+.. py:function:: testReLink(CompoST)
+
+The following function is very simple test that verifies that the expected number of objects are contained in the root lists ('allComposites','allGeometry',...)
+
+.. py:function:: NewFileComparison(CompoST)
+
 
 Use Cases
 ---------
