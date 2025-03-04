@@ -275,6 +275,29 @@ def testReLink(D):
         print("Error: Re-link error, the modificication of ID=13 piece was not propagated to the copies of the object.")
 
 
+    #check material example - ID=11
+    for M in D.allMaterials:
+        if M.ID == 11:
+            M.memberName = "NEW_NAME_FOR_TESTING"
+
+    #assume error until proven otherwise
+    tErr = True
+    for C in D.allComposite:
+        if C.ID == 14:
+            for s1 in C.subComponents:
+                if s1.ID == 13:
+                    if s1.material.ID == 11:
+                        if s1.material.memberName == "NEW_NAME_FOR_TESTING":
+                            tErr = False
+                            break
+    if tErr == True:
+        noErr += 1
+        print("Error: Re-link error,the material with ID=11 was not propagated correctly to a piece ID=13.")    
+
+    #re-save in the end for manual review (optional)
+    cs.Save(D,"test_save_review","C:\\temp",overwrite=True)
+
+    
     #TODO try more re-links when adding functionality (expanding list in Utilities)
     #copied objects 20,2,24...
 
@@ -298,6 +321,7 @@ class TestMainCompoST(unittest.TestCase):
     #test re-link method
     def test_link(self):
         self.assertEqual(testReLink(self.D),0)
+
 
     #any more tests needed?
 
