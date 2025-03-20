@@ -26,8 +26,7 @@ import CompoST.Utilities
 class CompositeDBItem(BaseModel):
 
     memberName: Optional[str] = Field(default = None)
-    additionalParameters: Optional[dict] = Field(default = None) # 
-    additionalProperties: Optional[dict] = Field(default = None) # 
+    additionalParameters: Optional[dict] = Field(default = None) #this is bespoke dictionary created by user, it should not hold copies of ID carrying CompoST objects.
     stageID: Optional[int] = Field(default = None) #stage where this object was generated / re-generated
     deactivate_stageID: Optional[int] = Field(default = None) #this object is not relevant after this stage - either it has been superceeded or it's purpose was fullfilled
     active: Optional[bool] = Field(default = True) #This can be turned to False to indicate this object does not represent the latest iteration of the part

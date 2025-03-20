@@ -147,9 +147,6 @@ def reLink(D):
     #This compensates for serialization in JSON losing object links in Python.
     #This prevenets one copy of object from accidentally being edited without the details propagating to all it's other instances.
 
-    #TODO unit test function not developed for this yet 
-
-
     temp = []
     #first number of dup array is ID, second is number of copies
 
@@ -183,13 +180,7 @@ def reLink(D):
         #object number nest for copy
         NN_c = []
 
-        #Go through all known groups of objects that could be shared and contain IDs
-        #for RL in reLists:
-            #TODO XXX replace the below by iterating through this
-            #TODO XXX will require "allComposite" etc to be extracted from the print below
-        #   print(type(RL))
-        
-        #loop through the different lists in main object 
+        #Go through all known groups of objects that could be shared and contain IDs 
         for iii, RL in enumerate(reLists):
             if RL != None:
                 for ii, o in enumerate(RL):
