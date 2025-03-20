@@ -32,11 +32,13 @@ def clean_json(strin):
 
 def findDupID(loc_obj,temp,dup):
     #acceptable list names
-    list_names = ["subComponents","defects","nodes","points","meshElements"]
+    #TODO share the list between two functions, and how do these get updated?
+    list_names = ["subComponents","defects","tolerances","nodes","points","meshElements","splineRelimitation","material"]
 
     #recursively looks through object
 
     #if ID is specified
+
     if loc_obj.ID != None:
 
         #if ID already exists in temp, duplicate was found
@@ -45,7 +47,7 @@ def findDupID(loc_obj,temp,dup):
             if loc_obj.ID in dup[:,0]:
                 for i in range(0,np.size(dup,0)):
                     if loc_obj.ID == dup[i,0]:
-                        dup[i,1] == dup[i,1] + 1
+                        dup[i,1] = dup[i,1] + 1
             #if ID not in dup, add new row
             else:
                 dup = np.concatenate((dup,np.asarray([[loc_obj.ID,2]])),axis = 0)
@@ -53,28 +55,26 @@ def findDupID(loc_obj,temp,dup):
         else:
             temp.append(loc_obj.ID)
 
-            #specific lists accepted only for housing more nested objects
-            for any_atr in dir(loc_obj):
-                if any_atr in list_names:
-                    new_obj = getattr(loc_obj,any_atr)
-                    if new_obj != None:
-                        for o in new_obj:
-                            temp, dup = findDupID(o,temp,dup)
-    #if ID is not specified
-    else: 
+    #always look through children, regardless whether this had ID    
         
-        for any_atr in dir(loc_obj):
-            if any_atr in list_names:
-                new_obj = getattr(loc_obj,any_atr)
-                if new_obj != None:
+    for any_atr in dir(loc_obj):
+        if any_atr in list_names:
+            new_obj = getattr(loc_obj,any_atr)
+            if new_obj != None:
+                if type(new_obj) == list:
                     for o in new_obj:
                         temp, dup = findDupID(o,temp,dup)
+                else:
+                    #accounts for when not a list but child object is the next level
+                    temp, dup = findDupID(new_obj,temp,dup)
             
+
     return(temp,dup)
 
-def reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c):
+def reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c,ITE,build_list):
     #acceptable list names
-    list_names = ["subComponents","defects","nodes","points","meshElements"]
+    #TODO share the list between two functions, and how do these get updated?
+    list_names = ["subComponents","defects","tolerances","nodes","points","meshElements","splineRelimitation","material"]
 
     #f is the number of copies that still need to be identified
     if f > 0:
@@ -89,18 +89,26 @@ def reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c):
             else:
                 #reconstruct the reference to edit D ####
 
+                #The build code-lines are cumbersome, and should be replaced by object referencing eventually TODO
+
                 buildF = "D"
                 for ii, st in enumerate(nestS):
-                    buildF += "."+st +"["+str(nestN[ii])+"]"
+                    if nestN[ii] == 999:
+                        #No number if object instead of list is part of the chain
+                        buildF += "."+st
+                    else:
+                        buildF += "."+st +"["+str(nestN[ii])+"]"
 
                 buildF += " = D"
                 for ii, st in enumerate(NS_c):
-                    buildF += "."+st +"["+str(NN_c[ii])+"]"           
+                    if NN_c[ii] == 999:
+                        #No number if object instead of list is part of the chain
+                        buildF += "."+st
+                    else:
+                        buildF += "."+st +"["+str(NN_c[ii])+"]"      
+                
+                build_list.append(buildF)  
 
-                #not the cleanest, but wasn't able to make this work with getattr
-                #(feel free to rework)
-                print(buildF)     
-                exec(buildF)
                 f = f - 1
                                 
         #move to other lists
@@ -110,23 +118,34 @@ def reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c):
                 if any_atr in list_names:
                     new_obj = getattr(o,any_atr)
                     if new_obj != None:
-                        for ii, oo in enumerate(new_obj):
-                            #objects within are also run-through
+                        if type(new_obj) == list:
+                            for ii, oo in enumerate(new_obj):
+                                #objects within are also run-through
+                                nestS.append(any_atr)
+                                nestN.append(ii)
+
+                                ITE = ITE + 1
+
+                                D,f,nestS,nestN,NS_c,NN_c, build_list = reLinkRec(D,oo,f,i,nestS,nestN,NS_c,NN_c,ITE,build_list)
+                                nestN = nestN[:-1]
+                                nestS = nestS[:-1]
+                        else:
+
                             nestS.append(any_atr)
-                            nestN.append(ii)
-                            D,f,nestS,nestN,NS_c,NN_c = reLinkRec(D,oo,f,i,nestS,nestN,NS_c,NN_c)
+                            nestN.append(999)
+
+                            ITE = ITE + 1
+
+                            D,f,nestS,nestN,NS_c,NN_c, build_list = reLinkRec(D,new_obj,f,i,nestS,nestN,NS_c,NN_c,ITE,build_list)
                             nestN = nestN[:-1]
                             nestS = nestS[:-1]
-
-    return(D,f,nestS,nestN,NS_c,NN_c)
+    
+    return(D,f,nestS,nestN,NS_c,NN_c,build_list)
 
 def reLink(D):
     #This function is to be used following deserialization. It translates objects with same ID into the same object. 
     #This compensates for serialization in JSON losing object links in Python.
     #This prevenets one copy of object from accidentally being edited without the details propagating to all it's other instances.
-
-    #TODO unit test function not developed for this yet 
-
 
     temp = []
     #first number of dup array is ID, second is number of copies
@@ -134,7 +153,8 @@ def reLink(D):
     #relevant lists 
     #TODO add to changes required when major new developments are added
     #It is key to include all lists that require re-linking between each other.
-    reLists = [D.allComposite,D.allGeometry,D.allDefects,D.allTolerances]
+    reLists = [D.allComposite,D.allGeometry,D.allDefects,D.allTolerances,D.allMaterials]
+    reSTR = ["allComposite","allGeometry","allDefects","allTolerances","allMaterials"]
 
     #find duplicate 
     dup = np.asarray([[0,0]])
@@ -143,52 +163,37 @@ def reLink(D):
             for o in RL:
                 temp, dup = findDupID(o,temp,dup)
 
+
     #now iterate to find the objects and re-write with copy
 
-    #nested strings
-    nestS = []
-    #nested object position
-    nestN = []
-    #object string nest for copy
-    NS_c = []
-    #object number nest for copy
-    NN_c = []
-    
+
+    build_list = []
     for count, i in enumerate(dup[:,0]):
         f = dup[count,1]
-        #Go through all known groups of objects that could be shared and contain IDs
-        for RL in reLists:
-            #TODO XXX replace the below by iterating through this
-            #TODO XXX will require "allComposite" etc to be extracted from the print below
-            print(type(RL))
 
-        if D.allComposite != None:
-            for ii, o in enumerate(D.allComposite):
-                nestS.append("allComposite")
-                nestN.append(ii)
-                D,f,nestS,nestN,NS_c,NN_c = reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c)
-                nestN = nestN[:-1]
-                nestS = nestS[:-1]
-        if D.allGeometry != None:
-            for ii, o in enumerate(D.allGeometry): 
-                nestS.append("allGeometry")
-                nestN.append(ii)
-                D,f,nestS,nestN,NS_c,NN_c = reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c)
-                nestN = nestN[:-1]
-                nestS = nestS[:-1]
-        if D.allDefects != None:
-            for ii, o in enumerate(D.allDefects):
-                nestS.append("allDefects")
-                nestN.append(ii)
-                D,f,nestS,nestN,NS_c,NN_c = reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c)
-                nestN = nestN[:-1]
-                nestS = nestS[:-1]
-        if D.allTolerances != None:
-            for ii,o in enumerate(D.allTolerances):
-                nestS.append("allTolerances")
-                nestN.append(ii)
-                D,f,nestS,nestN,NS_c,NN_c = reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c)
-                nestN = nestN[:-1]
-                nestS = nestS[:-1]
+        #nested strings
+        nestS = []
+        #nested object position
+        nestN = []
+        #object string nest for copy
+        NS_c = []
+        #object number nest for copy
+        NN_c = []
+
+        #Go through all known groups of objects that could be shared and contain IDs 
+        for iii, RL in enumerate(reLists):
+            if RL != None:
+                for ii, o in enumerate(RL):
+                    nestS.append(reSTR[iii])
+                    nestN.append(ii)
+                    D,f,nestS,nestN,NS_c,NN_c, build_list = reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c,0,build_list)
+                    nestN = nestN[:-1]
+                    nestS = nestS[:-1]
+
+
+    #TODO replace the build function with simple object=object... it should work as long as that all linked objects are being linked to same main one
+    for BLT in build_list:
+        #print(BLT)
+        exec(BLT)
 
     return(D)

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, ConfigDict, ValidationError, SerializeAsAny, root_validator
 import numpy as np
-from typing import Optional, Tuple, Union, Annotated, Any
+from typing import List, Optional, Tuple, Union, Annotated, Any
 from datetime import date, time, timedelta
 
 #specifically for axis calcualtions
@@ -18,7 +18,7 @@ from jsonic import serialize, deserialize
 
 import CompoST.Utilities
 
-#### VERSION 0.8.1 ####
+#### VERSION 0.8.2 ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #documentation link in the repository Readme
@@ -26,8 +26,7 @@ import CompoST.Utilities
 class CompositeDBItem(BaseModel):
 
     memberName: Optional[str] = Field(default = None)
-    additionalParameters: Optional[dict] = Field(default = None) # 
-    additionalProperties: Optional[dict] = Field(default = None) # 
+    additionalParameters: Optional[dict] = Field(default = None) #this is bespoke dictionary created by user, it should not hold copies of ID carrying CompoST objects.
     stageID: Optional[int] = Field(default = None) #stage where this object was generated / re-generated
     deactivate_stageID: Optional[int] = Field(default = None) #this object is not relevant after this stage - either it has been superceeded or it's purpose was fullfilled
     active: Optional[bool] = Field(default = True) #This can be turned to False to indicate this object does not represent the latest iteration of the part
@@ -41,7 +40,8 @@ class SimulationData(BaseModel):
     active: Optional[bool] = Field(default = True) #This can be turned to False to indicate this object does not represent the latest iteration of the part
     ID: Optional[int] = Field(default = None) #shares ID numbering with all other CompoST objects except Stages
     sourceSystem: Optional['SourceSystem'] = Field(default = None) #software or tool used for simulation 
-    cadFile: Optional[str] = Field(default=None) #path and filename of reference CAD - TODO rework
+    cadFilePath: Optional[str] = Field(default=None) #path and filename of reference CAD - TODO rework 
+    toolCadFilePath: Optional[str] = Field(default=None) # path to tool cad, if different from the above
     axisSystemID: Optional[int] = Field(default=None) #reference to axis system ID
 
 class GeometricElement(CompositeDBItem):
@@ -138,7 +138,7 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.8.1") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.8.2") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
@@ -167,9 +167,9 @@ class CompositeDB(BaseModel):
 
 class CompositeElement(CompositeDBItem):
 
-    subComponents: Optional[list['CompositeElement']] = Field(None) # list of subComponents -- all belong to the CompositeElement family
-    mappedProperties: Optional[list['CompositeComponent|Sequence|Ply|Piece']] = Field(None) #list of objects - various allowed: Component, Sequence, Ply, Piece
-    mappedRequirements: Optional[list] = Field(None) # list of objects - "Requirement"
+    #TODO below list of all possible compositeComponents, would be neater if instead of listing them it could be of "CompositeComponent children"
+    subComponents: Optional[List[Union['CompositeComponent', 'Sequence', 'Ply', 'Piece', 'SolidComponent']]] = Field(None) # list of subComponents -- all belong to the CompositeElement family
+    requirements: Optional[list] = Field(None) # list of objects - "Requirement"
     defects: Optional[list['Defect']] = Field(None) #list of objects - "defects"
     tolerances: Optional[list['Tolerance']] = Field(None)
     axisSystemID: Optional[int] = Field(None) #ID reference to allAxis systems 
@@ -292,7 +292,7 @@ class FibreOrientations(Defect):
     lines: Optional[list['Line']] = Field(None) #list of lines collected to denote orientations map
     orientations: Optional[list[float]] = Field(None) #list of floats corresponding to the "lines" list 
     averageOrientation: Optional[float] = Field(None) #average of "orientations", does not account for varying lenght of lines
-    avDiffToNominal: Optional[list[float]] = Field(None) #average difference 
+    avDeviation: Optional[list[float]] = Field(None) #average deviation to nominal
 
 
 class Tolerance(CompositeDBItem):
@@ -396,13 +396,12 @@ class Stage(BaseModel):
 # class PlyScan(Stage):
 
 #     #the name is a placeholder
-
 #     machine: Optional[str] = Field(default=None) #designation name of the machine underataking scanning 
 #     binderActivated: Optional[str] = Field(default=None) # bool
 
 class FibreOrientationTolerance(Tolerance):
     
-    max_avDiffToNominal: Optional[float] = Field(default=None) #average difference to intended ply orientation based off all sampling points within relimitation
+    max_avDeviation: Optional[float] = Field(default=None) #average difference to intended ply orientation based off all sampling points within relimitation
 
 class Zone(CompositeDBItem):
 
