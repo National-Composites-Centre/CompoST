@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, ConfigDict, ValidationError, SerializeAsAny, root_validator
+from pydantic import BaseModel, Field, ConfigDict, ValidationError, SerializeAsAny
 import numpy as np
 from typing import List, Optional, Tuple, Union, Annotated, Any
 from datetime import date, time, timedelta
