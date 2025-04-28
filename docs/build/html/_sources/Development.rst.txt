@@ -56,3 +56,24 @@ required to develop CompoST integration tools. In such cases key collaborations 
 
 (include collaboration pages here -- these might only be publishable following the succesful collaboration)
 (add colaboration page template )
+
+
+Versions tracking
+-----------------
+The vesion system uses standar python approch consisting of 3 numbers e.g. 1.2.3, major.minor.patch.
+
+Before pushing/merging to main the appropriate command from the below has to be run.
+
+.. code-block:: bash
+
+	bump2version.exe bumpversion patch
+	
+	bump2version.exe bumpversion minor
+	
+	bump2version.exe bumpversion major
+	
+Tags should be pushed as follows
+
+.. code-block:: bash
+
+	git push origin versions --tags 

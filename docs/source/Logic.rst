@@ -27,6 +27,13 @@ forseen applications.
 Some delimations, however, will require spline breaks. Those can be specified by ``breaks`` parameter in :func:`CompositeStandard.Spline`. The most common purpose for these are part/ply corners.
 These should help wherever the used software struggles to provide reasonable continuity betwen points.
 
+For now the .stp file referenced in CompoST under :func:`CompositeStandard.FileMetadata` is the reference surface that the splines should be projected on. The .stp file should be displaying one
+main surface on default. For CATIA automation purposes the "main_shape" geometrical set contains the surface to be projected on.
+
+.. image:: ExampleSurface.*
+    :width: 1000
+	
+
 
 Active object
 -------------
