@@ -103,6 +103,50 @@ by user.</p>
 where the STEP does not have appropriate information to apply tolerances on, specific composite objects. Ultimately it is up to the user, to chose if a specific tolerance is to be defined in STEP or in CompoST. However, the focus here is on
 tolernaces not covered by STEP, or not covered sufficiently for specific composite applications.</p>
 </section>
+<section id="merging-composts">
+<h2>Merging CompoSTs<a class="headerlink" href="#merging-composts" title="Permalink to this heading">¶</a></h2>
+<p>Ideally CompoST is not to be edited by two actors at the same time, as it should travel with the part, only allowing edits in current process. However, there may be instances when this is not viable. An example is
+optimisation that requires paralelization, each parallel process editing CompoST file of the same part. This small section outlines guidance on how to merge CompoST files in such niche cases. Note, this is not intended
+behaviour, but is presented here for those unforseen scenarios.</p>
+<p>The suggested steps to merging branched CompoST files is below, but only some steps might be required.</p>
+<ol class="arabic">
+<li><p>Evaluate the difference</p>
+<p>Unless user has a very clear idea of what was added at each stage, this needs to be investigated. For that purpose ‘deepdiff’ Python library is recommended. Similar to below:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">deepdiff</span> <span class="kn">import</span> <span class="n">DeepDiff</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="n">DeepDiff</span><span class="p">(</span><span class="n">base_CompoST</span><span class="p">,</span><span class="n">edited_CompoST</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">change_type</span><span class="p">,</span> <span class="n">changes</span> <span class="ow">in</span> <span class="n">diff</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Change type: </span><span class="si">{</span><span class="n">change_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">changes</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will display the type of change that was done to CompoST file and the exact variation. This is only useful for reasonably small changes. For more complex variations (meshes etc…) it will be
+easier to review the process that causes the changes.</p>
+</li>
+<li><p>Ignore the most complex of the variations</p>
+<blockquote>
+<div><p>When merging multiple CompoSTs it is worth identifing the most complicated edit, and then adding the other changes to that.</p>
+</div></blockquote>
+</li>
+<li><p>Test addition of the other CompoSTs</p>
+<blockquote>
+<div><p>Write small code that adds the changes identified in 1 and add that to the source CompoST (before any branching occured). The edited base-CompoST should then be tested by ‘deepdiff’ and no meaningful variations should exist.</p>
+</div></blockquote>
+</li>
+<li><p>Iteratively add all changes</p>
+<blockquote>
+<div><p>Use the tested code from 3 to edit CompoST identified in 2.</p>
+</div></blockquote>
+</li>
+<li><p>Careful about the IDs!</p>
+<blockquote>
+<div><p>The main issue with merging CompoSTs are conflicting IDs. This is very important as with the base .jsen deserialization into Python objects the IDs are used to relink objects.</p>
+<p>It is recommended that all objects added in 4 are given new IDs, updating the ‘CompositeDB.fileMetadata.maxID’ with it.</p>
+</div></blockquote>
+</li>
+</ol>
+<p>Alternatively, merginig CompoSTs could be done using Git, but author has not tested how practical that is for complex parts/files.</p>
+</section>
 </section>
 
 
@@ -123,6 +167,7 @@ tolernaces not covered by STEP, or not covered sufficiently for specific composi
 <li><a class="reference internal" href="#stages">Stages</a></li>
 <li><a class="reference internal" href="#edge-of-part">Edge of Part</a></li>
 <li><a class="reference internal" href="#tolerances">Tolerances</a></li>
+<li><a class="reference internal" href="#merging-composts">Merging CompoSTs</a></li>
 </ul>
 </li>
 </ul>

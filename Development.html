@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Development &#8212; Composite Standard (CompoST) 0.70a documentation</title>
+    <title>Development &#8212; Composite Standard (CompoST) 0.8.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
     
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="Undecided.html" title="Undecided"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.70a documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Development</a></li> 
       </ul>
     </div>  
@@ -99,6 +99,22 @@ required to develop CompoST integration tools. In such cases key collaborations 
 <p>(include collaboration pages here – these might only be publishable following the succesful collaboration)
 (add colaboration page template )</p>
 </section>
+<section id="versions-tracking">
+<h2>Versions tracking<a class="headerlink" href="#versions-tracking" title="Permalink to this heading">¶</a></h2>
+<p>The vesion system uses standar python approch consisting of 3 numbers e.g. 1.2.3, major.minor.patch.</p>
+<p>Before pushing/merging to main the appropriate command from the below has to be run.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bump2version.exe<span class="w"> </span>bumpversion<span class="w"> </span>patch
+
+bump2version.exe<span class="w"> </span>bumpversion<span class="w"> </span>minor
+
+bump2version.exe<span class="w"> </span>bumpversion<span class="w"> </span>major
+</pre></div>
+</div>
+<p>Tags should be pushed as follows</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>versions<span class="w"> </span>--tags
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -115,6 +131,7 @@ required to develop CompoST integration tools. In such cases key collaborations 
 <li><a class="reference internal" href="#unit-testing">Unit Testing</a></li>
 <li><a class="reference internal" href="#use-cases">Use Cases</a></li>
 <li><a class="reference internal" href="#collaborations">Collaborations</a></li>
+<li><a class="reference internal" href="#versions-tracking">Versions tracking</a></li>
 </ul>
 </li>
 </ul>
@@ -163,7 +180,7 @@ required to develop CompoST integration tools. In such cases key collaborations 
         <li class="right" >
           <a href="Undecided.html" title="Undecided"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.70a documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Development</a></li> 
       </ul>
     </div>

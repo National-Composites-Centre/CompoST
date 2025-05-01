@@ -27,6 +27,13 @@ forseen applications.
 Some delimations, however, will require spline breaks. Those can be specified by ``breaks`` parameter in :func:`CompositeStandard.Spline`. The most common purpose for these are part/ply corners.
 These should help wherever the used software struggles to provide reasonable continuity betwen points.
 
+For now the .stp file referenced in CompoST under :func:`CompositeStandard.FileMetadata` is the reference surface that the splines should be projected on. The .stp file should be displaying one
+main surface on default. For CATIA automation purposes the "main_shape" geometrical set contains the surface to be projected on.
+
+.. image:: ExampleSurface.*
+    :width: 1000
+	
+
 
 Active object
 -------------
@@ -70,3 +77,52 @@ Tolerances
 Tolerances are an important part of CompoST. Howerver, STEP already has a standard for many geometric tolerances. Therefore it is suggested that that standard takes precedence for geometric tolerances. The CompoST tolerances are to be used
 where the STEP does not have appropriate information to apply tolerances on, specific composite objects. Ultimately it is up to the user, to chose if a specific tolerance is to be defined in STEP or in CompoST. However, the focus here is on 
 tolernaces not covered by STEP, or not covered sufficiently for specific composite applications.
+
+
+Merging CompoSTs
+----------------
+
+Ideally CompoST is not to be edited by two actors at the same time, as it should travel with the part, only allowing edits in current process. However, there may be instances when this is not viable. An example is 
+optimisation that requires paralelization, each parallel process editing CompoST file of the same part. This small section outlines guidance on how to merge CompoST files in such niche cases. Note, this is not intended 
+behaviour, but is presented here for those unforseen scenarios.
+
+The suggested steps to merging branched CompoST files is below, but only some steps might be required.
+
+1.	Evaluate the difference
+	
+	Unless user has a very clear idea of what was added at each stage, this needs to be investigated. For that purpose 'deepdiff' Python library is recommended. Similar to below:
+	
+	.. code-block:: Python
+
+		from deepdiff import DeepDiff
+		diff = DeepDiff(base_CompoST,edited_CompoST)
+		
+		for change_type, changes in diff.items():
+			print(f"Change type: {change_type}")
+			print(changes)
+
+
+	This will display the type of change that was done to CompoST file and the exact variation. This is only useful for reasonably small changes. For more complex variations (meshes etc...) it will be 
+	easier to review the process that causes the changes.
+	
+2. Ignore the most complex of the variations
+
+	When merging multiple CompoSTs it is worth identifing the most complicated edit, and then adding the other changes to that.
+	
+3. Test addition of the other CompoSTs
+
+	Write small code that adds the changes identified in 1 and add that to the source CompoST (before any branching occured). The edited base-CompoST should then be tested by 'deepdiff' and no meaningful variations should exist.
+	
+4. Iteratively add all changes 
+
+	Use the tested code from 3 to edit CompoST identified in 2.
+	
+5. Careful about the IDs!
+
+	The main issue with merging CompoSTs are conflicting IDs. This is very important as with the base .jsen deserialization into Python objects the IDs are used to relink objects. 
+	
+	It is recommended that all objects added in 4 are given new IDs, updating the 'CompositeDB.fileMetadata.maxID' with it.
+	
+	
+
+Alternatively, merginig CompoSTs could be done using Git, but author has not tested how practical that is for complex parts/files.
