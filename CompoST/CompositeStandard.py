@@ -23,6 +23,15 @@ import CompoST.Utilities
 
 #documentation link in the repository Readme
 
+
+def get_author():
+    #This function helps assign author on CompositeDB creation, making sure errors in os.getlogin() will be handled
+    try:
+        author = os.getlogin()
+    except: 
+        author = ""
+    return(author)
+
 class CompositeDBItem(BaseModel):
 
     memberName: Optional[str] = Field(default = None)
@@ -162,7 +171,7 @@ class CompositeDB(BaseModel):
     allMaterials: Optional[list['Material']] = Field(default=None) #List of "Material" objects - all = exhaustive list
     allDefects: Optional[list['Defect']] = Field(default=None) # list of all defects
     allTolerances: Optional[list['Tolerance']] = Field(default = None) # list of all Tolerances
-    fileMetadata: FileMetadata = Field(default = FileMetadata()) #list of all "axisSystems" objects = exhaustive list
+    fileMetadata: FileMetadata = Field(default = FileMetadata(author=get_author())) #list of all "axisSystems" objects = exhaustive list
     allSimulations: Optional[list['SimulationData']] = Field(default = None) #List of simulation data objects
 
 class CompositeElement(CompositeDBItem):
@@ -410,6 +419,7 @@ class Zone(CompositeDBItem):
     splineRelimitation: Optional['Spline'] = Field(None) #area for this definition
     splineRelimitationRef: Optional[int] = Field(None) # same as above, but referenced using 'ID'
 
+
 def generate_json_schema(file_name:str):
     with open(file_name, 'w') as f:
         f.write(json.dumps(CompositeDB.model_json_schema(), indent=4))
@@ -429,6 +439,12 @@ def Open(file,path=""):
     return(D)
 
 def Save(CompositeDB,file,path="",overwrite=False):
+
+    #Edit metadata to record last user/editor
+    try:
+        CompositeDB.fileMetadata.lastModifiedBy = os.getlogin()
+    except:
+        print("failed to access username for logging in fileMetadata from the OS")
 
     #turn data back to JSON
     json_str = serialize(CompositeDB, string_output = True)
