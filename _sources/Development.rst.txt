@@ -76,4 +76,4 @@ Tags should be pushed as follows
 
 .. code-block:: bash
 
-	git push origin versions --tags 
+	git push origin branch_name --tags 
