@@ -63,8 +63,8 @@ Loading the file to any other language/software that accepts JSON schema should 
 The optional :func:`Utilities.reLink` function exists as JSON natively does not store information on which objects were copies of each other (i.e. stored in memory as one).
 This function re-creates these links based on `ID` parameters, as the copy-based objects will share `ID`. Of course, if `ID` definition was omitted, this function will not work.
 
-Saving Files
-------------
+Initiating new file
+-------------------
 To save the CompoST data structure it first has to be initiated. This can either be done by loading existent file (as per above), or using the following:
 
 .. code-block:: python
@@ -75,6 +75,15 @@ To save the CompoST data structure it first has to be initiated. This can either
     d.name = "NewPart"
 	
 The date and name are included only as example, it is up to user which of the variables available are useful to them.
+
+The most common start to CompoST would likely be layup-definition. Ideally, in future exporters from commercial software should be available (composites CATIA, Fibresim...), this is pending API to those software. Currently, 
+a bespoke layup-definition tool can be used. This tool uses base CATIA UI, which is scriptable, to fully define layupd with drop-offs and materials using CompoST. There is a dedicated public repository available with this tool: https://github.com/National-Composites-Centre/LayupDefinition .
+
+
+
+Saving Files
+------------
+Saving file first requires a `CompositeDB` object, either loaded and modified, or initiated as per above.
 
 After all required information has been saved somewhere in the tree belonging to `CompositeDB` object, the following code serializes the data into JSON string and saves it. The function also adds line-breaks to the file so
 that it becomes human readable to some extent.
