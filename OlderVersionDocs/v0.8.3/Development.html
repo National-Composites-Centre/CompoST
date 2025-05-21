@@ -1,0 +1,192 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Development &#8212; Composite Standard (CompoST) 0.8.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Versions" href="Versions.html" />
+    <link rel="prev" title="Undecided" href="Undecided.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Versions.html" title="Versions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Undecided.html" title="Undecided"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Development</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this heading">¶</a></h1>
+<p>(Under Development)</p>
+<p>The general development of CompoST until 1.0 focuses mainly on standardising all objects that are critical for most composite related operations, at any stage of design or manufacture.</p>
+<p>Until 1.0 most use-cases will be internal, as that way any interative changes to the core CompoST objects will not negatively impact any collaborations. However, further the CompoST development should be based
+on industrial and academic use-cases. These should only minimally affect core CompoST definitions. However, some editing (versioning) of the core CompoST must be assumed, to accomodate for cases that have not yet been
+considered. Overall, most code developed for individual use cases should ideally be stored in <a class="reference external" href="https://github.com/National-Composites-Centre/CST_utils">https://github.com/National-Composites-Centre/CST_utils</a> , or in specific dedicated repository, for re-usability and community
+visibility.</p>
+<p>Once use-cases for majority of applications have been demonstrated, only minimal edits to core CompoST should be done. Process of approvals and evaluation of effects will be developed at this stage. However, everyone is always
+free to clone core CompoST and modify it locally for their purposes. The only downside of this is will be that the community developed script might not function of the shelf as intended.</p>
+<section id="unit-testing">
+<h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this heading">¶</a></h2>
+<p>Unit testing enables development of CompoST without affecting built in core utility functions.</p>
+<p>This will be expanded as the functionality expands. Each utility function should have dedicated test function in ‘Teststest_main.py’, this function is then called from ‘TestMainCompoST’.
+To run the tests the following command should be used in the root CompoST directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>discover<span class="w"> </span>-s<span class="w"> </span>tests
+</pre></div>
+</div>
+<p>The following function creates a dedicated example CompoST. This object contains various different ways to store information. For example, ‘CompositeStandard.Piece’ is stored as part of a ‘CompositeStandard.Ply’, as well as part of ‘CompositeStandard.Sequence’, and as well as within the overarching ‘allComposites’ list.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="create_example">
+<span class="sig-name descname"><span class="pre">create_example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#create_example" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>This following function is used to check that re-linking of objects after deserialization works, i.e. objects with same ID continue to be treated as one object and it’s life copies.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="testReLink">
+<span class="sig-name descname"><span class="pre">testReLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompoST</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#testReLink" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>The following function is very simple test that verifies that the expected number of objects are contained in the root lists (‘allComposites’,’allGeometry’,…)</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="NewFileComparison">
+<span class="sig-name descname"><span class="pre">NewFileComparison</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompoST</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NewFileComparison" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="use-cases">
+<h2>Use Cases<a class="headerlink" href="#use-cases" title="Permalink to this heading">¶</a></h2>
+<p>Use cases can be only simple data input/export tasks, or full blown detailed processes including many steps. In either case, an existent proces is identified and CompoST is implemented as the main storage mechanism for composite
+data. If any developments are required, these are done and recoreded CST_utils repository, or directly in CompoST if these solve core requirements.</p>
+<p>(include use case pages here – as a new tree)
+(add use case page template)</p>
+</section>
+<section id="collaborations">
+<h2>Collaborations<a class="headerlink" href="#collaborations" title="Permalink to this heading">¶</a></h2>
+<p>Collaborations will mainly be required where export/import from a software is required. This can sometimes be developed on software user (our) side. However, very often the APIs of the software do not support the level of scripting
+required to develop CompoST integration tools. In such cases key collaborations will be identified. The funding of the collaborative development will depend on the use-case.</p>
+<p>(include collaboration pages here – these might only be publishable following the succesful collaboration)
+(add colaboration page template )</p>
+</section>
+<section id="versions-tracking">
+<h2>Versions tracking<a class="headerlink" href="#versions-tracking" title="Permalink to this heading">¶</a></h2>
+<p>The vesion system uses standar python approch consisting of 3 numbers e.g. 1.2.3, major.minor.patch.</p>
+<p>Before pushing/merging to main the appropriate command from the below has to be run.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bump2version.exe<span class="w"> </span>bumpversion<span class="w"> </span>patch
+
+bump2version.exe<span class="w"> </span>bumpversion<span class="w"> </span>minor
+
+bump2version.exe<span class="w"> </span>bumpversion<span class="w"> </span>major
+</pre></div>
+</div>
+<p>Tags should be pushed as follows</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>branch_name<span class="w"> </span>--tags
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Development</a><ul>
+<li><a class="reference internal" href="#unit-testing">Unit Testing</a></li>
+<li><a class="reference internal" href="#use-cases">Use Cases</a></li>
+<li><a class="reference internal" href="#collaborations">Collaborations</a></li>
+<li><a class="reference internal" href="#versions-tracking">Versions tracking</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Undecided.html"
+                          title="previous chapter">Undecided</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Versions.html"
+                          title="next chapter">Versions</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Development.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Versions.html" title="Versions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Undecided.html" title="Undecided"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Development</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

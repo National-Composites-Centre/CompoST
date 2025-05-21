@@ -1,0 +1,698 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Architecture &#8212; Composite Standard (CompoST) 0.8.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Logic and philosophy" href="Logic.html" />
+    <link rel="prev" title="Requirements" href="Requirements.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Logic.html" title="Logic and philosophy"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Requirements.html" title="Requirements"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Architecture</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="architecture">
+<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="_images/NCC-TEC-4376.jpg"><img alt="_images/NCC-TEC-4376.jpg" src="_images/NCC-TEC-4376.jpg" style="width: 1000px;" /></a>
+<p>On the figure above, arrows point from an object 1 to object 2, where object 1 inherits from object 2.</p>
+<p>The figure is also work-in-progress. The outline titled “mostly fixed” houses the objects that have been implemented and used. These will hopefully see only minor adjustments. Objects outside this area might end up being standardised differently than currently suggested.</p>
+<p>All fields are optional unless otherwise specified, or unless required to construct specific object.</p>
+<p>Where the same attribute is being called in parent and child (e.g. axis being referenced in ply, and in some of corresponding cut pieces), the more detailed (child) component supersedes the corresponding parent definition.</p>
+<p>CompositeDB object is the main object of the Composite Standard. All objects are stored in lists named all***.</p>
+<section id="object-definitions">
+<h2>Object definitions<a class="headerlink" href="#object-definitions" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.CompositeDB">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeDB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>All elements and all geometry are all stored here and used elsewhere as refrence
+Points are stored withing those, as referencing is not efficient</p>
+<p>BaseModel input signifies the default generation with Pydantic library, without any local parent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – str - name</p></li>
+<li><p><strong>allComposite</strong> – list - List of CompositeElement type objects</p></li>
+<li><p><strong>allEvents</strong> – list  - List of “events” objects - all = exhaustive list</p></li>
+<li><p><strong>allGeometry</strong> – list - list of “GeometricElement” objects - all = exhaustive list</p></li>
+<li><p><strong>allStages</strong> – list - manuf process - all = exhaustive list</p></li>
+<li><p><strong>allMaterials</strong> – list - List of “Material” objects - all = exhaustive list</p></li>
+<li><p><strong>allDefects</strong> – list - List of “Defect” objects - should contain all, that are referenced elsewhere</p></li>
+<li><p><strong>allTolerance</strong> – list - List of “Tolerance” objects</p></li>
+<li><p><strong>fileMetadata</strong> – object - list of all “axisSystems” objects = exhaustive list</p></li>
+<li><p><strong>allSimulations</strong> – list - List of “SimulationData” objects</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.FileMetadata">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">FileMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.FileMetadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metadata related to this particular part.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lastModified</strong> – date</p></li>
+<li><p><strong>lastModifiedBy</strong> – str - latest changes to the file have been done by</p></li>
+<li><p><strong>author</strong> – str - initial part definition created by</p></li>
+<li><p><strong>version</strong> – str - version of the CompoST used to work with this file</p></li>
+<li><p><strong>layupDefinitionVersion</strong> – str - initial part layup definition generated by</p></li>
+<li><p><strong>cadFile</strong> – str - related CAD file, if references to geometries are required, .step format is recommended. Should be stored in same folder.</p></li>
+<li><p><strong>toolCadFilePath</strong> – str - only used if tool has separate CAD file from the above</p></li>
+<li><p><strong>maxID</strong> – int - maxium ID used for any object int the file, used for preventing duplicaiton of IDs</p></li>
+<li><p><strong>cadFilepath</strong> – str - should only be used when CAD could not be stored in same folder as this file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.CompositeDBItem">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeDBItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeDBItem" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>memberName</strong> – str - name</p></li>
+<li><p><strong>additionalParameters</strong> – dict - to hold use-case specific values (to be further defined). This should never hold copies of IDed objects, as these cannot be re-linked on deserialization. If reference to objects elsewhere in CompoST are required, ID reference should be used, not full object.</p></li>
+<li><p><strong>stageIDs</strong> – int - reference to Stage object</p></li>
+<li><p><strong>deactivate_stageID</strong> – int - this object is not relevant after this stage, either it has been superceeded or it’s purpose was fullfilled</p></li>
+<li><p><strong>active</strong> – boolean - on default “True”, can be turned “False” to indicate this is no longer representative of up-to-date part</p></li>
+<li><p><strong>batchID</strong> – (TODO) - reference to batch of components</p></li>
+<li><p><strong>ID</strong> – int - used for references between objects</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.SimulationData">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">SimulationData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.SimulationData" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>memberName</strong> – str - name</p></li>
+<li><p><strong>additionalParameters</strong> – dict - to hold use-case specific values (to be further defined)</p></li>
+<li><p><strong>stageIDs</strong> – int - reference to Stage object</p></li>
+<li><p><strong>active</strong> – boolean - on default “True”, can be turned “False” to indicate this is no longer representative of up-to-date part</p></li>
+<li><p><strong>ID</strong> – int - used for references between objects</p></li>
+<li><p><strong>axisSystemID</strong> – int - reference to axis system ID</p></li>
+<li><p><strong>sourceSystem</strong> – <cite>SourceSystem</cite> - the software or tool used for analysis</p></li>
+<li><p><strong>cadFile</strong> – str - path and name to CAD file (possibly to be reworked)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.GeometricElement">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">GeometricElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.GeometricElement" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> – str - the software, script, or database that this object originated from</p></li>
+<li><p><strong>refFile</strong> – str - reference full name of dedicated file housing this geometry (assume same directory)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.CompositeElement">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>This includes any object that is used to describe composite component specifically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subComponent</strong> – list - <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code> , either as object or ID</p></li>
+<li><p><strong>requirements</strong> – list - list of objects of Requirement type, to be further specified</p></li>
+<li><p><strong>defects</strong> – list - list of “defects” type objects</p></li>
+<li><p><strong>tolerances</strong> – list - list of “tolerance type objects</p></li>
+<li><p><strong>axisSystemID</strong> – int - refernce to object in allAxisSystems specified by ID</p></li>
+<li><p><strong>referencedBy</strong> – list - optional list of objects that currently reference this object</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Point">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GeometricElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Point" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – float</p></li>
+<li><p><strong>y</strong> – float</p></li>
+<li><p><strong>z</strong> – float</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Line">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GeometricElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Line" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> – list - list of two points , no more - no less</p></li>
+<li><p><strong>IDs</strong> – list - list of two IDs corresponding to points, no more - no less</p></li>
+<li><p><strong>length</strong> – float - can be calculated from above, but can be stored to prevent calculation duplication</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.AxisSystem">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">AxisSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GeometricElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.AxisSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>The three vectors listed bewow must be perpendicular to each other.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>o_pt</strong> – <cite>CompositeStandard.Point</cite> - origin location of axis system expressed in global axis system</p></li>
+<li><p><strong>x_pt</strong> – <cite>CompositeStandard.Point</cite> - point, (x_pt-o_pt) denoting x-vector of new axis system</p></li>
+<li><p><strong>y_pt</strong> – <cite>CompositeStandard.Point</cite> - point, (y_pt-o_pt) denoting y-vector of new axis system</p></li>
+<li><p><strong>z_pt</strong> – <cite>CompositeStandard.Point</cite> - point, (z_pt-o_pt) denoting z-vector of new axis system (this one is auto-calculated)</p></li>
+</ul>
+</dd>
+</dl>
+<p>There were 3 main core requirements for definition of Axis System. It should be possible to write out reasonably simple axis system by user,
+without any calculations. Minimum number of values should be used for initial full definition of the axis system (8). The perpendicularity of
+the 3 axis should be enforeced without user participation.</p>
+<p>The class definition automatically calculates z_pt, when this object is initialized or altered.</p>
+<p>If y_pt made axis is not perpendicular to x_pt made axis, y_pt is recalculated using z_pt. User is encouraged to specify first 2 axis perpendicular
+to each other. However, if user fails to do so the object adjusts itself (at least when using the standard CompoST library in Python).</p>
+<p>User cannot set z_pt on it’s own. Upon any changes this is recalculated from x_pt, y_pt and o_pt.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Material">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Material</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Material" title="Permalink to this definition">¶</a></dt>
+<dd><p>To be expanded…</p>
+<p>User of the format is responsible for using consistent units. CompoST does not enforce units used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E1</strong> – float - young’s modulus in primary direction</p></li>
+<li><p><strong>E2</strong> – float - young’s modulus in secondary direction (in-plane)</p></li>
+<li><p><strong>G23</strong> – float - shear modulus</p></li>
+<li><p><strong>G12</strong> – float - interlaminar shear modulus</p></li>
+<li><p><strong>v12</strong> – float - poisson ratio in plane</p></li>
+<li><p><strong>infoSource</strong> – str - reference to source of the information</p></li>
+<li><p><strong>thickness</strong> – float - out of plane thickness</p></li>
+<li><p><strong>density</strong> – float</p></li>
+<li><p><strong>permeability_1</strong> – float - permeability in primary direction</p></li>
+<li><p><strong>permeability_2</strong> – float - permeability in secondary direction (in-plane)</p></li>
+<li><p><strong>permeability_3</strong> – float - permeability out of plane / through thickness</p></li>
+<li><p><strong>type</strong> – str - (List to be provided)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Piece">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Piece</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Piece" title="Permalink to this definition">¶</a></dt>
+<dd><p>In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
+<li><p><strong>material</strong> – ‘Material’ - reference ‘Material’ object</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Ply">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Ply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Ply" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
+<li><p><strong>material</strong> – ‘Material’ - reference ‘Material’ object</p></li>
+<li><p><strong>orientation</strong> – float - direction of lay-up with reference to x-axis of placementRosette</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Sequence">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Can either be defined complely by inherited properties (ply list in subComponents).</p>
+<p>Or can be defined by list of orientations and materials, if no additional information is required.</p>
+<p>For single-material laminate leave “materials” empty, and fill in “singleMaterial”</p>
+<p>The subComponents in sequence must be ordered tool placement (first object is initial ply placed on the tool)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>orientations</strong> – list - list of floats, orientations listed with reference to placementRosette</p></li>
+<li><p><strong>materials</strong> – list - list of ‘Material’ objects</p></li>
+<li><p><strong>singleMaterial</strong> – ‘Material’ - reference ‘Material’ object</p></li>
+<li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
+<li><p><strong>EP</strong> – ‘EffectiveProperties’ - effective properties for the entire sequence</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EndEdgeOfPart">
+<span class="sig-name descname"><span class="pre">EndEdgeOfPart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EndEdgeOfPart" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Stands</span> <span class="pre">for</span> <span class="pre">engineering</span> <span class="pre">edge</span> <span class="pre">of</span> <span class="pre">part.</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>splineRelimitaion</strong> – ‘Spline’ - points collected as spline for relimitation</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but stored as reference to ID of the object instead of the object itself</p></li>
+<li><p><strong>source</strong> – ‘SourceSystem’ - CAD system where this was defined</p></li>
+<li><p><strong>referenceGeometry</strong> – str - the name of edge of part defining geometry, as used inside CAD system</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.CompositeComponent">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">CompositeComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.CompositeComponent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>integratedComponents</strong> – list - allows for integrating othre complete CompoST databases as sub-components</p></li>
+<li><p><strong>ED</strong> – ‘EffectivePropertie’ - Effective properties are only specified when applicable for the complete ‘CompositeComponent’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.SourceSystem">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">SourceSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.SourceSystem" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>softwareName</strong> – str</p></li>
+<li><p><strong>version</strong> – str - version used to generate objects referencing this</p></li>
+<li><p><strong>link</strong> – str - link to GitHub, docs… where appropriate</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.MeshElement">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">MeshElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GeometricElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.MeshElement" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes</strong> – list - <cite>Point</cite> objects</p></li>
+<li><p><strong>normal</strong> – list - [x,y,z] in the list</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Spline">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Spline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GeometricElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Spline" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>splineType</strong> – int - types of splines based on OCC line types (ref to be provided)</p></li>
+<li><p><strong>pointRefs</strong> – list - list of IDs (only use this variable if ‘points’ variable unused</p></li>
+<li><p><strong>points</strong> – <cite>Point</cite> - This variable prevents complex ID referencing for points that belong to this spline only</p></li>
+<li><p><strong>length</strong> – float - calculated lenght of spline</p></li>
+<li><p><strong>breaks</strong> – list - list of integers referencing points which break spline into multiple for visual representation (e.g. sharp corners), this refers to points if available, or pointRefs.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Defect">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Defect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Defect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Storing a defect belonging to this class only stores the data regarding the feature. Weather or not this classifies as a defect in enginering process, depends on comparing the data
+stored here with the appropriate <a class="reference internal" href="#CompositeStandard.Tolerance" title="CompositeStandard.Tolerance"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Tolerance()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>status</strong> – bool - None = not evaluated, True = defect outside of tolerance, False = deviation but fits within tolerance</p></li>
+<li><p><strong>location</strong> – float - x,y,z location</p></li>
+<li><p><strong>effMaterial</strong> – <cite>EffectiveProperties</cite> - adjusted material class saved</p></li>
+<li><p><strong>axisSystemID</strong> – int - reference to <cite>AxisSystem</cite> object</p></li>
+<li><p><strong>file</strong> – str - reference to file which houses defect - not needed if relimitation defined directly in CompoST</p></li>
+<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Wrinkle">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Wrinkle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Defect</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Wrinkle" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>area</strong> – float - can be calculated in various more precise ways, but in general this can be approximated by size_x*size_y</p></li>
+<li><p><strong>aspectRatio</strong> – float - typically size_x/size_y</p></li>
+<li><p><strong>maxRoC</strong> – float - machimum “rate of changes” (RoC), or slope, is the angle of deviation towards the apex, in simplest case of wrinkle in x direction it can be approximated by: [ RoC = arctan(maxAmplitude/(0.5*maxX)) ]. In Radians.</p></li>
+<li><p><strong>size_x</strong> – float - maximum size of the deviation in x direction of the relavant axis system</p></li>
+<li><p><strong>size_y</strong> – float - maximum size of the deviation in y direction of the relavant axis system</p></li>
+<li><p><strong>meshRef</strong> – int - mesh corresponding to defect area or volume</p></li>
+<li><p><strong>amplitude</strong> – float - the size of the defect in out-of plane direction</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.SolidComponent">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">SolidComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.SolidComponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>CAD shapes, for instace useful when using a 3D core/insert</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cadFile</strong> – str - file path to the part, or reference to PLM site</p></li>
+<li><p><strong>sourceSystem</strong> – <cite>SourceSystem</cite> -</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Tolerance">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Tolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>appliedToIDs</strong> – list - list of IDs that this tolerance definition applies to (allows for grouping tolerance definitions)</p></li>
+<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - object defining the area in question</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.WrinkleTolerance">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">WrinkleTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Tolerance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.WrinkleTolerance" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>maxX</strong> – float - maximum size of the deviation in x direction of the relavant axis system</p></li>
+<li><p><strong>maxY</strong> – float - maximum size of the deviation in y direction of the relavant axis system</p></li>
+<li><p><strong>axisSystemID</strong> – int - ‘axisSystem’ reference</p></li>
+<li><p><strong>maxArea</strong> – float - can be calculated in various more precise ways, but in general this can be approximated by maxX*maxY</p></li>
+<li><p><strong>maxRoC</strong> – float - Rate of change (RoC), or slope, is the angle of deviation towards the apex, in simplest case of wrinkle in x direction it can be approximated by: [ RoC = arctan(maxAmplitude/(0.5*maxX)) ]. In Radians.</p></li>
+<li><p><strong>maxSkew</strong> – float - [definition to be croudsourced later]</p></li>
+<li><p><strong>maxAmplitude</strong> – float - maximum out of plane deviation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.FibreOrientations">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">FibreOrientations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Defect</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.FibreOrientations" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lines</strong> – list - list of <cite>Line</cite> objects, as scanned and translated into points and vectors</p></li>
+<li><p><strong>orientations</strong> – list - list of floats that should be the same size as <code class="docutils literal notranslate"><span class="pre">lines</span></code>. This could also be calculated from <code class="docutils literal notranslate"><span class="pre">lines</span></code> and <code class="docutils literal notranslate"><span class="pre">axisSystemID</span></code>.</p></li>
+<li><p><strong>avDeviation</strong> – float - average of local differences between orientation and defined ply orientation. This is more indicative than ‘averageOrientation’ as that one can offer falsely optimistic results.</p></li>
+<li><p><strong>averageOrientation</strong> – float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.EffectiveProperties">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">EffectiveProperties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.EffectiveProperties" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO - might need splitting between mechanical and dry-fibre flow properties</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E1</strong> – float - Elastic modulus in principle direction (x)</p></li>
+<li><p><strong>E2</strong> – float - Elastic modulus in transverse direction (y)</p></li>
+<li><p><strong>G12</strong> – float - Shear Modulus in plane</p></li>
+<li><p><strong>G23</strong> – float - out of plane shear modulus</p></li>
+<li><p><strong>v12</strong> – float - poisson ratio</p></li>
+<li><p><strong>sourceSystem</strong> – ‘SourceSystem’ - Source software or analytical method used to calculate the effective properties</p></li>
+<li><p><strong>thickness</strong> – float</p></li>
+<li><p><strong>density</strong> – float</p></li>
+<li><p><strong>K1</strong> – float - permeability in principle direction</p></li>
+<li><p><strong>K2</strong> – float - permeability in transverse direction</p></li>
+<li><p><strong>K3</strong> – float - permeability thorugh thickness</p></li>
+<li><p><strong>Vf</strong> – float - volume fraction</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.FibreOrientationTolerance">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">FibreOrientationTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Tolerance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.FibreOrientationTolerance" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>max_avDeviation:</strong> – float - average difference to intended ply orientation based off all sampling points within relimitation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.DrapingSimulation">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">DrapingSimulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SimulationData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.DrapingSimulation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initialDrapePoint</strong> – point - location of first intended contact between ply and tool</p></li>
+<li><p><strong>plyID</strong> – int - ply ID, one DrapingSimulation object for each ply - if z=0 it likely needs a  projection to surface in z vector</p></li>
+<li><p><strong>newOrientation</strong> – float - Prescribed orientation of ply at the initial draping location</p></li>
+<li><p><strong>maxShearAngle</strong> – float - maximum predicted shear angle in the full ply</p></li>
+<li><p><strong>acceptedDarts</strong> – list of <cite>Line</cite> objects - list of lines indicating accepted locations for darts</p></li>
+<li><p><strong>drapeDirections</strong> – list of <cite>Spline</cite> objects - list of splines indicating draping directions, only one spline is to be provided in the list if only initial draping direction matters</p></li>
+<li><p><strong>drapeMesh</strong> – <cite>AreaMesh</cite> - this mesh object corresponds to drapped ply, and is used for mapping shear angles</p></li>
+<li><p><strong>mappedShearAngles</strong> – list of floats - list of shear angles ordered according to elements in drapeMesh</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Stage">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Stage" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>Stage</cite> can be used as standalone object that is related to an actual process (NDT/Manufacturing/Analysis…).
+More details about the intended purpose of stages are available in <a class="reference internal" href="Logic.html#stages-reference"><span class="std std-ref">Stages</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stageID</strong> – int - unique stage identifier</p></li>
+<li><p><strong>memberName</strong> – str</p></li>
+<li><p><strong>source</strong> – <cite>SourceSystem</cite></p></li>
+<li><p><strong>processRef</strong> – str - This is used to reference a file which describes process in question. CompoST is part focused, so processes are only referened here, rather than process details being stored.</p></li>
+<li><p><strong>stageParameters</strong> – dict - This dictionary allows for bespoke definitions of extra stage parameters, by the user.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Zone">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeDBItem</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Zone" title="Permalink to this definition">¶</a></dt>
+<dd><p>There are many potentially uses of Zones, but for now author refrains from fully defining this, until Zones figure in multiple use-cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>splineRelimitation</strong> – <cite>Spline</cite> - object defining the area in question</p></li>
+<li><p><strong>splineRelimitationRef</strong> – int - same as above but refenced as <code class="docutils literal notranslate"><span class="pre">ID</span></code> only.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Delamination">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Delamination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Defect</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Delamination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delamination occurs between two layers/plies, the convention is to append it to the one that is in the tool direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size_x</strong> – float - length in x axis direction</p></li>
+<li><p><strong>size_y</strong> – float - length in y axis direction</p></li>
+<li><p><strong>area</strong> – float</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandar.UnclassifiedDefect">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandar.</span></span><span class="sig-name descname"><span class="pre">UnclassifiedDefect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Defect</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandar.UnclassifiedDefect" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is to be used when the defect you are storing about does not have dedicated class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>title</strong> – str - this is to be used to assgin classification to the defect</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.DelaminationTolerance">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">DelaminationTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Tolerance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.DelaminationTolerance" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>maxX</strong> – float - maximum length in x axis direction</p></li>
+<li><p><strong>maxY</strong> – float - maximum length in y axis direction</p></li>
+<li><p><strong>maxArea</strong> – flaot - maximume allowed area per defect</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.BoundaryDeviation">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">BoundaryDeviation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Defect</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.BoundaryDeviation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This defect is generated by comparing initial definition of boundary (of layer/sequence/piece/…) to boundary measured in later “Stage”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>maxDeviation</strong> – float - maximum distance of a measured point from intended boundary</p></li>
+<li><p><strong>avDeviation</strong> – float - average deviation along the boundary</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.BoundaryTolerance">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">BoundaryTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Tolerance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.BoundaryTolerance" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>maxAllowedDev</strong> – float - maximum allowed distance of a measured point from intended boundary</p></li>
+<li><p><strong>maxAv</strong> – float - maximum allowed average deviation along the entire boundary</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Architecture</a><ul>
+<li><a class="reference internal" href="#object-definitions">Object definitions</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Requirements.html"
+                          title="previous chapter">Requirements</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Logic.html"
+                          title="next chapter">Logic and philosophy</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Architecture.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Logic.html" title="Logic and philosophy"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Requirements.html" title="Requirements"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Architecture</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

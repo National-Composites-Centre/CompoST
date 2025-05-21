@@ -1,0 +1,154 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Mapping and references &#8212; Composite Standard (CompoST) 0.8.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="StorageFormat" href="StorageFormat.html" />
+    <link rel="prev" title="Logic and philosophy" href="Logic.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="StorageFormat.html" title="StorageFormat"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Logic.html" title="Logic and philosophy"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Mapping and references</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="mapping-and-references">
+<h1>Mapping and references<a class="headerlink" href="#mapping-and-references" title="Permalink to this heading">¶</a></h1>
+<p>(Under development)</p>
+<p>This documentation will advice on how to translate between spline definitions and element definitions (for example).</p>
+<section id="reference-surface">
+<h2>Reference Surface<a class="headerlink" href="#reference-surface" title="Permalink to this heading">¶</a></h2>
+<p>On default surface should be provided within the CAD reference, usually provided as step file: see parameter <code class="docutils literal notranslate"><span class="pre">cadFile</span></code> in <a class="reference internal" href="Architecture.html#CompositeStandard.FileMetadata" title="CompositeStandard.FileMetadata"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.FileMetadata()</span></code></a>. Currently ,in ideal case
+only one main surface is loaded from the provided step file, corresponding to the tool surface.</p>
+<p>It is the intention of the developers to allow for specific references to hash numbers in the step file. This way user would be able to select specific surfaces in STEP file and
+allocate them to composite objects. However, this will require extensive exploration to understand how this might affect loading/unloading of the standard, and likely dedicated scripts
+to manage accuracy will need to be implemented when saving/re-saving files from CAD systems.</p>
+</section>
+<section id="material-knockdown-properties">
+<h2>Material Knockdown Properties<a class="headerlink" href="#material-knockdown-properties" title="Permalink to this heading">¶</a></h2>
+<p>The material knockdown properties are stored as a standard material. For example, if wrinkle is identified, the effective material is calculated based on severity of the wrinkle and original local material properties.</p>
+<p>This material is then appended as <code class="docutils literal notranslate"><span class="pre">effMaterial</span></code> in <a class="reference internal" href="Architecture.html#CompositeStandard.Defect" title="CompositeStandard.Defect"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Defect()</span></code></a>. In practice, this can then be used to implement into FE model with new properties for this specific area, overwriting the material properties
+noted at ply level (for example).</p>
+</section>
+<section id="ids">
+<h2>IDs<a class="headerlink" href="#ids" title="Permalink to this heading">¶</a></h2>
+<p>Every object belonging to <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code> family can have ‘ID’ parameter attributed to it. This allows for referencing geometries and composite elements without re-creating them. The most common usage of this is when ‘CompositeStandard.Piece’ uses parameter splineRelimitation to signifcy edge of the composite piece, this parameter is simply and integer - ‘ID’, and corresponding spline can be found in GeometricElement`</p>
+<p>IDs are not compulsory for any object, but it is highly recommended that most objects are given IDs, as that will facilitaty any re-use. Exceptions are objects that will definitely not see reuse, such as point only existing to create a complex spline.</p>
+</section>
+<section id="duplication-of-properties">
+<h2>Duplication of properties<a class="headerlink" href="#duplication-of-properties" title="Permalink to this heading">¶</a></h2>
+<p>Many objects share parameters, and can become each others parent/child. This may lead to situation where paramters are duplicated. This is intended so that one can define a parameter for a complete sequence, but than specify differing
+parameter for a specific ply.</p>
+<p>The rule for which parameter takes effect is as follows: Where the same attribute is being called in parent and child (e.g. axis being referenced in ply, and in some of corresponding cut pieces), the more detailed (child) component supersedes the corresponding parent definition.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Mapping and references</a><ul>
+<li><a class="reference internal" href="#reference-surface">Reference Surface</a></li>
+<li><a class="reference internal" href="#material-knockdown-properties">Material Knockdown Properties</a></li>
+<li><a class="reference internal" href="#ids">IDs</a></li>
+<li><a class="reference internal" href="#duplication-of-properties">Duplication of properties</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Logic.html"
+                          title="previous chapter">Logic and philosophy</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="StorageFormat.html"
+                          title="next chapter">StorageFormat</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Mapping.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="StorageFormat.html" title="StorageFormat"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Logic.html" title="Logic and philosophy"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Mapping and references</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

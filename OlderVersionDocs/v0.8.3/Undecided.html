@@ -1,0 +1,141 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Undecided &#8212; Composite Standard (CompoST) 0.8.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Development" href="Development.html" />
+    <link rel="prev" title="StorageFormat" href="StorageFormat.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Development.html" title="Development"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="StorageFormat.html" title="StorageFormat"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Undecided</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="undecided">
+<h1>Undecided<a class="headerlink" href="#undecided" title="Permalink to this heading">¶</a></h1>
+<p>This section outlines objects that are being considered, but are currently not part of the core <code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard()</span></code>.</p>
+<p>Opinions/preferences regarding all below are very welcome by the authors.</p>
+<section id="zones">
+<h2>Zones<a class="headerlink" href="#zones" title="Permalink to this heading">¶</a></h2>
+<p>Everyone might have slightly different definition of zones, with different purpose. Here we are talking of anything that benefits of specific definition of area that certain definition relies on.
+Most composite information can be stored in current version of CompoST, but in some cases it might not be the most practical. For instance one might want to apply a tolerance over an area, that does not correspond to full plies,
+but rather to certain critical part of component, regardless ply limits. The same zone might than be used in FE to define more dense mesh. Each of these are currenlty supported by CompoST, but if the same zone is used for multiple
+purposes it is not immediatly clear. In such cases zones would be useful.</p>
+<p>However, author refrains from specifying what exactly would ‘Zone’ object look like until few use-cases that require ‘Zone’ are available and can be studied.</p>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading">¶</a></h2>
+<p>Features are engineering objects that have their special purpose/rules in engineering workflow, but are not directly defined as either composite or STEP object. These include for example: fillets, chamfers, holes, tool radii…</p>
+<p>These are currently considred as out of scope for CompoST. The reason is that features are consdiered post-procesing of STEP format in most cases, while CompoST is only supposed to include geometric definition
+required for definition of composite objects. However, authors are considring enabling “Feature” objects in some format to essentially allow for flexible appendage to the CompoST file.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Undecided</a><ul>
+<li><a class="reference internal" href="#zones">Zones</a></li>
+<li><a class="reference internal" href="#features">Features</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="StorageFormat.html"
+                          title="previous chapter">StorageFormat</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Development.html"
+                          title="next chapter">Development</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Undecided.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Development.html" title="Development"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="StorageFormat.html" title="StorageFormat"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Undecided</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,215 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>UsingCompost &#8212; Composite Standard (CompoST) 0.8.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Requirements" href="Requirements.html" />
+    <link rel="prev" title="Introduction" href="Introduction.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Requirements.html" title="Requirements"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Introduction.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">UsingCompost</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="usingcompost">
+<h1>UsingCompost<a class="headerlink" href="#usingcompost" title="Permalink to this heading">¶</a></h1>
+<p>This page provides instructions on how to use CompoST.</p>
+<p>Eventually CompoST will become pip-installable library, but for now it is recommended to clone the repository and copy “CompositeStandard.py” file into your project.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<p>Compost can be installed into an environemnt using pip, as per below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/National-Composites-Centre/CompoST.git
+</pre></div>
+</div>
+<p>The recommended import to a Python script looks as follows:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">CompoST</span> <span class="kn">import</span> <span class="n">CompositeStandard</span> <span class="k">as</span> <span class="n">cs</span>
+</pre></div>
+</div>
+<p>Libraries automatically installed with CompoST: pydantic, jsonic ,numpy</p>
+<p>“numpy” is required for generation of axis systems. “jsonic” is used for serializing and desirializing the objects into and from JSON. “pydantic” helps with class definitions and validations.</p>
+</section>
+<section id="loading-files">
+<h2>Loading Files<a class="headerlink" href="#loading-files" title="Permalink to this heading">¶</a></h2>
+<p>Loading CompoST JSON files is very simple in Python, the following code shows an example. The following code is applicable from 0.7.5 onwards.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">CompoST</span> <span class="kn">import</span> <span class="n">CompositeStandard</span> <span class="k">as</span> <span class="n">cs</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">CompoST_file</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Thie opens “CompoST_file” located at “path”, and assigns it variable “D”. The funciton also re-links any objects with same ID so these automatically update simultaneously when changed.</p>
+<p>For older versions opening, deserializing and re-linking is done as individual operations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jsonic</span> <span class="kn">import</span> <span class="n">serialize</span><span class="p">,</span> <span class="n">deserialize</span>
+<span class="c1">#open file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">IMPORTED_JSON_FILE</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">in_file</span><span class="p">:</span>
+    <span class="n">json_str</span><span class="o">=</span> <span class="n">in_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">D</span> <span class="o">=</span> <span class="n">deserialize</span><span class="p">(</span><span class="n">json_str</span><span class="p">,</span><span class="n">string_input</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#Optional - makes sure that any objects that were linked before serialization, will be re-linked - and can then be edited simultaneously.</span>
+<span class="c1">#This requires further testing - might have minor bugs.</span>
+<span class="kn">from</span> <span class="nn">Utilities</span> <span class="kn">import</span> <span class="n">reLink</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">reLink</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now “D” can be interogated according to <cite>CompositeStandard</cite> classes.</p>
+<p>Loading the file to any other language/software that accepts JSON schema should be also possible, but this has seen minimal testing (TODO).</p>
+<p>The optional <code class="xref py py-func docutils literal notranslate"><span class="pre">Utilities.reLink()</span></code> function exists as JSON natively does not store information on which objects were copies of each other (i.e. stored in memory as one).
+This function re-creates these links based on <cite>ID</cite> parameters, as the copy-based objects will share <cite>ID</cite>. Of course, if <cite>ID</cite> definition was omitted, this function will not work.</p>
+</section>
+<section id="initiating-new-file">
+<h2>Initiating new file<a class="headerlink" href="#initiating-new-file" title="Permalink to this heading">¶</a></h2>
+<p>To save the CompoST data structure it first has to be initiated. This can either be done by loading existent file (as per above), or using the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">CompositeStandard</span> <span class="k">as</span> <span class="nn">cs</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">CompositeDB</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">fileMetadata</span><span class="o">.</span><span class="n">lastModified</span> <span class="o">=</span> <span class="s2">&quot;10/07/2024&quot;</span>
+<span class="n">d</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;NewPart&quot;</span>
+</pre></div>
+</div>
+<p>The date and name are included only as example, it is up to user which of the variables available are useful to them.</p>
+<p>The most common start to CompoST would likely be layup-definition. Ideally, in future exporters from commercial software should be available (composites CATIA, Fibresim…), this is pending API to those software. Currently,
+a bespoke layup-definition tool can be used. This tool uses base CATIA UI, which is scriptable, to fully define layupd with drop-offs and materials using CompoST. There is a dedicated public repository available with this tool: <a class="reference external" href="https://github.com/National-Composites-Centre/LayupDefinition">https://github.com/National-Composites-Centre/LayupDefinition</a> .</p>
+</section>
+<section id="saving-files">
+<h2>Saving Files<a class="headerlink" href="#saving-files" title="Permalink to this heading">¶</a></h2>
+<p>Saving file first requires a <cite>CompositeDB</cite> object, either loaded and modified, or initiated as per above.</p>
+<p>After all required information has been saved somewhere in the tree belonging to <cite>CompositeDB</cite> object, the following code serializes the data into JSON string and saves it. The function also adds line-breaks to the file so
+that it becomes human readable to some extent.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">CompoST</span> <span class="kn">import</span> <span class="n">CompositeStandard</span> <span class="k">as</span> <span class="n">cs</span>
+<span class="c1">#D is the CompositeDB object</span>
+<span class="n">cs</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The funciton takes the CompoST main object, filename and path. If path is not provided it will be saved in current directory.</p>
+<p>In older versions the expanded saving method is as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jsonic</span> <span class="kn">import</span> <span class="n">serialize</span><span class="p">,</span> <span class="n">deserialize</span>
+<span class="c1"># Convert dictionary to JSON string</span>
+<span class="n">json_str</span> <span class="o">=</span> <span class="n">serialize</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">string_output</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#Optional - makes JSON human readable</span>
+<span class="n">json_str</span> <span class="o">=</span> <span class="n">cleandict</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
+
+<span class="c1">#save as file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;YOUR_SAVED_JSON_FILE&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_file</span><span class="p">:</span>
+    <span class="n">out_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <cite>cleandict</cite> funciton can be find in main CompoST repository under <cite>Utilities.py</cite> module. It is recommended that this step is added for human readability.</p>
+</section>
+<section id="utility-scripts">
+<h2>Utility Scripts<a class="headerlink" href="#utility-scripts" title="Permalink to this heading">¶</a></h2>
+<p>Sister repository has been created to store various utility scripts. These scrips are only going to be relevant for specific users of CompoST, and hence it is not appropriate to house the scripts here.</p>
+<p><a class="reference external" href="https://github.com/National-Composites-Centre/CST_utils">https://github.com/National-Composites-Centre/CST_utils</a></p>
+<p>These are extra utility scripts that are not maintained as well as the core utility scripts in this repository, as per above.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">UsingCompost</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#loading-files">Loading Files</a></li>
+<li><a class="reference internal" href="#initiating-new-file">Initiating new file</a></li>
+<li><a class="reference internal" href="#saving-files">Saving Files</a></li>
+<li><a class="reference internal" href="#utility-scripts">Utility Scripts</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Introduction.html"
+                          title="previous chapter">Introduction</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Requirements.html"
+                          title="next chapter">Requirements</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/UsingCompost.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Requirements.html" title="Requirements"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Introduction.html" title="Introduction"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">UsingCompost</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

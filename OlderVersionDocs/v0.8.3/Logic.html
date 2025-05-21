@@ -1,0 +1,228 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Logic and philosophy &#8212; Composite Standard (CompoST) 0.8.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Mapping and references" href="Mapping.html" />
+    <link rel="prev" title="Architecture" href="Architecture.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Mapping.html" title="Mapping and references"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Architecture.html" title="Architecture"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Logic and philosophy</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="logic-and-philosophy">
+<h1>Logic and philosophy<a class="headerlink" href="#logic-and-philosophy" title="Permalink to this heading">¶</a></h1>
+<section id="assembly-order">
+<h2>Assembly Order<a class="headerlink" href="#assembly-order" title="Permalink to this heading">¶</a></h2>
+<p>The objects are ordered from tool surface, as they appear in the <code class="docutils literal notranslate"><span class="pre">AllComposite</span></code> list within <a class="reference internal" href="Architecture.html#CompositeStandard.CompositeDB" title="CompositeStandard.CompositeDB"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.CompositeDB()</span></code></a>. This is the most practical way to structure composite object for most approaches. It might require additional operations when replacing a ply,
+as the location will have to be retreived first, but should be convenient in most cases. Dedicated explicit numbering of plies, core, etc is currrently not deemed necessary.</p>
+</section>
+<section id="variable-duplication">
+<h2>Variable duplication<a class="headerlink" href="#variable-duplication" title="Permalink to this heading">¶</a></h2>
+<p>Multiple different objects in the hierarchy can have the same properties. For instance <a class="reference internal" href="Architecture.html#CompositeStandard.Sequence" title="CompositeStandard.Sequence"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Sequence()</span></code></a> shares many properties with <a class="reference internal" href="Architecture.html#CompositeStandard.Ply" title="CompositeStandard.Ply"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Ply()</span></code></a>, for example ‘material’. This allows for greater flexiblity. Users can store a sequence that consists of multople plies, or simply store multiple plies.
+The main benefit of sequence would typically be specifying all properties that are common only once. If one plies differs (for example different material), user does not have to use ply only definition but can simply add ‘material’ property to one specific ply. The logic/philosophy here is that the smallest object always superceeds the
+properties in parent object, if same property is specified under both.</p>
+</section>
+<section id="spline-generation">
+<h2>Spline Generation<a class="headerlink" href="#spline-generation" title="Permalink to this heading">¶</a></h2>
+<p>Standard is designed to work with multiple different software that generate or export splines, some of which do not provide information on how splines are generated mathematically.
+Therefore the practical approach is to increase number of points stored in order to provide more precise spline for delimiation. This is currently considered sufficient for all
+forseen applications.</p>
+<p>Some delimations, however, will require spline breaks. Those can be specified by <code class="docutils literal notranslate"><span class="pre">breaks</span></code> parameter in <a class="reference internal" href="Architecture.html#CompositeStandard.Spline" title="CompositeStandard.Spline"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.Spline()</span></code></a>. The most common purpose for these are part/ply corners.
+These should help wherever the used software struggles to provide reasonable continuity betwen points.</p>
+<p>For now the .stp file referenced in CompoST under <a class="reference internal" href="Architecture.html#CompositeStandard.FileMetadata" title="CompositeStandard.FileMetadata"><code class="xref py py-func docutils literal notranslate"><span class="pre">CompositeStandard.FileMetadata()</span></code></a> is the reference surface that the splines should be projected on. The .stp file should be displaying one
+main surface on default. For CATIA automation purposes the “main_shape” geometrical set contains the surface to be projected on.</p>
+<a class="reference internal image-reference" href="_images/ExampleSurface.JPG"><img alt="_images/ExampleSurface.JPG" src="_images/ExampleSurface.JPG" style="width: 1000px;" /></a>
+</section>
+<section id="active-object">
+<h2>Active object<a class="headerlink" href="#active-object" title="Permalink to this heading">¶</a></h2>
+<p>Most objects contain <code class="docutils literal notranslate"><span class="pre">active</span></code>  property. This is used for cases when data needs to be kept, but is superceeded. For example, if wrinkle has been identified in a scan, the detail of the wrinkle is stored. However, user might then
+implement a process for removing that wrinkle, either eradicating it or replacing it by wrinkle with new data. In this case the property <code class="docutils literal notranslate"><span class="pre">active</span></code> will be switched from ‘True’ to ‘False’. When this property is not used, user should
+assume the object is active. This needs to be kept in mind in processes where some objects might be de-activated, as any furhter processing/analysis will need to exclude based on this property/tag.</p>
+</section>
+<section id="stages">
+<span id="stages-reference"></span><h2>Stages<a class="headerlink" href="#stages" title="Permalink to this heading">¶</a></h2>
+<p>Stages help with tracking information sources, allowing for history of changes to the part. Each object can have reference so stages (<cite>Stage</cite> object) to indicate when and how was this object edited.</p>
+<p>On default if <cite>Stage</cite> is not assigned to an object it should be assumed this object was last edited during the component design stage.</p>
+<p>Stages should all be stored in <cite>allStages</cite> list for iteration. When new stage is created the <cite>StageID</cite> should be selected to be +1 to the highest number currently listed.</p>
+<p>There are two suggested workflows for working with stages. First option is to pre-define all stages at design, assuming the designer knows all the processes that will utilize CompoST in the design, manufacture, and potentially lifecycle of the product.
+In this case the <cite>Stage</cite> objects are already all stored, and at each stage new objects are simply created with appropriate ID. For second method the <cite>allStages</cite> list is left empty at design stage, and each stage is created when the data is being stored.
+Which option is selected will depend on where in the design process decisions are being made about the product. The first option allows the <cite>allStages</cite> to also be a workflow definition, with majority of the information being stored in process documents
+referenced in individual stages. The second option allows for more flexibility.</p>
+<p>When an object is invalidated by a new stage, the old object’s <cite>active</cite> property should be changed to <cite>False</cite> (it is <cite>True</cite> on default). The example of this is a Wrinkle found in a ply, that was fixed by subsequent operation. In this case it may be desirable
+to keep the Wrinkle stored for traceability, to to de-activate the object to indicate it no longer affects the part.</p>
+<p>To define <cite>Stage</cite> the default object <cite>Stage</cite> can be used, with majority  of information being stored in reference documents. However, each stage will likely need bespoke parameters stored, this is what the ‘stageParameters’ dictionary, which is fully defined
+by user.</p>
+</section>
+<section id="edge-of-part">
+<h2>Edge of Part<a class="headerlink" href="#edge-of-part" title="Permalink to this heading">¶</a></h2>
+<p>On default all composite objects are defined with the “manufacturing edge of ply”. The ‘EngEdgeofPart’ simulates the final trimming operation, and simply relimits the part according to final trimming operation.</p>
+<p>(This logic can still be modified based on real examples and induced limitations)</p>
+</section>
+<section id="tolerances">
+<h2>Tolerances<a class="headerlink" href="#tolerances" title="Permalink to this heading">¶</a></h2>
+<p>Tolerances are an important part of CompoST. Howerver, STEP already has a standard for many geometric tolerances. Therefore it is suggested that that standard takes precedence for geometric tolerances. The CompoST tolerances are to be used
+where the STEP does not have appropriate information to apply tolerances on, specific composite objects. Ultimately it is up to the user, to chose if a specific tolerance is to be defined in STEP or in CompoST. However, the focus here is on
+tolernaces not covered by STEP, or not covered sufficiently for specific composite applications.</p>
+</section>
+<section id="merging-composts">
+<h2>Merging CompoSTs<a class="headerlink" href="#merging-composts" title="Permalink to this heading">¶</a></h2>
+<p>Ideally CompoST is not to be edited by two actors at the same time, as it should travel with the part, only allowing edits in current process. However, there may be instances when this is not viable. An example is
+optimisation that requires paralelization, each parallel process editing CompoST file of the same part. This small section outlines guidance on how to merge CompoST files in such niche cases. Note, this is not intended
+behaviour, but is presented here for those unforseen scenarios.</p>
+<p>The suggested steps to merging branched CompoST files is below, but only some steps might be required.</p>
+<ol class="arabic">
+<li><p>Evaluate the difference</p>
+<p>Unless user has a very clear idea of what was added at each stage, this needs to be investigated. For that purpose ‘deepdiff’ Python library is recommended. Similar to below:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">deepdiff</span> <span class="kn">import</span> <span class="n">DeepDiff</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="n">DeepDiff</span><span class="p">(</span><span class="n">base_CompoST</span><span class="p">,</span><span class="n">edited_CompoST</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">change_type</span><span class="p">,</span> <span class="n">changes</span> <span class="ow">in</span> <span class="n">diff</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Change type: </span><span class="si">{</span><span class="n">change_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">changes</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will display the type of change that was done to CompoST file and the exact variation. This is only useful for reasonably small changes. For more complex variations (meshes etc…) it will be
+easier to review the process that causes the changes.</p>
+</li>
+<li><p>Ignore the most complex of the variations</p>
+<blockquote>
+<div><p>When merging multiple CompoSTs it is worth identifing the most complicated edit, and then adding the other changes to that.</p>
+</div></blockquote>
+</li>
+<li><p>Test addition of the other CompoSTs</p>
+<blockquote>
+<div><p>Write small code that adds the changes identified in 1 and add that to the source CompoST (before any branching occured). The edited base-CompoST should then be tested by ‘deepdiff’ and no meaningful variations should exist.</p>
+</div></blockquote>
+</li>
+<li><p>Iteratively add all changes</p>
+<blockquote>
+<div><p>Use the tested code from 3 to edit CompoST identified in 2.</p>
+</div></blockquote>
+</li>
+<li><p>Careful about the IDs!</p>
+<blockquote>
+<div><p>The main issue with merging CompoSTs are conflicting IDs. This is very important as with the base .jsen deserialization into Python objects the IDs are used to relink objects.</p>
+<p>It is recommended that all objects added in 4 are given new IDs, updating the ‘CompositeDB.fileMetadata.maxID’ with it.</p>
+</div></blockquote>
+</li>
+</ol>
+<p>Alternatively, merginig CompoSTs could be done using Git, but author has not tested how practical that is for complex parts/files.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Logic and philosophy</a><ul>
+<li><a class="reference internal" href="#assembly-order">Assembly Order</a></li>
+<li><a class="reference internal" href="#variable-duplication">Variable duplication</a></li>
+<li><a class="reference internal" href="#spline-generation">Spline Generation</a></li>
+<li><a class="reference internal" href="#active-object">Active object</a></li>
+<li><a class="reference internal" href="#stages">Stages</a></li>
+<li><a class="reference internal" href="#edge-of-part">Edge of Part</a></li>
+<li><a class="reference internal" href="#tolerances">Tolerances</a></li>
+<li><a class="reference internal" href="#merging-composts">Merging CompoSTs</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Architecture.html"
+                          title="previous chapter">Architecture</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Mapping.html"
+                          title="next chapter">Mapping and references</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Logic.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Mapping.html" title="Mapping and references"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Architecture.html" title="Architecture"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Logic and philosophy</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Jakub Kucera, Matthew Hardman.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>
