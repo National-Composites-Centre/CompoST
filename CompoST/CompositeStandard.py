@@ -41,16 +41,11 @@ class CompositeDBItem(BaseModel):
     active: Optional[bool] = Field(default = True) #This can be turned to False to indicate this object does not represent the latest iteration of the part
     ID: Optional[int] = Field(default = None)
 
-class SimulationData(BaseModel):
+class SimulationData(CompositeDBItem):
 
-    memberName: Optional[str] = Field(default = None)
-    additionalParameters: Optional[dict] = Field(default = None) # dictionary of bespoke parameters needed for specific simulation, not standardised 
-    stageID: Optional[int] = Field(default = None) #stage where this object was generated / re-generated
-    active: Optional[bool] = Field(default = True) #This can be turned to False to indicate this object does not represent the latest iteration of the part
-    ID: Optional[int] = Field(default = None) #shares ID numbering with all other CompoST objects except Stages
     sourceSystem: Optional['SourceSystem'] = Field(default = None) #software or tool used for simulation 
-    cadFilePath: Optional[str] = Field(default=None) #path and filename of reference CAD - TODO rework 
-    toolCadFilePath: Optional[str] = Field(default=None) # path to tool cad, if different from the above
+    cadFile: Optional[str] = Field(default=None) #path and filename of reference CAD 
+    toolCadFile: Optional[str] = Field(default=None) # path to tool cad, if different from the above
     axisSystemID: Optional[int] = Field(default=None) #reference to axis system ID
 
 class GeometricElement(CompositeDBItem):
@@ -173,6 +168,12 @@ class CompositeDB(BaseModel):
     allTolerances: Optional[list['Tolerance']] = Field(default = None) # list of all Tolerances
     fileMetadata: FileMetadata = Field(default = FileMetadata(author=get_author())) #list of all "axisSystems" objects = exhaustive list
     allSimulations: Optional[list['SimulationData']] = Field(default = None) #List of simulation data objects
+    allManufMethod: Optional[list['ManufMethod']] = Field(default=None) #List of all manufacturing methods involved
+
+class ManufMethod(CompositeDBItem):
+
+    #parent method for various manufacturing techniques that require bespoke information storage
+    axisSystemID: Optional[int] = Field(None) #ID reference to allAxis systems 
 
 class CompositeElement(CompositeDBItem):
 
@@ -183,12 +184,12 @@ class CompositeElement(CompositeDBItem):
     tolerances: Optional[list['Tolerance']] = Field(None)
     axisSystemID: Optional[int] = Field(None) #ID reference to allAxis systems 
     referencedBy: Optional[list[int]] = Field(None) # list of int>
+    manufMethod: Optional['ManufMethod'] = Field(None) #manufacturing method relevant to this object
 
 class Piece(CompositeElement):
     #CompositeElement type object
     #In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
     splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
-    splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
     material: Optional['Material'] = Field(None) #material from allMaterials
 
 class Ply(CompositeElement):
@@ -228,7 +229,6 @@ class EngEdgeOfPart(CompositeElement):
     #This allows for overriding definition of where the part is to be trimmed at the end of manufacture
     
     splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
-    splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
     source: Optional['SourceSystem'] = Field(None) #defines which CAD system was this created in
     referenceGeometry: Optional[str] = Field(None) #reference to the name (string) of geometry that defines this in source CAD system
 
@@ -283,7 +283,6 @@ class Defect(CompositeDBItem):
     status: Optional[bool] = Field(None) # None = not evaluated, True = defect outside of tolerance, False = deviation but fits within tolerance
     axisSystemID: Optional[int] = Field(None) #reference to axis system stored in Geo. elements
     file: Optional[str] = Field(None) #reference to dedicated defect file
-    splineRelimitationRef: Optional[int] = Field(None) #points collected as spline relimiting the defect
     splineRelimitation: Optional['Spline'] = Field(None)
 
 class Wrinkle(Defect):
@@ -306,10 +305,7 @@ class FibreOrientations(Defect):
 
 class Tolerance(CompositeDBItem):
     #inherited by all specific tolerance definition objects
-
-    appliedToIDs: Optional[list[int]] = Field(None)
     splineRelimitation: Optional['Spline'] = Field(None) #area for this definition
-    splineRelimitationRef: Optional[int] = Field(None) # same as above, but referenced using 'ID'
 
 class WrinkleTolerance(Tolerance):
 
