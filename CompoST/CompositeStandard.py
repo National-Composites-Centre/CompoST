@@ -175,6 +175,17 @@ class ManufMethod(CompositeDBItem):
     #parent method for various manufacturing techniques that require bespoke information storage
     axisSystemID: Optional[int] = Field(None) #ID reference to allAxis systems 
 
+class FilamentWinding(ManufMethod):
+
+    #each ply will likely need separate one of these object, but sometimes object can be reused
+
+    windingPath: Optional['Spline'] = Field(default=None) #Spline defined path of material, as wound on the mandrel
+    meridian: Optional['Spline'] = Field(default=None) #2D cross section of PV (assumes axisymmetry) - if this shape is revolved it should produce the PV shape.
+    steppedMandre: Optional['Spline'] = Field(default=None) # for first ply this is equivalent to meridian, then stepped mandrel defines the outermost shape including built-up material
+    xMin: Optional[float] = Field(default=None) #relevant for hoop layers, defines start point for winding (minimum x-direction limit)
+    xMax: Optional[float] = Field(default=None) #relevant for hoop layers, defines start point for winding (maximum x-direction limit)
+    layerType: Optional[str] = Field(default=None) #hoop/helical-geodesic/helical-nongeodesic  TODO make this into prescribed keywords and force selection of those only
+
 class CompositeElement(CompositeDBItem):
 
     #TODO below list of all possible compositeComponents, would be neater if instead of listing them it could be of "CompositeComponent children"
@@ -240,17 +251,30 @@ class Material(CompositeDBItem):
     G23: Optional[float] = Field(None)
     v12: Optional[float] = Field(None)
     infoSource: Optional[str] = Field(None)
-    thickness: Optional[float] = Field(None)
     density: Optional[float] = Field(None)
-    permeability_1: Optional[float] = Field(None) #primary direction 
-    permeability_2: Optional[float] = Field(None) #secondary direction (in-plane)
-    permeability_3: Optional[float] = Field(None) #out-of-plane
-
-    type: Optional[str] = Field(None) #TODO eventually limit to list! , CFRP/GFRP/kevlar - set keywords...
 
     #add other related values
-
     #might need sublacces for materials as relevant for manuf. processes. 
+
+class GenericMaterial(Material):
+    
+    K1: Optional[float] = Field(None) #principle direction permeability
+    K2: Optional[float] = Field(None) #transverse permeability
+    K3: Optional[float] = Field(None) #out-of-plane permeability
+    thickness: Optional[float] = Field(None)
+    Vf: Optional[float] = Field(None)
+
+class Tape(Material):
+    thickness: Optional[float] = Field(None) # out of plane size
+
+class EffectiveProperties(Material):
+    #this object is used for objects that need homogenized material properties
+
+    thickness: Optional[float] = Field(None)
+    K1: Optional[float] = Field(None) #principle direction permeability
+    K2: Optional[float] = Field(None) #transverse permeability
+    K3: Optional[float] = Field(None) #out-of-plane permeability
+    Vf: Optional[float] = Field(None) #fibre volume fraction
 
 class Line(GeometricElement):
     #potentially also give options to keep the points directly here in a matrix?
@@ -341,24 +365,7 @@ class BoundaryTolerance(Tolerance):
     maxAllowedDev: Optional[float] = Field(None) #maximum allowed distance of a measured point from intended boundary
     maxAv: Optional[float] = Field(None) #
 
-class EffectiveProperties(CompositeDBItem):
-    #this object is used for objects that need homogenized material properties
 
-    #TODO this will require additions
-    #TODO - might need splitting between mechanical and dry-fibre flow properties 
-
-    E1: Optional[float] = Field(None) 
-    E2: Optional[float] = Field(None)
-    G23: Optional[float] = Field(None)
-    G12: Optional[float] = Field(None)
-    v12: Optional[float] = Field(None)
-    sourceSystem: Optional['SourceSystem'] = Field(None)
-    thickness: Optional[float] = Field(None)
-    density: Optional[float] = Field(None)
-    K1: Optional[float] = Field(None) #principle direction permeability
-    K2: Optional[float] = Field(None) #transverse permeability
-    K3: Optional[float] = Field(None) # through thickness permeability
-    Vf: Optional[float] = Field(None) #fibre volume fraction
 
 class UnclassifiedDefect(Defect):
     #this object is to be used when the defect you are storing does not have dedicated definition
