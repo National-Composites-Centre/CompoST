@@ -223,7 +223,8 @@ class CompositeComponent(CompositeElement):
     #this object is mostly going to be used for bonding co-curing etc where multiple distinct composite components
     #can be defined
     integratedComponent: Optional[list[CompositeDB]] = Field(None) #allows for nesting another comonent within this file
-    EP: Optional['EffectiveProperties'] = Field(None) #Effective properties : if the component has uniform effective properties
+    material: Optional['Material'] = Field(None) #material from allMaterials
+    EP: Optional['EffectiveProperties'] = Field(None) #Effective properties : if the component has uniform effective properties different from recorded in 'material'
 
 class SourceSystem(BaseModel):
     softwareName: Optional[str] = Field(None)
@@ -282,13 +283,11 @@ class Line(GeometricElement):
     #Use either IDs or points, not both. IDs recommended if the points 
     # are to be re-used for other geometries.
     points: Optional[list[Point]] = Field(None) 
-    IDs: Optional[list[int]] = Field(None)
     lenght: Optional[float] = Field(None) #can be calculated from above, but then can be stored so calcs are not duplicated
 
 class MeshElement(GeometricElement):
     #3 or 4 points, check?
     nodes: list['Point'] = Field(None) # only accept Point classes
-    normal: list = Field(None) #x,y,z in the list
 
 class AreaMesh(GeometricElement):
     meshElements: list['MeshElement'] = Field(None) # requires element classes only
