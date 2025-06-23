@@ -96,7 +96,7 @@ def create_example():
 
     #TODO #here add cla, take effective properties to sequence below
     #sequence that uses ply above with ID, and bunch of other plies
-    sq = cs.Sequence(material=mat,axisSystemID=AX.ID,subComponents=[pl,cs.Ply(orientation=39,material=mat2,ID=D.fileMetadata.maxID+1),
+    sq = cs.Sequence(material=mat,axisSystem=AX,subComponents=[pl,cs.Ply(orientation=39,material=mat2,ID=D.fileMetadata.maxID+1),
                                                                        cs.Ply(orientation=33,material=mat2,ID=D.fileMetadata.maxID+2),
                                                                        cs.Ply(orientation=31,material=mat2,ID=D.fileMetadata.maxID+3)],
                                                                        ID=D.fileMetadata.maxID+4)
@@ -108,7 +108,7 @@ def create_example():
 
     #TOLERANCES
     #Tolerance on area, defined by spline
-    tl = cs.WrinkleTolerance(maxX=10,maxY=20,axisSystemID=AX.ID,maxAmplitude=30,splineRelimitation=sp,ID=D.fileMetadata.maxID+1)
+    tl = cs.WrinkleTolerance(maxX=10,maxY=20,axisSystem=AX,maxAmplitude=30,splineRelimitation=sp,ID=D.fileMetadata.maxID+1)
     D.fileMetadata.maxID += 1
     D.allTolerances.append(tl)
 
@@ -241,6 +241,23 @@ def testReLink(D):
     if tErr == True:
         noErr += 1
         print("Error: Re-link error, the modificication of ID=4 point was not propagated to the copies of the object.")
+
+
+    #check axis system re-link --only specific instance is checked, it is assumed others work if this does (TODO make more robust?)
+    for G in D.allGeometry:
+        if G.ID == 9:
+            G.memberName = "TEST_TEST"
+    #assume error until verified it does not exist
+    tErr = True
+    for T in D.allTolerances:
+        if type(T) == type(cs.WrinkleTolerance()):
+            if T.axisSystem.ID == 9:
+                if T.axisSystem.memberName == "TEST_TEST":
+                    tErr = False
+                    break
+    if tErr == True:
+        noErr += 1
+        print("Error: Re-link error, the modificication of ID=9 axis system was not propagated to the copies of the object.")
 
     
     for C in D.allComposite:

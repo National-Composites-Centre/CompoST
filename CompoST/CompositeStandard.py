@@ -46,7 +46,7 @@ class SimulationData(CompositeDBItem):
     sourceSystem: Optional['SourceSystem'] = Field(default = None) #software or tool used for simulation 
     cadFile: Optional[str] = Field(default=None) #path and filename of reference CAD 
     toolCadFile: Optional[str] = Field(default=None) # path to tool cad, if different from the above
-    axisSystemID: Optional[int] = Field(default=None) #reference to axis system ID
+    axisSystem: Optional['AxisSystem'] = Field(default=None) #reference to axis system
 
 class GeometricElement(CompositeDBItem):
     #child of Geometric elements
@@ -173,7 +173,7 @@ class CompositeDB(BaseModel):
 class ManufMethod(CompositeDBItem):
 
     #parent method for various manufacturing techniques that require bespoke information storage
-    axisSystemID: Optional[int] = Field(None) #ID reference to allAxis systems 
+    axisSystem: Optional['AxisSystem'] = Field(None) #reference axis system
 
 class FilamentWinding(ManufMethod):
 
@@ -193,7 +193,7 @@ class CompositeElement(CompositeDBItem):
     requirements: Optional[list] = Field(None) # list of objects - "Requirement"
     defects: Optional[list['Defect']] = Field(None) #list of objects - "defects"
     tolerances: Optional[list['Tolerance']] = Field(None)
-    axisSystemID: Optional[int] = Field(None) #ID reference to allAxis systems 
+    axisSystem: Optional['AxisSystem'] = Field(None) #all axis
     referencedBy: Optional[list[int]] = Field(None) # list of int>
     manufMethod: Optional['ManufMethod'] = Field(None) #manufacturing method relevant to this object
 
@@ -305,7 +305,7 @@ class Defect(CompositeDBItem):
     location: Optional[list[float]] = Field(None) #x,y,z location
     effMaterial: Optional['EffectiveProperties'] = Field(None) #adjusted material class saved in materials
     status: Optional[bool] = Field(None) # None = not evaluated, True = defect outside of tolerance, False = deviation but fits within tolerance
-    axisSystemID: Optional[int] = Field(None) #reference to axis system stored in Geo. elements
+    axisSystem: Optional['AxisSystem'] = Field(None) #reference to axis system stored in Geo. elements
     file: Optional[str] = Field(None) #reference to dedicated defect file
     splineRelimitation: Optional['Spline'] = Field(None)
 
@@ -314,7 +314,7 @@ class Wrinkle(Defect):
     area: Optional[float] = Field(None)
     aspectRatio: Optional[float] = Field(None) #typically size_x/size_y
     maxRoC: Optional[float] = Field(None)
-    size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystemID, or global axis if local not available
+    size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystem, or global axis if local not available
     size_y: Optional[float] = Field(None)
     meshRef: Optional[int] = Field(None) # area covered by defect expressed in mesh format (area or volume)
     amplitude: Optional[float] = Field(None) #out of plane maxiumum size of the defect
@@ -335,7 +335,7 @@ class WrinkleTolerance(Tolerance):
 
     maxY: Optional[float] = Field(None)
     maxX: Optional[float] = Field(None)
-    axisSystemID: Optional[int] = Field(None)
+    axisSystem: Optional['AxisSystem'] = Field(None)
     maxArea: Optional[float] = Field(None)
     maxRoC: Optional[float] = Field(None) #maximum rate of change, in radians
     maxSkew: Optional[float] = Field(None) #TODO define
