@@ -404,6 +404,16 @@ class Stage(BaseModel):
     processRef: Optional[str] = Field(None) #this is reference to process that corresponds to current stage (e.g. instruction sheet pdf location)
     stageParameters: Optional[dict] = Field (None) #dictionary of bespoke Stage related parameters
 
+class BulkRequest(CompositeElement):
+    #this class is used when certain thickness of certain orientation is required, but it has not yet been turned into individual layers.
+    #When this object is active, it remains to be split into manufacturable layers.
+
+    #It should be deactivated when individual layers have been defined.
+
+    thickness: Optional[float] = Field(default=None)
+    orientation: Optional[float] = Field(default=None)
+    splineRelimitation: Optional['Spline'] = Field(default=None)
+
 # class PlyScan(Stage):
 
 #     #the name is a placeholder
