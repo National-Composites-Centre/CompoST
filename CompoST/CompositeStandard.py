@@ -18,7 +18,7 @@ from jsonic import serialize, deserialize
 
 import CompoST.Utilities
 
-#### VERSION 0.8.4 ####
+#### VERSION 0.9.0 ####
 #https://github.com/National-Composites-Centre/CompoST
 
 #documentation link in the repository Readme
@@ -41,17 +41,12 @@ class CompositeDBItem(BaseModel):
     active: Optional[bool] = Field(default = True) #This can be turned to False to indicate this object does not represent the latest iteration of the part
     ID: Optional[int] = Field(default = None)
 
-class SimulationData(BaseModel):
+class SimulationData(CompositeDBItem):
 
-    memberName: Optional[str] = Field(default = None)
-    additionalParameters: Optional[dict] = Field(default = None) # dictionary of bespoke parameters needed for specific simulation, not standardised 
-    stageID: Optional[int] = Field(default = None) #stage where this object was generated / re-generated
-    active: Optional[bool] = Field(default = True) #This can be turned to False to indicate this object does not represent the latest iteration of the part
-    ID: Optional[int] = Field(default = None) #shares ID numbering with all other CompoST objects except Stages
     sourceSystem: Optional['SourceSystem'] = Field(default = None) #software or tool used for simulation 
-    cadFilePath: Optional[str] = Field(default=None) #path and filename of reference CAD - TODO rework 
-    toolCadFilePath: Optional[str] = Field(default=None) # path to tool cad, if different from the above
-    axisSystemID: Optional[int] = Field(default=None) #reference to axis system ID
+    cadFile: Optional[str] = Field(default=None) #path and filename of reference CAD 
+    toolCadFile: Optional[str] = Field(default=None) # path to tool cad, if different from the above
+    axisSystem: Optional['AxisSystem'] = Field(default=None) #reference to axis system
 
 class GeometricElement(CompositeDBItem):
     #child of Geometric elements
@@ -147,7 +142,7 @@ class FileMetadata(BaseModel):
     lastModified: Optional[str] = Field(default=None) #Automatically refresh on save - string for json parsing
     lastModifiedBy: Optional[str] = Field(default=None) #String name
     author: Optional[str] = Field(default=None) #String Name
-    version: Optional[str] = Field(default= "0.8.4") #eg. - type is stirng now, for lack of better options
+    version: Optional[str] = Field(default= "0.9.0") #eg. - type is stirng now, for lack of better options
     layupDefinitionVersion: Optional[str] = Field(default=None)
 
     #external file references - separate class?
@@ -173,6 +168,23 @@ class CompositeDB(BaseModel):
     allTolerances: Optional[list['Tolerance']] = Field(default = None) # list of all Tolerances
     fileMetadata: FileMetadata = Field(default = FileMetadata(author=get_author())) #list of all "axisSystems" objects = exhaustive list
     allSimulations: Optional[list['SimulationData']] = Field(default = None) #List of simulation data objects
+    allManufMethod: Optional[list['ManufMethod']] = Field(default=None) #List of all manufacturing methods involved
+
+class ManufMethod(CompositeDBItem):
+
+    #parent method for various manufacturing techniques that require bespoke information storage
+    axisSystem: Optional['AxisSystem'] = Field(None) #reference axis system
+
+class FilamentWinding(ManufMethod):
+
+    #each ply will likely need separate one of these object, but sometimes object can be reused
+
+    windingPath: Optional['Spline'] = Field(default=None) #Spline defined path of material, as wound on the mandrel
+    meridian: Optional['Spline'] = Field(default=None) #2D cross section of PV (assumes axisymmetry) - if this shape is revolved it should produce the PV shape.
+    steppedMandre: Optional['Spline'] = Field(default=None) # for first ply this is equivalent to meridian, then stepped mandrel defines the outermost shape including built-up material
+    xMin: Optional[float] = Field(default=None) #relevant for hoop layers, defines start point for winding (minimum x-direction limit)
+    xMax: Optional[float] = Field(default=None) #relevant for hoop layers, defines start point for winding (maximum x-direction limit)
+    layerType: Optional[str] = Field(default=None) #hoop/helical-geodesic/helical-nongeodesic  TODO make this into prescribed keywords and force selection of those only
 
 class CompositeElement(CompositeDBItem):
 
@@ -181,14 +193,14 @@ class CompositeElement(CompositeDBItem):
     requirements: Optional[list] = Field(None) # list of objects - "Requirement"
     defects: Optional[list['Defect']] = Field(None) #list of objects - "defects"
     tolerances: Optional[list['Tolerance']] = Field(None)
-    axisSystemID: Optional[int] = Field(None) #ID reference to allAxis systems 
+    axisSystem: Optional['AxisSystem'] = Field(None) #all axis
     referencedBy: Optional[list[int]] = Field(None) # list of int>
+    manufMethod: Optional['ManufMethod'] = Field(None) #manufacturing method relevant to this object
 
 class Piece(CompositeElement):
     #CompositeElement type object
     #In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
     splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
-    splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
     material: Optional['Material'] = Field(None) #material from allMaterials
 
 class Ply(CompositeElement):
@@ -211,7 +223,8 @@ class CompositeComponent(CompositeElement):
     #this object is mostly going to be used for bonding co-curing etc where multiple distinct composite components
     #can be defined
     integratedComponent: Optional[list[CompositeDB]] = Field(None) #allows for nesting another comonent within this file
-    EP: Optional['EffectiveProperties'] = Field(None) #Effective properties : if the component has uniform effective properties
+    material: Optional['Material'] = Field(None) #material from allMaterials
+    EP: Optional['EffectiveProperties'] = Field(None) #Effective properties : if the component has uniform effective properties different from recorded in 'material'
 
 class SourceSystem(BaseModel):
     softwareName: Optional[str] = Field(None)
@@ -228,7 +241,6 @@ class EngEdgeOfPart(CompositeElement):
     #This allows for overriding definition of where the part is to be trimmed at the end of manufacture
     
     splineRelimitation: Optional['Spline'] = Field(None) #points collected as spline for relimitation
-    splineRelimitationRef: Optional[int] = Field(None) #same as above but stored as reference to ID
     source: Optional['SourceSystem'] = Field(None) #defines which CAD system was this created in
     referenceGeometry: Optional[str] = Field(None) #reference to the name (string) of geometry that defines this in source CAD system
 
@@ -240,17 +252,30 @@ class Material(CompositeDBItem):
     G23: Optional[float] = Field(None)
     v12: Optional[float] = Field(None)
     infoSource: Optional[str] = Field(None)
-    thickness: Optional[float] = Field(None)
     density: Optional[float] = Field(None)
-    permeability_1: Optional[float] = Field(None) #primary direction 
-    permeability_2: Optional[float] = Field(None) #secondary direction (in-plane)
-    permeability_3: Optional[float] = Field(None) #out-of-plane
-
-    type: Optional[str] = Field(None) #TODO eventually limit to list! , CFRP/GFRP/kevlar - set keywords...
 
     #add other related values
-
     #might need sublacces for materials as relevant for manuf. processes. 
+
+class GenericMaterial(Material):
+    
+    K1: Optional[float] = Field(None) #principle direction permeability
+    K2: Optional[float] = Field(None) #transverse permeability
+    K3: Optional[float] = Field(None) #out-of-plane permeability
+    thickness: Optional[float] = Field(None)
+    Vf: Optional[float] = Field(None)
+
+class Tape(Material):
+    thickness: Optional[float] = Field(None) # out of plane size
+
+class EffectiveProperties(Material):
+    #this object is used for objects that need homogenized material properties
+
+    thickness: Optional[float] = Field(None)
+    K1: Optional[float] = Field(None) #principle direction permeability
+    K2: Optional[float] = Field(None) #transverse permeability
+    K3: Optional[float] = Field(None) #out-of-plane permeability
+    Vf: Optional[float] = Field(None) #fibre volume fraction
 
 class Line(GeometricElement):
     #potentially also give options to keep the points directly here in a matrix?
@@ -258,13 +283,11 @@ class Line(GeometricElement):
     #Use either IDs or points, not both. IDs recommended if the points 
     # are to be re-used for other geometries.
     points: Optional[list[Point]] = Field(None) 
-    IDs: Optional[list[int]] = Field(None)
     lenght: Optional[float] = Field(None) #can be calculated from above, but then can be stored so calcs are not duplicated
 
 class MeshElement(GeometricElement):
     #3 or 4 points, check?
     nodes: list['Point'] = Field(None) # only accept Point classes
-    normal: list = Field(None) #x,y,z in the list
 
 class AreaMesh(GeometricElement):
     meshElements: list['MeshElement'] = Field(None) # requires element classes only
@@ -281,9 +304,8 @@ class Defect(CompositeDBItem):
     location: Optional[list[float]] = Field(None) #x,y,z location
     effMaterial: Optional['EffectiveProperties'] = Field(None) #adjusted material class saved in materials
     status: Optional[bool] = Field(None) # None = not evaluated, True = defect outside of tolerance, False = deviation but fits within tolerance
-    axisSystemID: Optional[int] = Field(None) #reference to axis system stored in Geo. elements
+    axisSystem: Optional['AxisSystem'] = Field(None) #reference to axis system stored in Geo. elements
     file: Optional[str] = Field(None) #reference to dedicated defect file
-    splineRelimitationRef: Optional[int] = Field(None) #points collected as spline relimiting the defect
     splineRelimitation: Optional['Spline'] = Field(None)
 
 class Wrinkle(Defect):
@@ -291,7 +313,7 @@ class Wrinkle(Defect):
     area: Optional[float] = Field(None)
     aspectRatio: Optional[float] = Field(None) #typically size_x/size_y
     maxRoC: Optional[float] = Field(None)
-    size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystemID, or global axis if local not available
+    size_x: Optional[float] = Field(None) #primary direction size, according to referenced axisSystem, or global axis if local not available
     size_y: Optional[float] = Field(None)
     meshRef: Optional[int] = Field(None) # area covered by defect expressed in mesh format (area or volume)
     amplitude: Optional[float] = Field(None) #out of plane maxiumum size of the defect
@@ -306,16 +328,13 @@ class FibreOrientations(Defect):
 
 class Tolerance(CompositeDBItem):
     #inherited by all specific tolerance definition objects
-
-    appliedToIDs: Optional[list[int]] = Field(None)
     splineRelimitation: Optional['Spline'] = Field(None) #area for this definition
-    splineRelimitationRef: Optional[int] = Field(None) # same as above, but referenced using 'ID'
 
 class WrinkleTolerance(Tolerance):
 
     maxY: Optional[float] = Field(None)
     maxX: Optional[float] = Field(None)
-    axisSystemID: Optional[int] = Field(None)
+    axisSystem: Optional['AxisSystem'] = Field(None)
     maxArea: Optional[float] = Field(None)
     maxRoC: Optional[float] = Field(None) #maximum rate of change, in radians
     maxSkew: Optional[float] = Field(None) #TODO define
@@ -345,24 +364,7 @@ class BoundaryTolerance(Tolerance):
     maxAllowedDev: Optional[float] = Field(None) #maximum allowed distance of a measured point from intended boundary
     maxAv: Optional[float] = Field(None) #
 
-class EffectiveProperties(CompositeDBItem):
-    #this object is used for objects that need homogenized material properties
 
-    #TODO this will require additions
-    #TODO - might need splitting between mechanical and dry-fibre flow properties 
-
-    E1: Optional[float] = Field(None) 
-    E2: Optional[float] = Field(None)
-    G23: Optional[float] = Field(None)
-    G12: Optional[float] = Field(None)
-    v12: Optional[float] = Field(None)
-    sourceSystem: Optional['SourceSystem'] = Field(None)
-    thickness: Optional[float] = Field(None)
-    density: Optional[float] = Field(None)
-    K1: Optional[float] = Field(None) #principle direction permeability
-    K2: Optional[float] = Field(None) #transverse permeability
-    K3: Optional[float] = Field(None) # through thickness permeability
-    Vf: Optional[float] = Field(None) #fibre volume fraction
 
 class UnclassifiedDefect(Defect):
     #this object is to be used when the defect you are storing does not have dedicated definition
@@ -401,6 +403,16 @@ class Stage(BaseModel):
     source: Optional[SourceSystem] = Field(None) #SourceSystem
     processRef: Optional[str] = Field(None) #this is reference to process that corresponds to current stage (e.g. instruction sheet pdf location)
     stageParameters: Optional[dict] = Field (None) #dictionary of bespoke Stage related parameters
+
+class BulkRequest(CompositeElement):
+    #this class is used when certain thickness of certain orientation is required, but it has not yet been turned into individual layers.
+    #When this object is active, it remains to be split into manufacturable layers.
+
+    #It should be deactivated when individual layers have been defined.
+
+    thickness: Optional[float] = Field(default=None)
+    orientation: Optional[float] = Field(default=None)
+    splineRelimitation: Optional['Spline'] = Field(default=None)
 
 # class PlyScan(Stage):
 

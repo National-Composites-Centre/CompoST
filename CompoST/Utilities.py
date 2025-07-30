@@ -33,9 +33,11 @@ def clean_json(strin):
 def findDupID(loc_obj,temp,dup):
     #acceptable list names
     #TODO share the list between two functions, and how do these get updated?
-    list_names = ["subComponents","defects","tolerances","nodes","points","meshElements","splineRelimitation","material"]
+    list_names = ["subComponents","defects","tolerances","nodes","points","meshElements","splineRelimitation","material","axisSystem"]
 
     #recursively looks through object
+
+
 
     #if ID is specified
 
@@ -57,6 +59,7 @@ def findDupID(loc_obj,temp,dup):
 
     #always look through children, regardless whether this had ID    
         
+
     for any_atr in dir(loc_obj):
         if any_atr in list_names:
             new_obj = getattr(loc_obj,any_atr)
@@ -74,7 +77,7 @@ def findDupID(loc_obj,temp,dup):
 def reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c,ITE,build_list):
     #acceptable list names
     #TODO share the list between two functions, and how do these get updated?
-    list_names = ["subComponents","defects","tolerances","nodes","points","meshElements","splineRelimitation","material"]
+    list_names = ["subComponents","defects","tolerances","nodes","points","meshElements","splineRelimitation","material","axisSystem"]
 
     #f is the number of copies that still need to be identified
     if f > 0:
@@ -85,6 +88,8 @@ def reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c,ITE,build_list):
                 NS_c = copy.deepcopy(nestS)
                 NN_c = copy.deepcopy(nestN)
                 f = f - 1
+
+
             #if object is stored in for_copy this object is than copied into the location of current object - to re link
             else:
                 #reconstruct the reference to edit D ####
@@ -110,6 +115,7 @@ def reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c,ITE,build_list):
                 build_list.append(buildF)  
 
                 f = f - 1
+
                                 
         #move to other lists
         else:
@@ -163,9 +169,7 @@ def reLink(D):
             for o in RL:
                 temp, dup = findDupID(o,temp,dup)
 
-
     #now iterate to find the objects and re-write with copy
-
 
     build_list = []
     for count, i in enumerate(dup[:,0]):

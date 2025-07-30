@@ -1,4 +1,4 @@
-schema_version: 0.8.4
+schema_version: 0.9.0
 description: This schema defines the default CompoST.
 author: Jakub Kucera
 last_updated: 2025-01-22
