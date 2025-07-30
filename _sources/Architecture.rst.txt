@@ -28,13 +28,14 @@ Object definitions
 	:param name: str - name
 	:param allComposite: list - List of CompositeElement type objects
 	:param allEvents: list  - List of "events" objects - all = exhaustive list
-	:param allGeometry: list - list of "GeometricElement" objects - all = exhaustive list
-	:param allStages: list - manuf process - all = exhaustive list
+	:param allGeometry: list - List of "GeometricElement" objects - all = exhaustive list
+	:param allStages: list - List of "Stages", all stages where CompoST file is edited (manufacturing, NDT, simulation...)
 	:param allMaterials: list - List of "Material" objects - all = exhaustive list
 	:param allDefects: list - List of "Defect" objects - should contain all, that are referenced elsewhere
 	:param allTolerance: list - List of "Tolerance" objects 
-	:param fileMetadata: object - list of all "axisSystems" objects = exhaustive list
+	:param fileMetadata: 'FileMetadata' - metadata for this CompoST file
 	:param allSimulations: list - List of "SimulationData" objects
+	:param allManufMethods: list - List of "ManufMethod" objects
 	
 .. py:function:: CompositeStandard.FileMetadata(BaseModel)
 	
@@ -58,19 +59,16 @@ Object definitions
 	:param stageIDs: int - reference to Stage object
 	:param deactivate_stageID: int - this object is not relevant after this stage, either it has been superceeded or it's purpose was fullfilled
 	:param active: boolean - on default "True", can be turned "False" to indicate this is no longer representative of up-to-date part
-	:param batchID: (TODO) - reference to batch of components 
 	:param ID: int - used for references between objects
 
-.. py:function:: CompositeStandard.SimulationData(BaseModel)
+.. py:function:: CompositeStandard.SimulationData(CompositeDBItem)
 
-	:param memberName: str - name
-	:param additionalParameters: dict - to hold use-case specific values (to be further defined)
-	:param stageIDs: int - reference to Stage object
-	:param active: boolean - on default "True", can be turned "False" to indicate this is no longer representative of up-to-date part
-	:param ID: int - used for references between objects
-	:param axisSystemID: int - reference to axis system ID
+	This is abstract class, parent for various types of simulations.
+	
+	:param axisSystem: 'AxisSystem' - reference to axis system 
 	:param sourceSystem: `SourceSystem` - the software or tool used for analysis
-	:param cadFile: str - path and name to CAD file (possibly to be reworked)
+	:param cadFile: str - path and name to CAD file
+	:param toolCadFile: str - path and name to CAD file for tool (if different)
 
 .. py:function:: CompositeStandard.GeometricElement(CompositeDBItem)
 	
@@ -85,8 +83,9 @@ Object definitions
 	:param requirements: list - list of objects of Requirement type, to be further specified
 	:param defects: list - list of "defects" type objects
 	:param tolerances: list - list of "tolerance type objects
-	:param axisSystemID: int - refernce to object in allAxisSystems specified by ID
+	:param axisSystem: 'AxisSystem' - refernce axis system object in allGeometry
 	:param referencedBy: list - optional list of objects that currently reference this object
+	:param manufMethod: `ManufMethod` - manufacturing method object 
 	
 .. py:function:: CompositeStandard.Point(GeometricElement)
 
@@ -97,7 +96,6 @@ Object definitions
 .. py:function:: CompositeStandard.Line(GeometricElement)
 
 	:param points: list - list of two points , no more - no less
-	:param IDs: list - list of two IDs corresponding to points, no more - no less
 	:param length: float - can be calculated from above, but can be stored to prevent calculation duplication
 	
 	
@@ -123,7 +121,7 @@ Object definitions
 	
 .. py:function:: CompositeStandard.Material(CompositeDBItem)
 
-	To be expanded...
+	Abstract class housing different types of materials. For generic material, where these properties are used use `GenericMaterial` that uses this class as a parent.
 	
 	User of the format is responsible for using consistent units. CompoST does not enforce units used.
 
@@ -133,26 +131,43 @@ Object definitions
 	:param G12: float - interlaminar shear modulus
 	:param v12: float - poisson ratio in plane
 	:param infoSource: str - reference to source of the information
-	:param thickness: float - out of plane thickness
 	:param density: float 
-	:param permeability_1: float - permeability in primary direction
-	:param permeability_2: float - permeability in secondary direction (in-plane)
-	:param permeability_3: float - permeability out of plane / through thickness
-	:param type: str - (List to be provided)
+	
+.. py:function:: CompositeStandard.GenericMaterial(Material)
+
+	Default material class, if no pre-defined material class fits better.
+	
+	:param K1: float - permeability in primary direction
+	:param K2: float - permeability in secondary direction (in-plane)
+	:param K3: float - permeability out of plane / through thickness
+	:param thickness: float - out of plane thickness
+	:param Vf: float - volume fraction
+	
+.. py:function:: CompositeStandard.EffectiveProperties(CompositeDBItem)
+
+	Effective material properties. Usually calculated properties for laminate, but also may be used for defect knockdown properties etc.
+	
+	:param K1: float - permeability in primary direction
+	:param K2: float - permeability in secondary direction (in-plane)
+	:param K3: float - permeability out of plane / through thickness
+	:param thickness: float - out of plane thickness
+	:param Vf: float - volume fraction
+	
+.. py:function:: CompositeStandard.GenericMaterial(Material)
+	
+	:param thickness: float - out of plane thickness
 	
 .. py:function:: CompositeStandard.Piece(CompositeElement)
 
 	In practical terms this is section of ply layed-up in one (particulartly relevant for AFP or similar)
 
 	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
-	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
 	:param material: 'Material' - reference 'Material' object
 	
 	
 .. py:function:: CompositeStandard.Ply(CompositeElement)
 
 	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
-	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
 	:param material: 'Material' - reference 'Material' object
 	:param orientation: float - direction of lay-up with reference to x-axis of placementRosette
 	
@@ -168,23 +183,23 @@ Object definitions
 
 	:param orientations: list - list of floats, orientations listed with reference to placementRosette
 	:param materials: list - list of 'Material' objects
-	:param singleMaterial: 'Material' - reference 'Material' object
+	:param material: 'Material' - reference 'Material' object
 	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
-	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
 	:param EP: 'EffectiveProperties' - effective properties for the entire sequence
 
-.. py:function:: EndEdgeOfPart(CompositeElement)
+.. py:function:: EngEdgeOfPart(CompositeElement)
 	Stands for engineering edge of part.
 	
 	:param splineRelimitaion: 'Spline' - points collected as spline for relimitation
-	:param splineRelimitationRef: int - same as above but stored as reference to ID of the object instead of the object itself
 	:param source: 'SourceSystem' - CAD system where this was defined
 	:param referenceGeometry: str - the name of edge of part defining geometry, as used inside CAD system
+	
 
 .. py:function:: CompositeStandard.CompositeComponent(CompositeElement)
 
 	:param integratedComponents: list - allows for integrating othre complete CompoST databases as sub-components
-	:param ED: 'EffectivePropertie' - Effective properties are only specified when applicable for the complete 'CompositeComponent'
+	:param ED: 'EffectivePropertie' - Effective properties are only specified when applicable for the complete 'CompositeComponent', if different from 'material'
+	:param material: 'Material' - reference 'Material' object
 
 .. py:function:: CompositeStandard.SourceSystem(BaseModel)
 	
@@ -195,7 +210,6 @@ Object definitions
 .. py:function:: CompositeStandard.MeshElement(GeometricElement)
 
 	:param nodes: list - `Point` objects 
-	:param normal: list - [x,y,z] in the list
 	
 .. py:function:: CompositeStandard.Spline(GeometricElement)
 
@@ -214,10 +228,9 @@ Object definitions
 	:param status: bool - None = not evaluated, True = defect outside of tolerance, False = deviation but fits within tolerance
 	:param location: float - x,y,z location
 	:param effMaterial: `EffectiveProperties` - adjusted material class saved 
-	:param axisSystemID: int - reference to `AxisSystem` object
+	:param axisSystem: 'AxisSystem' - reference to `AxisSystem` object
 	:param file: str - reference to file which houses defect - not needed if relimitation defined directly in CompoST
 	:param splineRelimitation: `Spline` - object defining the area in question. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
-	:param splineRelimitationRef: int - same as above but refenced as ``ID`` only. If neither of spline definitions is used, it should be assumed the defect applies to full part as provided in CAD.
 	
 	
 .. py:function:: CompositeStandard.Wrinkle(Defect)
@@ -240,16 +253,14 @@ Object definitions
 
 .. py:function:: CompositeStandard.Tolerance(CompositeDBItem)
 	
-	:param appliedToIDs: list - list of IDs that this tolerance definition applies to (allows for grouping tolerance definitions)
-	:param splineRelimitation: `Spline` - object defining the area in question
-	:param splineRelimitationRef: int - same as above but refenced as ``ID`` only.	
+	:param splineRelimitation: `Spline` - object defining the area in question	
 	
 	
 .. py:function:: CompositeStandard.WrinkleTolerance(Tolerance)
 
 	:param maxX: float - maximum size of the deviation in x direction of the relavant axis system
 	:param maxY: float - maximum size of the deviation in y direction of the relavant axis system
-	:param axisSystemID: int - 'axisSystem' reference 
+	:param axisSystem: 'AxisSystem' - axis system reference 
 	:param maxArea: float - can be calculated in various more precise ways, but in general this can be approximated by maxX*maxY
 	:param maxRoC: float - Rate of change (RoC), or slope, is the angle of deviation towards the apex, in simplest case of wrinkle in x direction it can be approximated by: [ RoC = arctan(maxAmplitude/(0.5*maxX)) ]. In Radians.
 	:param maxSkew: float - [definition to be croudsourced later]
@@ -258,26 +269,10 @@ Object definitions
 .. py:function:: CompositeStandard.FibreOrientations(Defect)
 	
 	:param lines: list - list of `Line` objects, as scanned and translated into points and vectors
-	:param orientations: list - list of floats that should be the same size as ``lines``. This could also be calculated from ``lines`` and ``axisSystemID``.
+	:param orientations: list - list of floats that should be the same size as ``lines``. This could also be calculated from ``lines`` and ``axisSystem``.
 	:param avDeviation: float - average of local differences between orientation and defined ply orientation. This is more indicative than 'averageOrientation' as that one can offer falsely optimistic results.
 	:param averageOrientation: float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.
 
-.. py:function:: CompositeStandard.EffectiveProperties(CompositeDBItem)
-
-	TODO - might need splitting between mechanical and dry-fibre flow properties 
-	
-	:param E1: float - Elastic modulus in principle direction (x)
-	:param E2: float - Elastic modulus in transverse direction (y)
-	:param G12: float - Shear Modulus in plane
-	:param G23: float - out of plane shear modulus
-	:param v12: float - poisson ratio
-	:param sourceSystem: 'SourceSystem' - Source software or analytical method used to calculate the effective properties
-	:param thickness: float
-	:param density: float
-	:param K1: float - permeability in principle direction
-	:param K2: float - permeability in transverse direction
-	:param K3: float - permeability thorugh thickness
-	:param Vf: float - volume fraction
 	
 The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.
 
@@ -346,3 +341,27 @@ The objects below are temporary definitions, that might still be subject to chan
 
 	:param maxAllowedDev: float - maximum allowed distance of a measured point from intended boundary
 	:param maxAv: float - maximum allowed average deviation along the entire boundary
+	
+	
+.. py:function:: CompositeStandard.ManufMethod(CompositeDBItem)
+
+	:param axisSystem: 'AxisSystem' - axis system reference
+	
+.. py:function:: CompositeStandard.FilamentWinding(ManufMethod)
+	
+	:param windingPath: 'Spline' - Spline defined path of material, as wound on the mandrel
+	:param meridian: 'Spline'  - 2D cross section of PV (assumes axisymmetry) - if this shape is revolved it should produce the PV shape.
+	:param steppedMandrel: 'Spline' - for first ply this is equivalent to meridian, then stepped mandrel defines the outermost shape including built-up material
+	:param xMin: float -  relevant for hoop layers, defines start point for winding (minimum x-direction limit)
+	:param xMax: float  -  relevant for hoop layers, defines start point for winding (maximum x-direction limit)
+	:param layerType: str - hoop/helical-geodesic/helical-nongeodesic  TODO make this into prescribed keywords and force selection of those only
+	
+.. py:function:: CompositeStandard.BulkRequest(CompositeElement)
+
+    This class is used when certain thickness of certain orientation is required, but it has not yet been turned into individual layers.
+    When this object is active, it remains to be split into manufacturable layers.
+	It should be deactivated when individual layers have been defined.
+
+    :param thickness: float - intended thickness in this orientation
+    :param orientation: float - orientation 
+    :param splineRelimitation: 'Spline' - this is specified only if the delmitation is already known for all the resulting layers

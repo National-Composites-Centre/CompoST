@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Versions &#8212; Composite Standard (CompoST) 0.8.2 documentation</title>
+    <title>Versions &#8212; Composite Standard (CompoST) 0.9.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
     
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="Development.html" title="Development"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.9.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Versions</a></li> 
       </ul>
     </div>  
@@ -52,6 +52,7 @@
 <h1>Versions<a class="headerlink" href="#versions" title="Permalink to this heading">¶</a></h1>
 <p>This section exists mainly for traceability. It may also allwo users to work with older versions of CompoST if specific
 development conflicts with their workflow.</p>
+<p>Note: if you are not using the latest version, you may be able to access older (more appropriate docs) in “OlderVersionDocs” directory in gh-pages branch.</p>
 <p>Before 1.0 this list of changes will not be exhaustive, only major changes for reference will be tracked here.</p>
 <section id="a">
 <h2>0.71a<a class="headerlink" href="#a" title="Permalink to this heading">¶</a></h2>
@@ -80,6 +81,13 @@ Save and Load functions available in the main ‘CompositeStandard’ file.</p>
 <p>Initial unit-test functions implemented.
 Re-link improved, now reliable for mixture of lists and objects in tree.</p>
 </section>
+<section id="id5">
+<h2>0.9.0<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<p>The core aspect of this version is to enable storage of information regarding filament winding processes. This should be done in a way that furhter manufacturing processes can be added with lesser distruptions.</p>
+<p>Since this results in some changes to existent classess, it is good time to clean up existent objects and remove any parameters that seemed unnecessary in retro-spective, such us splineRelimitationRef - with the automated re-linking feature there
+is almost never benefit to this methodology as compared to direclyt referencing the spline under ‘splineRelimitation’, which stores copy of the object.</p>
+<p>0.9 is unlikely to be compatible with 0.8 files, use if no legacy files are used in project.</p>
+</section>
 </section>
 
 
@@ -98,6 +106,7 @@ Re-link improved, now reliable for mixture of lists and objects in tree.</p>
 <li><a class="reference internal" href="#id2">0.7.4</a></li>
 <li><a class="reference internal" href="#id3">0.8.0</a></li>
 <li><a class="reference internal" href="#id4">0.8.2</a></li>
+<li><a class="reference internal" href="#id5">0.9.0</a></li>
 </ul>
 </li>
 </ul>
@@ -146,7 +155,7 @@ Re-link improved, now reliable for mixture of lists and objects in tree.</p>
         <li class="right" >
           <a href="Development.html" title="Development"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Composite Standard (CompoST) 0.9.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Versions</a></li> 
       </ul>
     </div>
