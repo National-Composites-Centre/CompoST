@@ -151,6 +151,8 @@ class FileMetadata(BaseModel):
 
     maxID: int = Field(default =0)
 
+    Requirements: Optional[dict] = Field(default=None) #very much bespoke for product at hand
+
 class CompositeDB(BaseModel):
 
     #model_config = ConfigDict(title='Main')
