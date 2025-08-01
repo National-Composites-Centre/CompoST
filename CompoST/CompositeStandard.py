@@ -170,7 +170,7 @@ class CompositeDB(BaseModel):
     allTolerances: Optional[list['Tolerance']] = Field(default = None) # list of all Tolerances
     fileMetadata: FileMetadata = Field(default = FileMetadata(author=get_author())) #list of all "axisSystems" objects = exhaustive list
     allSimulations: Optional[list['SimulationData']] = Field(default = None) #List of simulation data objects
-    allManufMethod: Optional[list['ManufMethod']] = Field(default=None) #List of all manufacturing methods involved
+    allManufMethods: Optional[list['ManufMethod']] = Field(default=None) #List of all manufacturing methods involved
 
 class ManufMethod(CompositeDBItem):
 
