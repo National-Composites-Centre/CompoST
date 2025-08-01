@@ -99,6 +99,7 @@ Points are stored withing those, as referencing is not efficient</p>
 <li><p><strong>toolCadFilePath</strong> – str - only used if tool has separate CAD file from the above</p></li>
 <li><p><strong>maxID</strong> – int - maxium ID used for any object int the file, used for preventing duplicaiton of IDs</p></li>
 <li><p><strong>cadFilepath</strong> – str - should only be used when CAD could not be stored in same folder as this file</p></li>
+<li><p><strong>Requirements</strong> – dict - bespoke dictionary of requirements that user wants stored for later use or reference. It might be useful to create template for this for type of product e.g. Pressure Vessel. However, this standardisation is beyoned the scope of CompoST.</p></li>
 </ul>
 </dd>
 </dl>
@@ -269,16 +270,6 @@ to each other. However, if user fails to do so the object adjusts itself (at lea
 <li><p><strong>thickness</strong> – float - out of plane thickness</p></li>
 <li><p><strong>Vf</strong> – float - volume fraction</p></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">GenericMaterial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Material</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>thickness</strong> – float - out of plane thickness</p>
 </dd>
 </dl>
 </dd></dl>
@@ -655,10 +646,8 @@ More details about the intended purpose of stages are available in <a class="ref
 <dt class="sig sig-object py" id="CompositeStandard.BulkRequest">
 <span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">BulkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CompositeElement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.BulkRequest" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is used when certain thickness of certain orientation is required, but it has not yet been turned into individual layers.
-When this object is active, it remains to be split into manufacturable layers.</p>
-<blockquote>
-<div><p>It should be deactivated when individual layers have been defined.</p>
-</div></blockquote>
+When this object is active, it remains to be split into manufacturable layers.
+It should be deactivated when individual layers have been defined.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

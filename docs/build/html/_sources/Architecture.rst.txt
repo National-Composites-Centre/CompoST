@@ -50,6 +50,7 @@ Object definitions
 	:param toolCadFilePath: str - only used if tool has separate CAD file from the above
 	:param maxID: int - maxium ID used for any object int the file, used for preventing duplicaiton of IDs
 	:param cadFilepath: str - should only be used when CAD could not be stored in same folder as this file
+	:param Requirements: dict - bespoke dictionary of requirements that user wants stored for later use or reference. It might be useful to create template for this for type of product e.g. Pressure Vessel. However, this standardisation is beyoned the scope of CompoST.
 	
 	
 .. py:function:: CompositeStandard.CompositeDBItem(BaseModel)
@@ -153,9 +154,6 @@ Object definitions
 	:param thickness: float - out of plane thickness
 	:param Vf: float - volume fraction
 	
-.. py:function:: CompositeStandard.GenericMaterial(Material)
-	
-	:param thickness: float - out of plane thickness
 	
 .. py:function:: CompositeStandard.Piece(CompositeElement)
 
@@ -360,7 +358,7 @@ The objects below are temporary definitions, that might still be subject to chan
 
     This class is used when certain thickness of certain orientation is required, but it has not yet been turned into individual layers.
     When this object is active, it remains to be split into manufacturable layers.
-	It should be deactivated when individual layers have been defined.
+    It should be deactivated when individual layers have been defined.
 
     :param thickness: float - intended thickness in this orientation
     :param orientation: float - orientation 
