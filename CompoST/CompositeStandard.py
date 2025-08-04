@@ -269,6 +269,16 @@ class GenericMaterial(Material):
 
 class Tape(Material):
     thickness: Optional[float] = Field(None) # out of plane size
+    width: Optional[float] = Field(None) #width of tape
+    Xt: Optional[float] = Field(None) #Tensile strenght in principle direction
+    Yt: Optional[float] = Field(None) #Tensile strenght in transverse direction
+    Xc: Optional[float] = Field(None) #Compressive strenght in principle direction
+    Yc: Optional[float] = Field(None) #Compressive strenght in transverse direction
+    density_fibre: Optional[float] = Field(None) #density of the fibres
+    density_resin: Optional[float] = Field(None) #density of the resin
+    Vf: Optional[float] = Field(None) #volume fraction
+    tow_count: Optional[int] = Field(None) #number of tows in tape
+    density_linear: Optional[float] = Field(None) #typically g/m density of individual fibre
 
 class EffectiveProperties(Material):
     #this object is used for objects that need homogenized material properties
