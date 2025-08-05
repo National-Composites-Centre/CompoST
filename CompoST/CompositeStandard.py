@@ -187,7 +187,7 @@ class FilamentWinding(ManufMethod):
     xMin: Optional[float] = Field(default=None) #relevant for hoop layers, defines start point for winding (minimum x-direction limit)
     xMax: Optional[float] = Field(default=None) #relevant for hoop layers, defines start point for winding (maximum x-direction limit)
     layerType: Optional[str] = Field(default=None) #hoop/helical-geodesic/helical-nongeodesic  TODO make this into prescribed keywords and force selection of those only
-    cylinderPlyThickness: Optional[float] = Field(default=None) # TODO refer to WoundSim documentation to define this further
+    cylinderPlyThickness: Optional[float] = Field(default=None) # Ply thickness in the cylinder area #TODO verify definition
 
 class CompositeElement(CompositeDBItem):
 

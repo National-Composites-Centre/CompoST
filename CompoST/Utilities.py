@@ -32,8 +32,8 @@ def clean_json(strin):
 
 def findDupID(loc_obj,temp,dup):
     #acceptable list names
-    #TODO share the list between two functions, and how do these get updated?
-    list_names = ["subComponents","defects","tolerances","nodes","points","meshElements","splineRelimitation","material","axisSystem"]
+    #TODO share the list between two functions, and how do these get updated? -- possibly currently missing some specific point/spline usage
+    list_names = ["subComponents","defects","tolerances","nodes","points","meshElements","splineRelimitation","material","axisSystem","manufMethod","initialDrapePoint"]
 
     #recursively looks through object
 
@@ -77,7 +77,7 @@ def findDupID(loc_obj,temp,dup):
 def reLinkRec(D,o,f,i,nestS,nestN,NS_c,NN_c,ITE,build_list):
     #acceptable list names
     #TODO share the list between two functions, and how do these get updated?
-    list_names = ["subComponents","defects","tolerances","nodes","points","meshElements","splineRelimitation","material","axisSystem"]
+    list_names = ["subComponents","defects","tolerances","nodes","points","meshElements","splineRelimitation","material","axisSystem","manufMethod","initialDrapePoint"]
 
     #f is the number of copies that still need to be identified
     if f > 0:
@@ -160,7 +160,7 @@ def reLink(D):
     #TODO add to changes required when major new developments are added
     #It is key to include all lists that require re-linking between each other.
     reLists = [D.allComposite,D.allGeometry,D.allDefects,D.allTolerances,D.allMaterials]
-    reSTR = ["allComposite","allGeometry","allDefects","allTolerances","allMaterials"]
+    reSTR = ["allComposite","allGeometry","allDefects","allTolerances","allMaterials","allManufMethods","allSimulations"]
 
     #find duplicate 
     dup = np.asarray([[0,0]])

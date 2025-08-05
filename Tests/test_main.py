@@ -28,6 +28,8 @@ def create_example():
     D.allTolerances = []
     D.allMaterials = []
     D.allDefects = []
+    D.allManufMethods = []
+    D.allSimulations = []
     
     p0 = cs.Point(x=0,y=0,z=0,ID=D.fileMetadata.maxID+1)
     D.fileMetadata.maxID += 1
@@ -130,7 +132,15 @@ def create_example():
     D.fileMetadata.maxID += 1
     D.allTolerances.append(tl4) 
 
-    #TODO here we add various simulatins
+    #Drape simulation #TODO more complex example - includes splines, lines, etc... will need to be added to re-link function
+    ds1 = cs.DrapingSimulation(initialDrapePoint=p1,ID=D.fileMetadata.maxID+1)
+    D.fileMetadata.maxID += 1
+    D.allSimulations.append(ds1) 
+
+    #manufMethod -- TODO add meridian and windingPath -- these will need to be added to the list in Re-link
+    fw1 = cs.FilamentWinding(ID=D.fileMetadata.maxID+1)
+    D.fileMetadata.maxID += 1
+    D.allManufMethods.append(fw1) 
 
     #Observing defects
 
@@ -208,7 +218,7 @@ def NewFileComparison(D):
         noErr += 1
     
     #check maximum ID
-    if D.fileMetadata.maxID != 26:
+    if D.fileMetadata.maxID != 28:
         print("Error: incorrect maxID")
         noErr += 1
 
@@ -313,6 +323,8 @@ def testReLink(D):
 
     #re-save in the end for manual review (optional)
     cs.Save(D,"test_save_review","C:\\temp",overwrite=True)
+
+    #TODO test re-link from initialDrapePoint point storage
 
     
     #TODO try more re-links when adding functionality (expanding list in Utilities)
