@@ -486,6 +486,28 @@ stored here with the appropriate <a class="reference internal" href="#CompositeS
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="CompositeStandard.Tape">
+<span class="sig-prename descclassname"><span class="pre">CompositeStandard.</span></span><span class="sig-name descname"><span class="pre">Tape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Material</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CompositeStandard.Tape" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>thickness</strong> – float - out of plane size</p></li>
+<li><p><strong>width</strong> – float - width of tape</p></li>
+<li><p><strong>Xt</strong> – float - Tensile strenght in principle direction</p></li>
+<li><p><strong>Yt</strong> – float - Tensile strenght in transverse direction</p></li>
+<li><p><strong>Xc</strong> – float - Compressive strenght in principle direction</p></li>
+<li><p><strong>Yc</strong> – float - Compressive strenght in transverse direction</p></li>
+<li><p><strong>density_fibre</strong> – float - density of the fibres</p></li>
+<li><p><strong>density_resin</strong> – float - density of the resin</p></li>
+<li><p><strong>Vf</strong> – float - volume fraction</p></li>
+<li><p><strong>tow_count</strong> – int - number of tows in tape</p></li>
+<li><p><strong>density_linear</strong> – float -  typically g/m density of individual fibre</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <p>The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="CompositeStandard.FibreOrientationTolerance">
@@ -638,6 +660,9 @@ More details about the intended purpose of stages are available in <a class="ref
 <li><p><strong>xMax</strong> – float  -  relevant for hoop layers, defines start point for winding (maximum x-direction limit)</p></li>
 <li><p><strong>layerType</strong> – str - hoop/helical-geodesic/helical-nongeodesic  TODO make this into prescribed keywords and force selection of those only</p></li>
 </ul>
+</dd>
+<dt class="field-even">CylinderPlyThickness<span class="colon">:</span></dt>
+<dd class="field-even"><p>float  -  Ply thickness in the cylinder area</p>
 </dd>
 </dl>
 </dd></dl>

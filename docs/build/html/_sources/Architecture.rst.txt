@@ -272,6 +272,20 @@ Object definitions
 	:param averageOrientation: float - average of the above. This average does not take into account lenght of the lines, but simply averages all data points as if they were equal.
 
 	
+.. py:function:: CompositeStandard.Tape(Material)
+
+    :param thickness: float - out of plane size
+    :param width: float - width of tape
+    :param Xt: float - Tensile strenght in principle direction
+    :param Yt: float - Tensile strenght in transverse direction
+    :param Xc: float - Compressive strenght in principle direction
+    :param Yc: float - Compressive strenght in transverse direction
+    :param density_fibre: float - density of the fibres
+    :param density_resin: float - density of the resin
+    :param Vf: float - volume fraction
+    :param tow_count: int - number of tows in tape
+    :param density_linear: float -  typically g/m density of individual fibre
+	
 The objects below are temporary definitions, that might still be subject to changes. Included for testing purposes.
 
 .. py:function:: CompositeStandard.FibreOrientationTolerance(Tolerance)
@@ -353,6 +367,7 @@ The objects below are temporary definitions, that might still be subject to chan
 	:param xMin: float -  relevant for hoop layers, defines start point for winding (minimum x-direction limit)
 	:param xMax: float  -  relevant for hoop layers, defines start point for winding (maximum x-direction limit)
 	:param layerType: str - hoop/helical-geodesic/helical-nongeodesic  TODO make this into prescribed keywords and force selection of those only
+	:cylinderPlyThickness: float  -  Ply thickness in the cylinder area
 	
 .. py:function:: CompositeStandard.BulkRequest(CompositeElement)
 
