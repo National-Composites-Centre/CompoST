@@ -3,8 +3,6 @@ UsingCompost
 
 This page provides instructions on how to use CompoST.
 
-Eventually CompoST will become pip-installable library, but for now it is recommended to clone the repository and copy "CompositeStandard.py" file into your project.
-
 
 Installation
 --------------

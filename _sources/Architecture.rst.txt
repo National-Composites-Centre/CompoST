@@ -367,7 +367,7 @@ The objects below are temporary definitions, that might still be subject to chan
 	:param xMin: float -  relevant for hoop layers, defines start point for winding (minimum x-direction limit)
 	:param xMax: float  -  relevant for hoop layers, defines start point for winding (maximum x-direction limit)
 	:param layerType: str - hoop/helical-geodesic/helical-nongeodesic  TODO make this into prescribed keywords and force selection of those only
-	:cylinderPlyThickness: float  -  Ply thickness in the cylinder area
+	:param cylinderPlyThickness: float  -  Ply thickness in the cylinder area
 	
 .. py:function:: CompositeStandard.BulkRequest(CompositeElement)
 
